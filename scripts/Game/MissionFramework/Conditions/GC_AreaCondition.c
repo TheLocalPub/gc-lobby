@@ -10,7 +10,7 @@ class GC_AreaCondition : GC_ConditionBase
 	[Attribute("0", UIWidgets.CheckBox, "Checked: count targets outside the area. Unchecked: count targets inside. Requirement controls how many are needed. Checked once per second; brief crossings can be missed. Missing targets or invalid areas never pass.")]
 	bool m_bOutside;
 
-	[Attribute("", UIWidgets.Object, "Choose Count, Proportion for extraction, or Local faction share for competing factions. New checks default to at least one matching target on the selected side. Older saved Count settings remain in use until you choose a Requirement. Proportion 0.9 means at least 90% of eligible targets are on that side. Named Entities uses the deduplicated list; every name must resolve. Players / AI uses all eligible living characters. Local faction share is for Players / AI only.")]
+	[Attribute("", UIWidgets.Object, "How many selected targets must be inside (or outside)? Leave empty for at least one. Count checks a number; Proportion checks a fraction, such as 0.9 for 90%. For teams contesting a capture point, use Area Control Condition instead: it needs no Requirement settings.")]
 	ref GC_LivingRequirementBase m_Requirement;
 
 	[Attribute("", UIWidgets.Hidden, "Legacy Count. Used only when Requirement is unset, preserving older saved area checks.")]

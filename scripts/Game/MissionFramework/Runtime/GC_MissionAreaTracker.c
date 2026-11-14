@@ -282,6 +282,8 @@ class GC_MissionAreaObservation
 	{
 		if (!IsAvailable())
 			return false;
+		if (check.m_bAreaMajority)
+			return m_iInside > m_iLocalTotal - m_iInside;
 		if (check.m_bLocalFactionShare)
 		{
 			int selected = m_iInside;
@@ -307,6 +309,12 @@ class GC_MissionAreaObservation
 			return PassesProportion(count, m_iTotal, check.m_fAreaProportion);
 		}
 		return Passes(check.m_bAreaOutside, check.m_iAreaComparison, check.m_iAreaRequired);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	bool IsTied()
+	{
+		return m_iInside == m_iLocalTotal - m_iInside;
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -475,7 +483,11 @@ class GC_MissionAreaTracker
 					capture.Suspend(m_fSampleTime);
 				else
 				{
-					int status = capture.Sample(check.m_Capture, answer, m_fSampleTime);
+					int status = -1;
+					if (check.m_bAreaMajority && observation.IsTied())
+						capture.Pause(m_fSampleTime);
+					else
+						status = capture.Sample(check.m_Capture, answer, m_fSampleTime);
 					if (status >= 0 && messages && check.m_Capture.m_Messages)
 					{
 						GC_RuleAction message = check.m_Capture.m_Messages.BuildMessage(status, check.m_aAreaFactions, check.m_bLocalFactionShare && check.m_bShareAtMost);

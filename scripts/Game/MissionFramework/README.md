@@ -16,6 +16,18 @@ Start with the authored definitions, then follow their compiled forms into the r
 
 ## Finding the execution path
 
+For a contested objective, add **Area Control Condition** to an event, select
+the named area and faction, and set **Capture Seconds**. No nested Requirements
+are needed. Living players count by default: 11 selected-faction players against
+10 others advances capture; 10 against 10 freezes progress. An empty area also
+pauses. The condition starts neutral (false), passes after capture completes,
+and keeps its captured result during ties. An opposing advantage reverses
+unfinished progress or starts timed loss of an already captured result.
+Other factions are counted together; ignore nonparticipants under Advanced.
+This is one event condition's capture memory, not a new faction-ownership system.
+Existing Area Condition count, extraction and custom percentage checks remain
+available for their original purposes.
+
 - `Events/GC_Event.c` describes events and random groups.
 - `Conditions/GC_ConditionBase.c` and `Actions/GC_ActionBase.c` define authored contracts.
 - `Runtime/GC_CompiledMissionRule.c` and `Runtime/GC_RuleCondition.c` hold compiled representations.

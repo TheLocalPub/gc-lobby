@@ -67,6 +67,13 @@ class GC_AreaCaptureState
 	}
 
 	//------------------------------------------------------------------------------------------------
+	//! Contested or empty: preserve both ownership and partial progress.
+	void Pause(float now)
+	{
+		m_fLastCheck = now;
+	}
+
+	//------------------------------------------------------------------------------------------------
 	//! Returns a changed message status, or -1. No UI, callbacks or clock reads.
 	int Sample(GC_AreaCaptureOptions options, bool requirement, float now)
 	{

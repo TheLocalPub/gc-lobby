@@ -72,6 +72,7 @@ class GC_RuleCondition
 	bool m_bAreaProportion;
 	float m_fAreaProportion;
 	bool m_bLocalFactionShare;
+	bool m_bAreaMajority;
 	bool m_bShareAtMost;
 	ref array<string> m_aIgnoredFactions;
 	ref GC_AreaCaptureOptions m_Capture;
@@ -207,6 +208,8 @@ class GC_RuleCondition
 	//------------------------------------------------------------------------------------------------
 	protected bool ValidateAreaTargets()
 	{
+		if (m_bAreaMajority && (!m_bLocalFactionShare || m_bShareAtMost || m_bAreaOutside || !m_Capture))
+			return false;
 		if ((!m_bAreaAnywhere && m_sAreaName.IsEmpty()) || m_iAreaTargets < 0 || m_iAreaTargets > 1 || m_iAreaComparison < 0 || m_iAreaComparison > 3 || m_iAreaRequired < 0 || m_iAreaRequired > 4096)
 			return false;
 		if (m_bAreaAnywhere && (m_iAreaTargets != 1 || !m_sAreaName.IsEmpty() || m_bAreaOutside))
