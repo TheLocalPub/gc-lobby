@@ -2,6 +2,7 @@
 #include "ChoicesClient.h"
 #include "EditableChoices.h"
 #include "ArraySelection.h"
+#include "EntitySelection.h"
 #include "MenuIcons.h"
 
 #include "PropertyEditors.h"
@@ -12,6 +13,7 @@
 #include <QFileInfo>
 #include <QGenericPlugin>
 #include <QJsonArray>
+#include <QHash>
 #include <QJsonDocument>
 #include <QMimeData>
 #include <QPointer>
@@ -25,13 +27,15 @@ class ReferenceField final : public QObject
 {
 public:
     ReferenceField(QObject *property, QObject *editor, QComboBox *combo, QString providerName,
-        QString build, std::function<void(QJsonObject)> logger)
+        QString build, bool entities, std::function<void(QJsonObject)> logger)
         : QObject(editor), property(property), provider(std::move(providerName)),
           expectedBuild(std::move(build)), log(std::move(logger))
     {
 
         if (PropertyEditors::destination(property).arrayIndex >= 0)
             arraySelection = new ArraySelection(property, editor, combo, expectedBuild, log);
+        else if (entities)
+            entitySelection = new EntitySelection(property, editor, combo, provider, expectedBuild, log);
         const QPointer<ReferenceField> guard(this);
         binding = new EditableChoices(combo, [guard](quint64 id) { if (guard) guard->refresh(id); });
         connect(property, &QObject::destroyed, this, &QObject::deleteLater);
@@ -44,6 +48,7 @@ private:
     QPointer<EditableChoices> binding;
     QPointer<QObject> request;
     QPointer<ArraySelection> arraySelection;
+    QPointer<EntitySelection> entitySelection;
 
     QString provider;
     QString expectedBuild;
@@ -51,15 +56,26 @@ private:
     void refresh(quint64 id)
     {
         delete request;
-        if (!property || !binding || (arraySelection && arraySelection->isBusy())) return;
+        if (!property || !binding || (arraySelection && arraySelection->isBusy()) || (entitySelection && (!entitySelection->ready() || entitySelection->isBusy()))) return;
         const QPointer<ReferenceField> guard(this);
         request = ChoicesClient::fetch(this, expectedBuild, provider, [guard, id](ChoicesReply reply) {
             if (!guard || !guard->property || !guard->binding) return;
-            if (guard->arraySelection && guard->arraySelection->isBusy()) return;
+            if ((guard->arraySelection && guard->arraySelection->isBusy()) ||
+                (guard->entitySelection && guard->entitySelection->isBusy())) return;
 
             QVector<ReferenceChoice> choices;
             if (reply.state == "ready") {
                 choices.append({QStringLiteral("(None)"), {}, {}, {}});
+                QHash<QString, int> labelCounts;
+                for (const auto &entity : reply.entities)
+                    if (entity.name.isEmpty()) ++labelCounts[entity.label];
+                for (const auto &entity : reply.entities) {
+                    auto label = entity.name.isEmpty()
+                        ? QStringLiteral("%1 (unnamed)").arg(entity.label) : entity.name;
+                    if (entity.name.isEmpty() && labelCounts.value(entity.label) > 1)
+                        label += QStringLiteral(" [%1]").arg(entity.id);
+                    choices.append({label, entity.name, entity.label + QLatin1Char('\n') + entity.id, entity.id});
+                }
                 for (const auto &value : reply.values)
                     if (!value.isEmpty()) choices.append({value, value,
                         reply.duplicateValues.contains(value)
@@ -67,12 +83,13 @@ private:
             }
             const bool applied = guard->binding->apply(id, choices);
             if (applied && guard->arraySelection) guard->arraySelection->setWorld(reply.world);
+            if (applied && guard->entitySelection) guard->entitySelection->setWorld(reply.world);
 
             guard->log({{"event", "choicesReply"}, {"provider", guard->provider},
                 {"state", reply.state}, {"world", reply.world}, {"count", choices.size()},
                 {"applied", applied}, {"error", reply.error},
                 {"duplicateValues", QJsonArray::fromStringList(reply.duplicateValues)}});
-        }, ChoiceKind::Values);
+        }, entitySelection ? ChoiceKind::Entities : ChoiceKind::Values);
     }
 };
 
@@ -127,7 +144,7 @@ public:
         if (choicesEnabled) {
             const QPointer<Session> guard(this);
             auto *editors = new PropertyEditors(this, [guard, expectedBuild](QObject *property,
-                    QObject *editor, QComboBox *combo, const QString &provider, bool) {
+                    QObject *editor, QComboBox *combo, const QString &provider, bool entities) {
                 if (!guard) return;
                 const auto source = PropertyEditors::sourceValue(property);
                 guard->write({{"event", "propertySource"}, {"provider", provider},
@@ -142,7 +159,7 @@ public:
                     {"state", destination.state}, {"entityIdHex", destination.entityIdHex},
                     {"key", destination.key}, {"className", destination.className},
                     {"path", path}, {"arrayIndex", destination.arrayIndex}});
-                new ReferenceField(property, editor, combo, provider, expectedBuild,
+                new ReferenceField(property, editor, combo, provider, expectedBuild, entities,
                     [guard](QJsonObject record) { if (guard) guard->write(record); });
             });
             const auto hookError = editors->install();

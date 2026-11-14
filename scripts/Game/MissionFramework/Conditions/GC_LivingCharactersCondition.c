@@ -45,7 +45,7 @@ class GC_LivingCharactersCondition : GC_ConditionBase
 class GC_LivingCharacterArea
 {
 	[Attribute("", UIWidgets.EditBox, "Exact unique world name of a Radius Area or closed Polygon Area. The area supplies only its shape. Missing or invalid areas cannot pass, even inside a None group.")]
-	string m_sName;
+	GC_AreaName m_sName;
 
 	[Attribute("0", UIWidgets.CheckBox, "Checked: count characters outside. Unchecked: count characters inside. Uses each character origin.")]
 	bool m_bOutside;

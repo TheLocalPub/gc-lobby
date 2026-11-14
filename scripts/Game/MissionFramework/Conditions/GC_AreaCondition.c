@@ -4,8 +4,8 @@ class GC_AreaCondition : GC_ConditionBase
 	[Attribute("", UIWidgets.Object, "Choose Named Entities for any specific vehicles, props, cargo or other world entities, or Players / AI for living characters with optional faction filters. Capture timing works with either selection. These are target settings, not nested conditions.")]
 	ref GC_AreaTargetsBase m_Targets;
 
-	[Attribute("", UIWidgets.EditComboBox, "Exact unique name of a Radius Area or closed polygon in the world. Radius Area uses a 3D distance in metres. A polygon checks its horizontal outline and ignores height, like the AO limit. Configure the shape on that area, not here.", enums: {ParamEnum("", "", "gc-choices:1:GC_AreaChoices")})]
-	string m_sArea;
+	[Attribute("", UIWidgets.Auto, "Choose an area from the world: Radius Area or any closed polygon, including Setup Zones and AO Limits. Unnamed areas are listed too; selecting one assigns its reference name. The list refreshes when opened. Radius uses 3D distance; polygons ignore height. Configure the boundary on the area.")]
+	GC_AreaName m_sArea;
 
 	[Attribute("0", UIWidgets.CheckBox, "Checked: count targets outside the area. Unchecked: count targets inside. Requirement controls how many are needed. Checked once per second; brief crossings can be missed. Missing targets or invalid areas never pass.")]
 	bool m_bOutside;

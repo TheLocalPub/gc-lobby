@@ -95,7 +95,7 @@ void EntitySelection::finish(const QString &state, const QString &name, const QS
     busy = false;
     if (combo) {
         combo->setToolTip(reason);
-        combo->setEnabled(true);
+        combo->setEnabled(state != "unavailable" && state != "rollback_failed" && state != "finalization_failed");
     }
 }
 

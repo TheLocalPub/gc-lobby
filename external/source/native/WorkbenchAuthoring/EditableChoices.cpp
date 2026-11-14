@@ -89,6 +89,8 @@ bool EditableChoices::apply(quint64 id, const QVector<ReferenceChoice> &choices)
         combo->setItemData(combo->count() - 1, choice.description, Qt::ToolTipRole);
         combo->setItemData(combo->count() - 1, choice.entityId, Qt::UserRole + 1);
     }
+    // Native property columns can be much narrower than the discovered labels.
+    combo->view()->setMinimumWidth(qMax(combo->width(), qMin(600, combo->view()->sizeHintForColumn(0) + 32)));
     combo->setCurrentIndex(match);
     if (match < 0) combo->setEditText(hadSelection ? requestedValue : draft);
     line->setCursorPosition(qMin(cursor, int(line->text().size())));

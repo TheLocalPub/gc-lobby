@@ -28,6 +28,15 @@ This is one event condition's capture memory, not a new faction-ownership system
 Existing Area Condition count, extraction and custom percentage checks remain
 available for their original purposes.
 
+Area-reference fields use the string-compatible `GC_AreaName` type with a normal
+`UIWidgets.Auto` attribute. The Workbench DLL registers that type once with
+`GC_AreaChoices`; components do not configure their own dropdowns or provider
+markers. Scalar fields receive identity-based selection, including unnamed areas.
+The provider enumerates editor entities on opening/focus and uses the runtime's
+shared shape predicate: radius areas and closed polygon subclasses, including
+setup zones and AO limits. Browsing never renames areas; selecting an unnamed
+area assigns its name and the reference in one undoable editor action.
+
 - `Events/GC_Event.c` describes events and random groups.
 - `Conditions/GC_ConditionBase.c` and `Actions/GC_ActionBase.c` define authored contracts.
 - `Runtime/GC_CompiledMissionRule.c` and `Runtime/GC_RuleCondition.c` hold compiled representations.

@@ -106,15 +106,16 @@ QWidget *PropertyEditors::createEditor(QObject *property, QWidget *parent)
 {
     bool entities = false;
     auto provider = detail::provider(property, entities);
-    const auto automaticProvider = referenceProvider(readPropertyDeclaredType(property, detail::image));
-    if (provider.isEmpty() && detail::owner && !automaticProvider.isEmpty()) {
+    const auto automaticReference = referenceType(readPropertyDeclaredType(property, detail::image));
+    if (provider.isEmpty() && detail::owner && !automaticReference.provider.isEmpty()) {
         // Select the engine's editable combo before it creates/initializes the
         // native value owner. Serialization and undo remain engine-owned.
         *reinterpret_cast<int *>(reinterpret_cast<char *>(property) + 0xf0) = 1;
         // StringPropCommon::IsEditable (1404b5210); consumed by the native
         // combo constructor to wire editingFinished and preserve free text.
         *reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(property) + 0xf4) = 1;
-        provider = automaticProvider;
+        provider = automaticReference.provider;
+        entities = automaticReference.entities;
     }
     auto *widget = detail::original(property, parent);
     if (!detail::owner || !widget) return widget;

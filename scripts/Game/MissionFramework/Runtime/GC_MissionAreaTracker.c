@@ -24,6 +24,16 @@ class GC_AreaEntityReference
 //! Shared shape cache; no gameplay ownership or spatial queries live on the area entity.
 class GC_MissionAreaGeometry
 {
+	//------------------------------------------------------------------------------------------------
+	//! Shared by authoring discovery and runtime. Polygon subclasses include setup zones and AO limits.
+	static bool SupportsEntity(IEntity entity)
+	{
+		if (GC_RadiusAreaEntity.Cast(entity))
+			return true;
+		PolylineShapeEntity polygon = PolylineShapeEntity.Cast(entity);
+		return polygon && polygon.IsClosed();
+	}
+
 	ref GC_AreaEntityReference m_Reference;
 	protected IEntity m_CachedEntity;
 	protected ref array<vector> m_aWorldPoints = {};
@@ -46,7 +56,7 @@ class GC_MissionAreaGeometry
 	{
 		m_mMembership.Clear();
 		IEntity entity = m_Reference.m_Entity;
-		if (!entity)
+		if (!entity || !SupportsEntity(entity))
 		{
 			m_bValid = false;
 			m_CachedEntity = null;

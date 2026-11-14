@@ -16,3 +16,7 @@ class GC_RandomResetName : string {};
 
 typedef string GC_WeatherPresetName;
 class GC_WeatherPresetName : string {};
+
+//! Reference to any supported world area, with identity-based editor discovery.
+typedef string GC_AreaName;
+class GC_AreaName : string {};

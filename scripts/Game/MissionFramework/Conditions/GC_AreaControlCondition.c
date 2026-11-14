@@ -1,8 +1,8 @@
 [BaseContainerProps(), BaseContainerCustomStringTitleField("Area Control Condition")]
 class GC_AreaControlCondition : GC_ConditionBase
 {
-	[Attribute("", UIWidgets.EditComboBox, "Area to capture. Choose a named Radius Area or closed Polygon Area.", enums: {ParamEnum("", "", "gc-choices:1:GC_AreaChoices")})]
-	string m_sArea;
+	[Attribute("", UIWidgets.Auto, "Area to capture. Lists Radius Areas and all closed polygons, including Setup Zones and AO Limits. Unnamed areas are included; selecting one assigns its reference name. Refreshes when opened.")]
+	GC_AreaName m_sArea;
 
 	[Attribute("", UIWidgets.Auto, "The faction this condition checks, for example US. It captures when it has more living players inside than all other counted factions combined. 11 versus 10 captures; 10 versus 10 pauses. This condition passes once this faction has captured the area.")]
 	FactionKey m_sFaction;
