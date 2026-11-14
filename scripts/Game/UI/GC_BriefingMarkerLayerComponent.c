@@ -53,9 +53,8 @@ class GC_BriefingMarkerWidgetComponent : SCR_ScriptedWidgetComponent
 	}
 }
 
-//! Reusable briefing-map marker presentation. Attach it to any briefing view
-//! that shares a widget tree with an open SCR_MapEntity MapFrame.
-class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
+//! One local-controller-owned marker layer for every GC Lobby map view.
+class GC_BriefingMarkerLayer
 {
 	protected static const ResourceName MARKER_LAYOUT = "{6A4E000000000001}UI/layouts/Briefing/Lobby_Briefing_Marker.layout";
 	protected static const float BASE_ICON_SIZE = 48;
@@ -72,15 +71,15 @@ class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
 	protected ref array<TextWidget> m_aMarkerDescriptions = {};
 	protected ref array<ref GC_BriefingMarker> m_aMarkers = {};
 
-	override void HandlerAttached(Widget w)
+	void Start()
 	{
-		super.HandlerAttached(w);
 		m_LobbyManager = GC_LobbyManager.GetManager();
 		if (m_LobbyManager)
 		{
 			m_LobbyManager.m_OnBriefingMarkersChanged.Insert(OnMarkersChanged);
 			m_LobbyManager.m_OnRegistryReset.Insert(OnRegistryReset);
 			m_LobbyManager.m_OnPlayerAffiliationChanged.Insert(OnPlayerAffiliationChanged);
+			m_LobbyManager.m_OnLobbyPhaseChanged.Insert(OnPhaseChanged);
 		}
 
 		SCR_MapEntity.GetOnMapOpenComplete().Insert(OnMapOpenComplete);
@@ -90,13 +89,14 @@ class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
 		RefreshMarkers();
 	}
 
-	override void HandlerDeattached(Widget w)
+	void Stop()
 	{
 		if (m_LobbyManager)
 		{
 			m_LobbyManager.m_OnBriefingMarkersChanged.Remove(OnMarkersChanged);
 			m_LobbyManager.m_OnRegistryReset.Remove(OnRegistryReset);
 			m_LobbyManager.m_OnPlayerAffiliationChanged.Remove(OnPlayerAffiliationChanged);
+			m_LobbyManager.m_OnLobbyPhaseChanged.Remove(OnPhaseChanged);
 		}
 
 		SCR_MapEntity.GetOnMapOpenComplete().Remove(OnMapOpenComplete);
@@ -106,11 +106,11 @@ class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
 		ClearMarkers();
 		m_LobbyManager = null;
 		m_MapEntity = null;
-		super.HandlerDeattached(w);
 	}
 
 	protected void OnMarkersChanged(int revision) { RefreshMarkers(); }
 	protected void OnRegistryReset(int revision) { RefreshMarkers(); }
+	protected void OnPhaseChanged(SCR_EGameModeState phase) { RefreshMarkers(); }
 	protected void OnPlayerAffiliationChanged(int playerId)
 	{
 		PlayerController playerController = GetGame().GetPlayerController();
@@ -127,17 +127,16 @@ class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
 		ClearMarkers();
 		if (!m_LobbyManager)
 			m_LobbyManager = GC_LobbyManager.GetManager();
-		if (!m_LobbyManager)
+		if (!m_LobbyManager || GC_LobbyManager.GetManager() != m_LobbyManager)
 			return;
 
 		m_MapEntity = SCR_MapEntity.GetMapInstance();
 		if (!m_MapEntity || !m_MapEntity.IsOpen())
 			return;
 
-		Widget mapRoot = m_MapEntity.GetMapMenuRoot();
 		Widget mapFrame;
-		if (mapRoot)
-			mapFrame = mapRoot.FindAnyWidget("MapFrame");
+		if (m_MapEntity.GetMapWidget())
+			mapFrame = m_MapEntity.GetMapWidget().GetParent();
 		if (!mapFrame)
 			return;
 
@@ -214,7 +213,7 @@ class GC_BriefingMarkerLayerComponent : SCR_ScriptedWidgetComponent
 	//------------------------------------------------------------------------------------------------
 	protected void UpdateMarkerTransforms()
 	{
-		if (!m_MapEntity || !m_MapEntity.IsOpen())
+		if (!m_LobbyManager || GC_LobbyManager.GetManager() != m_LobbyManager || !m_MapEntity || !m_MapEntity.IsOpen())
 			return;
 
 		WorkspaceWidget workspace = GetGame().GetWorkspace();

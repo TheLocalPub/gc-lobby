@@ -1,0 +1,9 @@
+# Spectator health geometry checks
+
+Temporarily mount `scripts/Game` under the Workbench profile's `scripts/Game/SpectatorHealthChecks`, reload and start a disposable Arland session with a local authenticated admin. Invoke `GC_PrepareHealthTest` on `GC_MissionTemplate` / `GC_LobbyManager`; the final fixture uses the production phase request. If slotted, advance to GAME with `TryAdvanceLobbyPhase` and call `SetSpectator(playerId, true)`. Invoke `GC_PositionHealthTest(distance, verticalFov, enabled)` and read `GC_ReadHealthTest` after a camera frame. Do not move the camera during measurement. Stop Play, remove only the verified junction and reload afterward.
+
+The fixture spawns a temporary character and reads actual production overlay widgets. No production test dependency. Initial live preparation used the mode's direct briefing transition; the retained fixture instead checks the authenticated production phase request.
+
+2026-11-14, Workbench 1.9.0.37: production and fixture compiled. Live readings: requested 20 m / 60-degree FOV: width 42.95 px; requested 100 m / 60 degrees: 14.28 px; same requested distance / 30 degrees: 30.43 px. Height remained width/16 and full-health fill matched bar width. Out-of-range readback returned visible=0. Concurrent user camera movement means requested distances are not exact boundary measurements. User confirmed the visible behavior fixed.
+
+Evidence operations: `266b7594684e47bc9a66592e1e0d3e43`, `75b81b4786ed482aabc6aa64c3776855`, `faef84a769ee4c7eba3701247ab6225e`, `6022a8d036374f358200fc6bed847208`. MCP capture of World Editor at 2026-11-14 15:08 UTC showed scaled bars above characters. Independent review approved. Exact 150/200 m boundaries and multiple viewport scales were not separately measured. Existing resource GUID diagnostics and PacejkaPlotTool reload leak remain unrelated.

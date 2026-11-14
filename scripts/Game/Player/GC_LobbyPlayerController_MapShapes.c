@@ -2,6 +2,7 @@
 modded class GC_LobbyPlayerController
 {
 	protected ref GC_MapShapeOverlay m_GC_MapShapes;
+	protected ref GC_BriefingMarkerLayer m_GC_MapMarkers;
 	protected int m_iGC_MapRevision = -1;
 	protected string m_sGC_MapFaction;
 	protected bool m_bGC_MapAdmin;
@@ -28,6 +29,9 @@ modded class GC_LobbyPlayerController
 		else if (m_GC_MapShapes)
 		{
 			GC_MapClosed(null);
+			if (m_GC_MapMarkers)
+				m_GC_MapMarkers.Stop();
+			m_GC_MapMarkers = null;
 			SCR_MapEntity.GetOnMapOpenComplete().Remove(GC_MapOpened);
 			SCR_MapEntity.GetOnMapClose().Remove(GC_MapClosed);
 			m_GC_MapShapes = null;
@@ -40,6 +44,8 @@ modded class GC_LobbyPlayerController
 		if (m_GC_MapShapes || GetGame().GetPlayerController() != this || !GC_LobbyGameMode.GetGameMode())
 			return;
 		m_GC_MapShapes = new GC_MapShapeOverlay();
+		m_GC_MapMarkers = new GC_BriefingMarkerLayer();
+		m_GC_MapMarkers.Start();
 		SCR_MapEntity.GetOnMapOpenComplete().Insert(GC_MapOpened);
 		SCR_MapEntity.GetOnMapClose().Insert(GC_MapClosed);
 		GC_RequestMapShapes(0);
@@ -80,6 +86,9 @@ modded class GC_LobbyPlayerController
 		if (m_GC_MapShapes)
 			m_GC_MapShapes.Close();
 		m_GC_MapShapes = null;
+		if (m_GC_MapMarkers)
+			m_GC_MapMarkers.Stop();
+		m_GC_MapMarkers = null;
 		m_bGC_MapSubscribed = false;
 		super.ShutdownLobbyPresentation();
 	}

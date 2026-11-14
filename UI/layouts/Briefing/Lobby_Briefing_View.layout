@@ -3,8 +3,6 @@ SizeLayoutWidgetClass {
  components {
   GC_BriefingViewComponent "{6A41000000000003}" {
   }
-  GC_BriefingMarkerLayerComponent "{6A41000000000044}" {
-  }
  }
  AllowWidthOverride 1
  WidthOverride 893.2

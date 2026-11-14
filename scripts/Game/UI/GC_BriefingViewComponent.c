@@ -71,6 +71,8 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
     protected RichTextWidget m_wActionMarkerAfter;
     protected Widget m_wBlockImageFlow;
     protected GC_BriefingScenarioComponent m_ScenarioComponent;
+	protected GC_BriefingTitleRowComponent m_ScenarioTab;
+	protected ref GC_Briefing m_ScenarioBriefing;
 	protected ref GC_BriefingRenderer m_Renderer = new GC_BriefingRenderer();
 	protected ref GC_BriefingInteractiveRenderer m_InteractiveRenderer = new GC_BriefingInteractiveRenderer();
     protected float m_fExpandedWidth;
@@ -97,6 +99,13 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
             m_ParametersTab = GC_BriefingTitleRowComponent.Cast(m_wParametersTabRoot.FindHandler(GC_BriefingTitleRowComponent));
         if (m_ParametersTab)
             m_ParametersTab.m_OnClicked.Insert(OnParametersTabClicked);
+		Widget scenarioTabRoot = w.FindAnyWidget("BriefingScenarioTab");
+		if (scenarioTabRoot)
+			m_ScenarioTab = GC_BriefingTitleRowComponent.Cast(scenarioTabRoot.FindHandler(GC_BriefingTitleRowComponent));
+		if (m_ScenarioTab)
+			m_ScenarioTab.m_OnClicked.Insert(OnScenarioTabClicked);
+		m_ScenarioBriefing = new GC_Briefing();
+		m_ScenarioBriefing.Set(0, "SCENARIO", GC_BriefingParser.SCENARIO_TAG);
         m_wSectionTitle = TextWidget.Cast(w.FindAnyWidget("BriefingSectionTitle"));
         m_wPlainSectionBody = RichTextWidget.Cast(w.FindAnyWidget("BriefingSectionPlainBody"));
         m_wRichSectionBody = RichTextWidget.Cast(w.FindAnyWidget("BriefingSectionRichBody"));
@@ -147,6 +156,10 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
             m_Titles.m_OnTitleSelected.Remove(OnTitleSelected);
         if (m_ParametersTab)
             m_ParametersTab.m_OnClicked.Remove(OnParametersTabClicked);
+		if (m_ScenarioTab)
+			m_ScenarioTab.m_OnClicked.Remove(OnScenarioTabClicked);
+		m_ScenarioTab = null;
+		m_ScenarioBriefing = null;
 
         if (m_LobbyManager)
         {
@@ -183,6 +196,8 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
 
     protected void OnTitleSelected(GC_BriefingTitleRowComponent row)
     {
+		if (m_ScenarioTab)
+			m_ScenarioTab.SetSelected(false);
         if (m_ParametersTab)
             m_ParametersTab.SetSelected(false);
 
@@ -205,6 +220,8 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
             return;
 
         bool selectParameters = !m_ParametersTab.IsSelected();
+		if (m_ScenarioTab)
+			m_ScenarioTab.SetSelected(false);
         if (m_Titles)
             m_Titles.ClearSelection();
 
@@ -214,6 +231,22 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
         else
             ShowBriefing(null, 0);
     }
+
+	protected void OnScenarioTabClicked(SCR_ButtonBaseComponent button)
+	{
+		if (!m_ScenarioTab || button != m_ScenarioTab)
+			return;
+		bool selected = !m_ScenarioTab.IsSelected();
+		if (m_Titles)
+			m_Titles.ClearSelection();
+		if (m_ParametersTab)
+			m_ParametersTab.SetSelected(false);
+		m_ScenarioTab.SetSelected(selected);
+		if (selected)
+			ShowBriefing(m_ScenarioBriefing, m_ScenarioTab.GetDisplayOrder());
+		else
+			ShowBriefing(null, 0);
+	}
 
     protected void OnBriefingsChanged(int revision)
     {
@@ -285,6 +318,18 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
         GC_BriefingTitleRowComponent selectedRow = m_Titles.ConfigureBriefings(briefings);
         if (m_ParametersTab)
             m_ParametersTab.SetDisplayOrder(briefings.Count() + 1);
+		if (m_ScenarioTab)
+		{
+			int scenarioOrder = briefings.Count() + 1;
+			if (m_wParametersTabRoot && m_wParametersTabRoot.IsVisible())
+				scenarioOrder++;
+			m_ScenarioTab.SetDisplayOrder(scenarioOrder);
+			if (m_ScenarioTab.IsSelected())
+			{
+				ShowBriefing(m_ScenarioBriefing, scenarioOrder);
+				return;
+			}
+		}
 
         if (m_ParametersTab && m_ParametersTab.IsSelected())
         {
@@ -315,12 +360,8 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
                 ordered.Insert(briefing);
         }
 
-        foreach (GC_Briefing scenarioBriefing : briefings)
-        {
-            if (scenarioBriefing && GC_BriefingParser.HasScenarioTag(scenarioBriefing.GetContent()))
-                ordered.Insert(scenarioBriefing);
-        }
-
+        // Scenario is a permanent local tab, including with an empty catalog.
+        // Legacy authored <scenario /> entries must not duplicate that tab.
         return ordered;
     }
 

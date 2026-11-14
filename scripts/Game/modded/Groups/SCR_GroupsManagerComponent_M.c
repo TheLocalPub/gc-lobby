@@ -19,6 +19,19 @@ modded class SCR_GroupsManagerComponent
 	}
 
 	//------------------------------------------------------------------------------------------------
+	//! Native auto-expansion has no per-group opt-out. Faction configuration would
+	//! also affect groups outside our roster, and changing capacity only delays it.
+	//! Lobby-owned groups expose authored slots instead of spawning spare squads.
+	override void OnGroupPlayerAdded(SCR_AIGroup group, int playerID)
+	{
+		GC_LobbyManager manager = GC_LobbyManager.GetManager();
+		if (manager && group && manager.GetRegisteredGroups().Contains(group))
+			return;
+
+		super.OnGroupPlayerAdded(group, playerID);
+	}
+
+	//------------------------------------------------------------------------------------------------
 	override void OnPlayerFactionChanged(notnull FactionAffiliationComponent owner, Faction previousFaction, Faction newFaction)
 	{
 		// GC Lobby already selected the authored group through its slot workflow.

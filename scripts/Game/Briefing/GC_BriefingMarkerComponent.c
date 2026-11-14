@@ -9,6 +9,7 @@ class GC_BriefingMarkerComponent : ScriptComponent
 	protected const int REGISTRATION_RETRY_MS = 100;
 	protected int m_iRegistrationAttempts;
 	protected bool m_bRegistered;
+	protected string m_sMarkerName;
 
 	[Attribute("", UIWidgets.ResourcePickerThumbnail, "Texture or image-set resource used by the briefing marker", params: "imageset edds png")]
 	protected ResourceName m_sImageSetOrImage;
@@ -86,7 +87,7 @@ class GC_BriefingMarkerComponent : ScriptComponent
 		{
 			GC_LobbyManager manager = GC_LobbyManager.GetManager();
 			if (manager)
-				manager.RemoveBriefingMarker(owner.GetName());
+				manager.RemoveBriefingMarker(m_sMarkerName);
 		}
 
 		m_bRegistered = false;
@@ -99,18 +100,21 @@ class GC_BriefingMarkerComponent : ScriptComponent
 		if (!owner)
 			return null;
 
-		string markerName = owner.GetName();
-		if (markerName.IsEmpty())
+		if (m_sMarkerName.IsEmpty())
 		{
-			Print("GC | Briefing marker registration failed: the owning entity must have a name", LogLevel.WARNING);
-			return null;
+			m_sMarkerName = owner.GetName();
+			// Workbench's automatic hierarchy label is not a runtime entity name.
+			// Unnamed placed markers still render; named markers retain their authored
+			// action keys. Replicate this authority-local identity with the snapshot.
+			if (m_sMarkerName.IsEmpty())
+				m_sMarkerName = string.Format("GC_MapMarker_%1", owner.GetID());
 		}
 
 		GC_BriefingMarker marker = new GC_BriefingMarker();
 		int markerColor = Color.WHITE;
 		if (m_Color)
 			markerColor = m_Color.PackToInt();
-		marker.Set(markerName, m_sImageSetOrImage, m_sHighlightImageSet, m_sQuadName, owner.GetOrigin(), owner.GetYawPitchRoll()[0] - 90,
+		marker.Set(m_sMarkerName, m_sImageSetOrImage, m_sHighlightImageSet, m_sQuadName, owner.GetOrigin(), owner.GetYawPitchRoll()[0] - 90,
 			m_bWorldScale, m_fSize, m_fMinSize, m_sDescription, GC_FactionKeys.ToStrings(m_aFactionKeys),
 			m_eShowAtGameModeState, m_bInvertGameModeState, true, markerColor);
 		return marker;

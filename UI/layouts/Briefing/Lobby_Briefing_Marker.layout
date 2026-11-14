@@ -1,5 +1,6 @@
 FrameWidgetClass {
  Name "BriefingMarker"
+ "Z Order" 2
  components {
   GC_BriefingMarkerWidgetComponent "{6A4E000000000006}" {
   }

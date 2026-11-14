@@ -7,6 +7,9 @@ class GC_SpectatorCharacterEditableEntityUIComponent : SCR_CharacterEditableEnti
 	protected static const float MIN_ICON_SIZE = 4.0;
 	protected static const float NAME_REVEAL_DISTANCE = 50.0;
 	protected static const float NAME_REVEAL_TRANSITION_FRACTION = 0.1;
+	protected static const float HEALTH_FADE_DISTANCE = 150.0;
+	protected static const float HEALTH_MAX_DISTANCE = 200.0;
+	protected static const float HEALTH_MAX_WIDTH = 80.0;
 
 	protected ImageWidget m_wSmallBackground;
 	protected ImageWidget m_wBackground;
@@ -194,7 +197,7 @@ class GC_SpectatorCharacterEditableEntityUIComponent : SCR_CharacterEditableEnti
 			if (workspace && m_fCachedLabelWidth > 0.0)
 				FrameSlot.SetPos(m_wLabel, -workspace.DPIUnscale(m_fCachedLabelWidth) * 0.5, -m_fAppliedIconSize);
 		}
-		RefreshHealthBar();
+		RefreshHealthBar(distance);
 	}
 
 	override bool OnMouseEnter(Widget w, int x, int y)
@@ -254,22 +257,38 @@ class GC_SpectatorCharacterEditableEntityUIComponent : SCR_CharacterEditableEnti
 			m_wSelectedIcon.SetVisible(true);
 	}
 
-	protected void RefreshHealthBar()
+	protected void RefreshHealthBar(float distance)
 	{
 		if (!m_wHealthBar || !m_Entity)
 			return;
 		GC_LobbyPlayerController controller = GC_LobbyPlayerController.Cast(GetGame().GetPlayerController());
-		bool visible = controller && controller.GC_AreWorldHealthBarsEnabled();
+		bool visible = controller && controller.GC_AreWorldHealthBarsEnabled() && distance < HEALTH_MAX_DISTANCE;
 		if (!visible)
 		{
 			m_wHealthBar.SetVisible(false);
 			m_bHealthVisible = false;
 			return;
 		}
-		// Marker origin is above the body. Keep the bar above the name and icon
-		// in screen space so the three stay legible at every viewing distance.
-		FrameSlot.SetPos(m_wHealthBar, -40, -Math.Max(m_fAppliedIconSize, 16) - 12);
-		FrameSlot.SetSize(m_wHealthBar, 80, 5);
+		// Project a one-metre camera-facing span. This follows the rendered zoom,
+		// viewport and perspective without assuming a particular camera FOV.
+		BaseWorld world = GetGame().GetWorld();
+		WorkspaceWidget workspace = GetGame().GetWorkspace();
+		vector cameraTransform[4];
+		world.GetCurrentCamera(cameraTransform);
+		vector anchor = m_Entity.GetOwner().GetOrigin() + "0 2.1 0";
+		vector center = workspace.ProjWorldToScreen(anchor, world);
+		vector edge = workspace.ProjWorldToScreen(anchor + cameraTransform[0], world);
+		float width = Math.Min(Math.AbsFloat(edge[0] - center[0]), HEALTH_MAX_WIDTH);
+		float scale = width / HEALTH_MAX_WIDTH;
+		FrameSlot.SetPos(m_wHealthBar, -width * 0.5, -Math.Max(m_fAppliedIconSize, 16) - 12 * scale);
+		FrameSlot.SetSize(m_wHealthBar, width, 5 * scale);
+		m_wHealthBar.SetOpacity(Math.Clamp((HEALTH_MAX_DISTANCE - distance) / (HEALTH_MAX_DISTANCE - HEALTH_FADE_DISTANCE), 0, 1));
+		// Geometry must update even when the health sample itself is unchanged.
+		if (m_iHealthValue >= 0)
+		{
+			int cachedPercent = m_iHealthValue % 300;
+			FrameSlot.SetSize(m_wHealthFill, width * cachedPercent * 0.01, 5 * scale);
+		}
 		float now = GetGame().GetWorld().GetWorldTime();
 		if (m_bHealthVisible && now < m_fNextHealthSample)
 			return;
@@ -286,7 +305,7 @@ class GC_SpectatorCharacterEditableEntityUIComponent : SCR_CharacterEditableEnti
 			m_wHealthFill.SetVisible(percent > 0);
 			m_wHealthFill.SetColor(GC_SpectatorHealthComponent.HealthColor(value));
 			m_wHealthBar.FindAnyWidget("MarkerHealthTrack").SetColor(GC_SpectatorHealthComponent.HealthTrackColor(value));
-			FrameSlot.SetSize(m_wHealthFill, 80 * percent * 0.01, 5);
+			FrameSlot.SetSize(m_wHealthFill, width * percent * 0.01, 5 * scale);
 		}
 	}
 

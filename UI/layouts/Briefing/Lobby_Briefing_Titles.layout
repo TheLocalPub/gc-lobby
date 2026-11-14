@@ -86,6 +86,20 @@ VerticalLayoutWidgetClass {
       }
      }
     }
+    ButtonWidgetClass "{6A50000000000210}" : "{6A4B000000000001}UI/layouts/Briefing/Lobby_Briefing_Title_Row.layout" {
+     Name "BriefingScenarioTab"
+     Slot LayoutSlot "{6A50000000000211}" {
+      HorizontalAlign 3
+     }
+     components {
+      GC_BriefingTitleRowComponent "{6A4B000000000002}" {
+       m_iOrder 1
+       m_sTitle "SCENARIO"
+       m_bSelected 0
+       m_sIconName "vegetation"
+      }
+     }
+    }
    }
   }
  }

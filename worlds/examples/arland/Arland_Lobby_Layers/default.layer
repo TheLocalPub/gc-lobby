@@ -1,4 +1,10 @@
 GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
+ components {
+  GC_LobbyManager "{6A137A39106A4973}" {
+   m_BriefingCatalog GC_LobbyBriefingCatalog "{6A4D100000000013}" {
+   }
+  }
+ }
  coords 0 0 0
  {
   SCR_AIWorld GC_MissionAIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
@@ -28,6 +34,15 @@ GC_SetupZoneEntity : "{6A4D831C2E5079B3}Prefabs/Logic/Mission/SetupZone.et" {
  m_eBehavior HARD
 }
 GC_AOLimitEntity : "{8F470B543A20D944}Prefabs/Logic/Mission/AOLimit.et" {
+ components {
+  GC_MapShapeComponent "{8F470B543A20D964}" {
+   m_bEnabled 1
+   m_bAutoFrameMap 1
+   m_LineColor 0 0 0 1
+   m_bInvertFill 1
+   m_FillColor 0 0 0 0.906
+  }
+ }
  coords 968.366 39 2651.908
  Points {
   ShapePoint "{6ADCA919522AB829}" {
@@ -45,7 +60,7 @@ GC_AOLimitEntity : "{8F470B543A20D944}Prefabs/Logic/Mission/AOLimit.et" {
  }
  m_aFactionKeys {
   "US"
-  "test"
+  "USSR"
  }
 }
 $grp GenericEntity : "{924D4B5FA0B24B22}Prefabs/Logic/Mission/MapMarker.et" {
@@ -57,9 +72,6 @@ $grp GenericEntity : "{924D4B5FA0B24B22}Prefabs/Logic/Mission/MapMarker.et" {
     m_fSize 60
     m_Color 0 0.125 0.502 1
     m_sDescription "US Army Spawn"
-    m_aFactionKeys {
-     ""
-    }
    }
   }
   coords 912.599 39 2638.201
@@ -68,18 +80,27 @@ $grp GenericEntity : "{924D4B5FA0B24B22}Prefabs/Logic/Mission/MapMarker.et" {
  {
   components {
    GC_BriefingMarkerComponent "{00C8292F836D4D6F}" {
-    m_sQuadName "flag-3"
+    m_sQuadName "point-of-interest"
     m_bWorldScale 1
     m_fSize 60
     m_Color 0.502 0 0 1
     m_sDescription "RU Spawn"
     m_aFactionKeys {
-     "Ru"
+     "USSR"
     }
    }
   }
   coords 1279.414 39 2744.195
   angles 0 75.903 0
+ }
+ {
+  components {
+   GC_BriefingMarkerComponent "{00C8292F836D4D6F}" {
+    m_fSize 100
+    m_sDescription "Objective"
+   }
+  }
+  coords 1192.669 39 2714.201
  }
 }
 SCR_AIGroup : "{DDF3799FA1387848}Prefabs/Groups/BLUFOR/Group_US_RifleSquad.et" {
