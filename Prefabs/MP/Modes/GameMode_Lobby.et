@@ -13,8 +13,6 @@ GC_LobbyGameMode : "{0F307326459A1395}Prefabs/MP/Modes/GameMode_Base.et" {
   }
   GC_LobbyManager "{6A137A39106A4973}" {
    m_eBriefingDefaultVoiceChannel GROUP
-   m_BriefingCatalog GC_LobbyBriefingCatalog "{6A4D100000000013}" {
-   }
    m_ParameterCatalog GC_LobbyParameterCatalog "{6A4D100000000014}" {
    }
   }

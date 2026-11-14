@@ -1,8 +1,6 @@
 GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
  components {
   GC_LobbyManager "{6A137A39106A4973}" {
-   m_BriefingCatalog GC_LobbyBriefingCatalog "{6A4D100000000013}" {
-   }
   }
  }
  coords 0 0 0

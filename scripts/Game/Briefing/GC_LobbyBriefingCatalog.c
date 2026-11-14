@@ -1,4 +1,3 @@
-[BaseContainerProps()]
 class GC_LobbyBriefingCatalog
 {
 	static const int MAX_BRIEFINGS = 32;
@@ -8,11 +7,15 @@ class GC_LobbyBriefingCatalog
 	static const int MAX_MARKER_NAME_LENGTH = 128;
 	static const int MAX_MARKER_DESCRIPTION_LENGTH = 512;
 
-	[Attribute("", UIWidgets.Object, "Server-authoritative briefing definitions")]
 	protected ref array<ref GC_Briefing> m_aBriefings;
 	protected ref array<ref GC_BriefingMarker> m_aMarkers = {};
 	protected int m_iBriefingRevision;
 	protected int m_iMarkerRevision;
+
+	void GC_LobbyBriefingCatalog(array<ref GC_Briefing> briefings)
+	{
+		m_aBriefings = briefings;
+	}
 
 	protected void EnsureBriefings()
 	{

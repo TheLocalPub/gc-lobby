@@ -10,8 +10,22 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 	[Attribute("", UIWidgets.Object, "Optional mission memory. Each flag remembers accepted calls. Set Repeatable and Conditions to control future calls; Call Flag notifies dependent events and flags.", category: "GC Lobby")]
 	protected ref array<ref GC_MissionFlag> m_aMissionFlags;
 
-	[Attribute("", UIWidgets.Object, "GC Lobby briefing and marker catalog", category: "GC Lobby")]
+	[Attribute("", UIWidgets.Object, "Server-authoritative briefing definitions", category: "GC Lobby")]
+	protected ref array<ref GC_Briefing> m_aBriefings;
+
 	protected ref GC_LobbyBriefingCatalog m_BriefingCatalog;
+
+	protected GC_LobbyBriefingCatalog GetBriefingCatalog()
+	{
+		if (!m_BriefingCatalog)
+		{
+			if (!m_aBriefings)
+				m_aBriefings = {};
+			// Share the authored array with runtime updates and replicated snapshots.
+			m_BriefingCatalog = new GC_LobbyBriefingCatalog(m_aBriefings);
+		}
+		return m_BriefingCatalog;
+	}
 
 	[Attribute("", UIWidgets.Object, "GC Lobby scenario parameter definitions and runtime values", category: "GC Lobby")]
 	protected ref GC_LobbyParameterCatalog m_ParameterCatalog;
@@ -449,8 +463,8 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 		ReconcileFactionReadiness();
 		GetAdminSelectedPlayer();
 		m_OnLobbyPhaseChanged.Invoke(state);
-		m_OnBriefingsChanged.Invoke(m_BriefingCatalog.GetBriefingRevision());
-		m_OnBriefingMarkersChanged.Invoke(m_BriefingCatalog.GetMarkerRevision());
+		m_OnBriefingsChanged.Invoke(GetBriefingCatalog().GetBriefingRevision());
+		m_OnBriefingMarkersChanged.Invoke(GetBriefingCatalog().GetMarkerRevision());
 	}
 
 	SCR_EGameModeState GetLobbyPhase()
@@ -1774,7 +1788,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
                 return false;
         }
 
-		if (!m_VoiceState.Save(writer) || !m_BriefingCatalog.Save(writer) || !m_ParameterCatalog.Save(writer))
+		if (!m_VoiceState.Save(writer) || !GetBriefingCatalog().Save(writer) || !m_ParameterCatalog.Save(writer))
 			return false;
 
 		writer.WriteInt(m_iFactionLockOverride);
@@ -1860,7 +1874,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 			Print("GC | JIP load failed: domain=voice", level: LogLevel.ERROR);
 			return false;
 		}
-		if (!m_BriefingCatalog.Load(reader))
+		if (!GetBriefingCatalog().Load(reader))
 		{
 			Print("GC | JIP load failed: domain=briefing", level: LogLevel.ERROR);
 			return false;
@@ -1905,8 +1919,8 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 			return false;
 
 
-		m_OnBriefingsChanged.Invoke(m_BriefingCatalog.GetBriefingRevision());
-		m_OnBriefingMarkersChanged.Invoke(m_BriefingCatalog.GetMarkerRevision());
+		m_OnBriefingsChanged.Invoke(GetBriefingCatalog().GetBriefingRevision());
+		m_OnBriefingMarkersChanged.Invoke(GetBriefingCatalog().GetMarkerRevision());
 		m_OnScenarioParametersChanged.Invoke(m_ParameterCatalog.GetRevision());
 		ResolvePendingJipReferences();
 		// The RplProp callback can run before the rest of the snapshot is available,
@@ -4182,7 +4196,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
     //! Returns one briefing by its one-based authored order/index.
 	GC_Briefing GetBriefing(int briefingOrder)
 	{
-		return m_BriefingCatalog.GetBriefing(briefingOrder);
+		return GetBriefingCatalog().GetBriefing(briefingOrder);
 	}
 
 	GC_LobbyParameterCatalog GetScenarioParameterCatalog()
@@ -4376,12 +4390,12 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 
 	array<ref GC_Briefing> GetBriefings()
     {
-        return m_BriefingCatalog.GetBriefings();
+        return GetBriefingCatalog().GetBriefings();
     }
 
     array<ref GC_Briefing> GetBriefingsForPlayer(int playerId)
     {
-        return m_BriefingCatalog.GetBriefingsFor(GetPlayerFaction(playerId), GetLobbyPhase());
+        return GetBriefingCatalog().GetBriefingsFor(GetPlayerFaction(playerId), GetLobbyPhase());
     }
 
     bool UpsertBriefing(GC_Briefing update)
@@ -4390,10 +4404,10 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
             return false;
 
         GC_Briefing briefing;
-        if (!m_BriefingCatalog.UpsertBriefing(update, briefing))
+        if (!GetBriefingCatalog().UpsertBriefing(update, briefing))
             return false;
 
-        m_OnBriefingsChanged.Invoke(m_BriefingCatalog.GetBriefingRevision());
+        m_OnBriefingsChanged.Invoke(GetBriefingCatalog().GetBriefingRevision());
         Rpc(RpcDo_UpsertBriefing, briefing);
         return true;
     }
@@ -4425,7 +4439,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
             return false;
 
         int revision;
-        if (!m_BriefingCatalog.RemoveBriefing(briefingOrder, revision))
+        if (!GetBriefingCatalog().RemoveBriefing(briefingOrder, revision))
             return false;
 
         m_OnBriefingsChanged.Invoke(revision);
@@ -4474,19 +4488,19 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
     [RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
     protected void RpcDo_UpsertBriefing(GC_Briefing update)
     {
-        if (Replication.IsServer() || !m_BriefingCatalog.ApplyBriefing(update))
+        if (Replication.IsServer() || !GetBriefingCatalog().ApplyBriefing(update))
             return;
 
-        m_OnBriefingsChanged.Invoke(m_BriefingCatalog.GetBriefingRevision());
+        m_OnBriefingsChanged.Invoke(GetBriefingCatalog().GetBriefingRevision());
     }
 
     [RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
     protected void RpcDo_RemoveBriefing(int briefingOrder, int revision)
     {
-        if (Replication.IsServer() || !m_BriefingCatalog.ApplyBriefingRemoval(briefingOrder, revision))
+        if (Replication.IsServer() || !GetBriefingCatalog().ApplyBriefingRemoval(briefingOrder, revision))
             return;
 
-        m_OnBriefingsChanged.Invoke(m_BriefingCatalog.GetBriefingRevision());
+        m_OnBriefingsChanged.Invoke(GetBriefingCatalog().GetBriefingRevision());
     }
 
     bool RegisterBriefingMarker(GC_BriefingMarkerComponent component)
@@ -4508,22 +4522,22 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 
     GC_BriefingMarker GetBriefingMarker(string markerName)
     {
-        return m_BriefingCatalog.GetMarker(markerName);
+        return GetBriefingCatalog().GetMarker(markerName);
     }
 
     array<ref GC_BriefingMarker> GetBriefingMarkers()
     {
-        return m_BriefingCatalog.GetMarkers();
+        return GetBriefingCatalog().GetMarkers();
     }
 
 	int GetBriefingMarkerRevision()
 	{
-		return m_BriefingCatalog.GetMarkerRevision();
+		return GetBriefingCatalog().GetMarkerRevision();
 	}
 
     array<ref GC_BriefingMarker> GetBriefingMarkersForPlayer(int playerId)
     {
-        return m_BriefingCatalog.GetMarkersFor(GetPlayerFaction(playerId), GetLobbyPhase());
+        return GetBriefingCatalog().GetMarkersFor(GetPlayerFaction(playerId), GetLobbyPhase());
     }
 
     bool UpsertBriefingMarker(GC_BriefingMarker update)
@@ -4532,10 +4546,10 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
             return false;
 
         GC_BriefingMarker marker;
-        if (!m_BriefingCatalog.UpsertMarker(update, marker))
+        if (!GetBriefingCatalog().UpsertMarker(update, marker))
             return false;
 
-        m_OnBriefingMarkersChanged.Invoke(m_BriefingCatalog.GetMarkerRevision());
+        m_OnBriefingMarkersChanged.Invoke(GetBriefingCatalog().GetMarkerRevision());
         Rpc(RpcDo_UpsertBriefingMarker, marker);
         return true;
     }
@@ -4572,7 +4586,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
             return false;
 
         int revision;
-        if (!m_BriefingCatalog.RemoveMarker(markerName, revision))
+        if (!GetBriefingCatalog().RemoveMarker(markerName, revision))
             return false;
 
         m_OnBriefingMarkersChanged.Invoke(revision);
@@ -4603,19 +4617,19 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
     [RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
     protected void RpcDo_UpsertBriefingMarker(GC_BriefingMarker update)
     {
-        if (Replication.IsServer() || !m_BriefingCatalog.ApplyMarker(update))
+        if (Replication.IsServer() || !GetBriefingCatalog().ApplyMarker(update))
             return;
 
-        m_OnBriefingMarkersChanged.Invoke(m_BriefingCatalog.GetMarkerRevision());
+        m_OnBriefingMarkersChanged.Invoke(GetBriefingCatalog().GetMarkerRevision());
     }
 
     [RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
     protected void RpcDo_RemoveBriefingMarker(string markerName, int revision)
     {
-        if (Replication.IsServer() || !m_BriefingCatalog.ApplyMarkerRemoval(markerName, revision))
+        if (Replication.IsServer() || !GetBriefingCatalog().ApplyMarkerRemoval(markerName, revision))
             return;
 
-        m_OnBriefingMarkersChanged.Invoke(m_BriefingCatalog.GetMarkerRevision());
+        m_OnBriefingMarkersChanged.Invoke(GetBriefingCatalog().GetMarkerRevision());
     }
 
 	//------------------------------------------------------------------------------------------------
@@ -4947,7 +4961,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 		m_NativeGroupRegistrations.Clear();
 		m_Roster.Clear();
 		m_VoiceState.Clear();
-		m_BriefingCatalog.Clear();
+		GetBriefingCatalog().Clear();
 		if (m_ParameterCatalog)
 			m_ParameterCatalog.Clear();
 		Print("GC | Lifecycle | GC Lobby manager shutdown complete");

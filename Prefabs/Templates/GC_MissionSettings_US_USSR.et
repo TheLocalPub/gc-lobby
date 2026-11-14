@@ -2,13 +2,11 @@ GC_LobbyGameMode : "{9B42B808F4E97C4D}Prefabs/MP/Modes/GameMode_Lobby.et" {
  ID "6A4D100000000011"
  components {
   GC_LobbyManager "{6A137A39106A4973}" {
-   m_BriefingCatalog GC_LobbyBriefingCatalog "{6A4D100000000012}" {
-    m_aBriefings {
-     GC_Briefing "{6A42000000000015}" {
-      m_iOrder 1
-      m_sTitle "SCENARIO"
-      m_sContent "<scenario />"
-     }
+   m_aBriefings {
+    GC_Briefing "{6A42000000000015}" {
+     m_iOrder 1
+     m_sTitle "SCENARIO"
+     m_sContent "<scenario />"
     }
    }
    m_ParameterCatalog GC_LobbyParameterCatalog "{6A4D100000000015}" {
