@@ -4,10 +4,10 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QTcpServer>
-#include <QTcpSocket>
+#include "ScriptBridge.h"
+
 #include <QTimer>
-#include <QtEndian>
+
 #include <cstdio>
 #include <memory>
 
@@ -17,11 +17,9 @@ static void require(bool condition, const char *name)
     std::printf("PASS %s\n", name);
 }
 
-static QByteArray frame(const QByteArray &data)
-{
-    QByteArray result(4, '\0');
-    qToLittleEndian(quint32(data.size()), result.data());
-    return result + data;
+static std::function<QByteArray(const QByteArray &, QString &)> responder;
+namespace gc {
+QByteArray dispatchChoices(const QByteArray &request, QString &error) { return responder(request, error); }
 }
 
 int main(int argc, char **argv)
@@ -30,33 +28,18 @@ int main(int argc, char **argv)
     const QString build(64, QChar('A'));
     for (int scenario = 0; scenario < 23; ++scenario) {
         auto lifetime = std::make_unique<QObject>();
-        QTcpServer server;
-        require(server.listen(QHostAddress::LocalHost, 0), "Open same-process test listener");
         QEventLoop loop;
         QTimer timeout;
         timeout.setSingleShot(true);
         QObject::connect(&timeout, &QTimer::timeout, &loop, &QEventLoop::quit);
         bool gotRequest = false;
-        QObject::connect(&server, &QTcpServer::newConnection, lifetime.get(), [&] {
-            auto *peer = server.nextPendingConnection();
-            auto bytes = std::make_shared<QByteArray>();
-            QObject::connect(peer, &QTcpSocket::readyRead, lifetime.get(), [&, peer, bytes] {
-                *bytes += peer->readAll();
-                if (gotRequest || bytes->size() < 4) return;
-                require(qFromLittleEndian<quint32>(bytes->constData()) == 1, "NET API protocol version");
-                qsizetype offset = 4;
-                QList<QByteArray> parts;
-                while (parts.size() < 3 && bytes->size() >= offset + 4) {
-                    const auto length = qFromLittleEndian<quint32>(bytes->constData() + offset);
-                    if (bytes->size() < offset + 4 + length) return;
-                    parts.append(bytes->mid(offset + 4, length));
-                    offset += 4 + length;
-                }
-                if (parts.size() != 3) return;
+        int dispatches = 0;
+        responder = [&](const QByteArray &encoded, QString &) -> QByteArray {
+                ++dispatches;
                 gotRequest = true;
-                const auto request = QJsonDocument::fromJson(parts[2]).object();
+                const auto request = QJsonDocument::fromJson(encoded).object();
                 if (scenario < 11)
-                    require(parts[1] == "JsonRPC" && request.value("APIFunc") == "GC_EditorChoices" &&
+                    require(request.value("handler") == "GC_EditorChoices" &&
                         request.value("provider") == "TEST_Choices", "Calls the existing script choice owner");
                 QJsonObject reply{{"adapterBuild", scenario == 1 ? QString(64, QChar('B')) : build},
                     {"token", request.value("token")}, {"state", scenario == 2 ? "provider_unavailable" : "ready"},
@@ -78,7 +61,7 @@ int main(int argc, char **argv)
                     }
                 }
                 if (scenario >= 11) {
-                    require(parts[1] == "JsonRPC" && request.value("APIFunc") == (scenario == 22 ? "GC_StringArrayEdit" : "GC_EntityReferenceCommit") &&
+                    require(request.value("handler") == (scenario == 22 ? "GC_StringArrayEdit" : "GC_EntityReferenceCommit") &&
                         request.value("token") == "test-receipt" && request.value("adapterBuild") == build,
                         "Calls edit owner with original preparation receipt and validated build");
                     reply.insert("state", scenario == 11 || scenario == 19 ? "prepared" : "committed");
@@ -93,39 +76,23 @@ int main(int argc, char **argv)
                     if (scenario == 16) { reply.insert("state", "refused"); reply.insert("reason", "Destination changed"); }
                     if (scenario == 17) { reply.insert("state", "finalization_failed"); reply.insert("reason", "Inspect before retrying"); }
                 }
-                auto response = frame("Ok") + frame(QJsonDocument(reply).toJson(QJsonDocument::Compact));
-                if (scenario == 3) {
-                    response = QByteArray(4, '\0');
-                    qToLittleEndian(quint32(65537), response.data());
-                }
-                if (scenario == 4 || scenario == 15) {
-                    peer->write(response.left(7));
-                    peer->disconnectFromHost();
-                    return;
-                }
-                if (scenario == 18) {
-                    peer->write(response);
-                    peer->disconnectFromHost();
-                    return;
-                }
-                // Deliberately split both frame headers and the JSON body.
-                peer->write(response.left(1));
-                QTimer::singleShot(5, peer, [peer, response] { peer->write(response.mid(1, 7)); });
-                QTimer::singleShot(10, peer, [peer, response] { peer->write(response.mid(8)); });
-            });
-        });
+                auto response = QJsonDocument(reply).toJson(QJsonDocument::Compact);
+                if (scenario == 3) response = QByteArray(65537, 'x');
+                if (scenario == 4 || scenario == 15) response = response.left(7);
+                return response;
+        };
         bool completed = false;
         gc::ChoicesReply observed;
         gc::EntityEditReply editObserved;
         if (scenario < 11) {
-            gc::ChoicesClient::fetch(lifetime.get(), server.serverPort(), build, "TEST_Choices", [&](gc::ChoicesReply reply) {
+            gc::ChoicesClient::fetch(lifetime.get(), build, "TEST_Choices", [&](gc::ChoicesReply reply) {
                 observed = std::move(reply); completed = true; loop.quit();
             }, scenario >= 5 ? gc::ChoiceKind::Entities : gc::ChoiceKind::Values);
         } else {
-            gc::ChoicesClient::edit(lifetime.get(), server.serverPort(), build,
+            gc::ChoicesClient::edit(lifetime.get(), build,
                 {{"operation", scenario == 22 ? "set_array_string" : (scenario >= 19 ? "prepare_array" : (scenario == 11 || scenario == 13 ? "prepare_scalar" : "commit_scalar"))},
                  {"expectedArray", QJsonArray{" leading ", "a,b", "", QString::fromUtf8("Équipe"), ""}},
-                 {"token", "test-receipt"}, {"APIFunc", "must-be-replaced"}, {"adapterBuild", "must-be-replaced"}},
+                 {"token", "test-receipt"}, {"handler", "must-be-replaced"}, {"adapterBuild", "must-be-replaced"}},
                 [&](gc::EntityEditReply reply) {
                     editObserved = std::move(reply); completed = true;
                     if (scenario == 18) lifetime.reset();
@@ -134,15 +101,15 @@ int main(int argc, char **argv)
         }
         timeout.start(3000);
         loop.exec();
-        require(gotRequest && completed, "Asynchronous request completed without blocking its server");
+        require(gotRequest && completed && dispatches == 1, "Deferred in-process request completed");
         if (scenario == 0) require(observed.state == "ready" && observed.world == "$test:world.ent" &&
-            observed.values == QStringList{QString::fromUtf8("Français"), "US", "USSR"}, "Fragmented UTF-8 response sorted and deduplicated");
+            observed.values == QStringList{QString::fromUtf8("Français"), "US", "USSR"}, "UTF-8 response sorted and deduplicated");
         if (scenario == 0) require(observed.duplicateValues == QStringList{"US"},
             "Deduplication retains duplicate-source evidence");
         if (scenario == 1) require(observed.state == "unavailable" && observed.error.contains("identity"), "Reject wrong adapter build");
         if (scenario == 2) require(observed.state == "provider_unavailable", "Preserve unsupported provider state");
-        if (scenario == 3) require(observed.state == "unavailable" && observed.error.contains("64 KiB"), "Reject oversized frame");
-        if (scenario == 4) require(observed.state == "unavailable", "Reject incomplete response on disconnect");
+        if (scenario == 3) require(observed.state == "unavailable" && observed.error.contains("64 KiB"), "Reject oversized response");
+        if (scenario == 4) require(observed.state == "unavailable", "Reject incomplete response");
         if (scenario == 5) require(observed.state == "ready" && observed.entities.size() == 2 &&
             observed.entities[0].id == "opaque-id-1" && observed.entities[1].id == "opaque-id-2" &&
             observed.entities[0].name.isEmpty() && observed.values.isEmpty(), "Keep distinct unnamed entities with identical labels");
@@ -165,15 +132,15 @@ int main(int argc, char **argv)
     }
     {
         QObject lifetime;
-        QTcpServer server;
-        require(server.listen(QHostAddress::LocalHost, 0), "Open cancellation test listener");
+        bool dispatched = false;
+        responder = [&](const QByteArray &, QString &) { dispatched = true; return QByteArray{}; };
         bool completed = false;
-        auto *request = gc::ChoicesClient::edit(&lifetime, server.serverPort(), build,
+        auto *request = gc::ChoicesClient::edit(&lifetime, build,
             {{"operation", "prepare_scalar"}, {"token", "cancel-before-dispatch"}},
             [&](gc::EntityEditReply) { completed = true; });
         delete request;
         QCoreApplication::processEvents();
-        require(!completed && !server.hasPendingConnections(), "Cancellation before dispatch sends no edit and invokes no callback");
+        require(!completed && !dispatched, "Cancellation before dispatch sends no edit and invokes no callback");
     }
     return 0;
 }

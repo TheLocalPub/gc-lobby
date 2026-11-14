@@ -15,14 +15,13 @@ int main(int argc, char **argv)
     wrongHost.insert("hostName", "ArmaReforgerSteam.exe");
     if (gc::incompatibility(wrongHost) != "Not the supported Workbench executable") return 3;
     QJsonObject fixtureModules;
-    const char *names[] = {"ArmaReforgerWorkbenchSteamDiag.exe", "Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll", "Qt6Network.dll"};
+    const char *names[] = {"ArmaReforgerWorkbenchSteamDiag.exe", "Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll"};
     const char *hashes[] = {
         "456a3e4e3b55f47d89c09e4364df78d9a0b1f7348bdc2354cce3b34e1db70b28",
         "0cc62e841959fb8f6d366ea116c6f6bbc273e30f0ef90d8aa2e4adeb81fd63f8",
         "ca9f20d9b59d5bc321a87005b926b853ebcd6a2394823e14d3c8b5fc5702fa8c",
-        "d34ef78b3d3b5506ee8279ce6efbfc263d773b74860af76e66b0715346897a3a",
-        "2c2f65c70989646f06d668883c031f06fac3f8de1f459278c94cc50dfe89988d"};
-    for (int i = 0; i < 5; ++i) fixtureModules.insert(names[i], QJsonObject{{"sha256", hashes[i]}});
+        "d34ef78b3d3b5506ee8279ce6efbfc263d773b74860af76e66b0715346897a3a"};
+    for (int i = 0; i < 4; ++i) fixtureModules.insert(names[i], QJsonObject{{"sha256", hashes[i]}});
     auto complete = missing;
     complete.insert("modules", fixtureModules);
     if (!gc::incompatibility(complete).isEmpty()) return 6;

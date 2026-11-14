@@ -10,7 +10,7 @@ class EntitySelection final : public QObject
 {
 public:
     EntitySelection(QObject *property, QObject *editor, QComboBox *combo, QString provider,
-        quint16 port, QString build, std::function<void(QJsonObject)> log);
+        QString build, std::function<void(QJsonObject)> log);
     bool ready() const { return enabled; }
     void setWorld(QString value) { world = std::move(value); }
     bool isBusy() const { return busy; }
@@ -18,7 +18,6 @@ private:
     QPointer<QObject> property, editor;
     QPointer<QComboBox> combo;
     QString provider, build, world, initialValue;
-    quint16 port;
     std::function<void(QJsonObject)> log;
     bool enabled = false, busy = false;
     void activate(int index);

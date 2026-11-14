@@ -26,9 +26,9 @@ bool sameBinding(const PropertyDestination &a, const PropertyDestination &b)
 }
 
 EntitySelection::EntitySelection(QObject *source, QObject *owner, QComboBox *widget, QString selectedProvider,
-    quint16 selectedPort, QString expectedBuild, std::function<void(QJsonObject)> logger)
+    QString expectedBuild, std::function<void(QJsonObject)> logger)
     : QObject(owner), property(source), editor(owner), combo(widget), provider(std::move(selectedProvider)),
-      build(std::move(expectedBuild)), initialValue(widget->currentText()), port(selectedPort), log(std::move(logger))
+      build(std::move(expectedBuild)), initialValue(widget->currentText()), log(std::move(logger))
 {
     const auto destination = PropertyEditors::destination(source);
     if (destination.state != "captured" || destination.arrayIndex >= 0) {
@@ -133,7 +133,7 @@ void EntitySelection::pick(int index)
         {"arrayIndex", -1}, {"pathKeys", keys}, {"pathIndices", indices}, {"pathClasses", classes}};
     combo->setEnabled(false);
     const QPointer<EntitySelection> guard(this);
-    ChoicesClient::edit(this, port, build, request, [guard, destination, oldValue, token](EntityEditReply reply) {
+    ChoicesClient::edit(this, build, request, [guard, destination, oldValue, token](EntityEditReply reply) {
         if (!guard) return;
         guard->log({{"event", "entityPrepare"}, {"state", reply.state}, {"reason", reply.reason}, {"error", reply.error}});
         if (reply.state != "prepared") {
@@ -150,7 +150,7 @@ void EntitySelection::pick(int index)
         const auto logger = guard->log;
         // Observe a dispatched write even if native reconstruction destroys
         // this property editor. Never retry or cancel it as though read-only.
-        ChoicesClient::edit(QCoreApplication::instance(), guard->port, guard->build,
+        ChoicesClient::edit(QCoreApplication::instance(), guard->build,
             {{"operation", "commit_scalar"}, {"token", token}}, [guard, logger](EntityEditReply committed) {
                 logger({{"event", "entityCommit"}, {"state", committed.state}, {"name", committed.name},
                     {"reason", committed.reason}, {"error", committed.error}});

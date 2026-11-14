@@ -118,40 +118,50 @@ Native hook confirmation, rather than DLL presence, records successful loading.
 
 `GC_EditorChoices.c` and `GC_EntityReferenceEdit.c` are GC Lobby-owned providers.
 Their protocol fingerprint is `4df00e70851952d140c187dfefe9c59d274c81d0d9e30a12cd06d87b28accd8f`.
-Change both consumers deliberately when changing the wire contract. Generic
+Change both consumers deliberately when changing the request/response contract. Generic
 MCP adapters have their own RST names and lifecycle. GC Tools has no editor-control
 connection: submission and mod updates operate only on saved files and GitHub.
 
-First installation does not require NET API, an exported preferences file, or an
-existing GC DLL. Installation copies the complete package and registers its fixed
-bootstrap. On the normal post-install restart, configuration port `0` asks the
-bundled DLL to read the live Workbench settings, enable NET API when needed and
-start the engine-owned listener. It preserves the selected port and saves only
-Enable NET API. Stale exported ports are never pinned into new installations.
-Explicit nonzero ports remain supported for development probes. Normal Workbench
-authorization prompts remain an editor policy.
+Installation and dropdown operation require neither NET API nor exported
+preferences nor an existing GC DLL. Installation copies the complete package and
+registers its fixed bootstrap. On the normal post-install restart, the DLL calls
+GC's script handlers directly inside Workbench. It does not read or change NET
+API settings, start a listener, connect to a port, or depend on Reforger MCP.
+Normal Workbench authorization prompts remain an editor policy.
 
-This is a fixed dependency-initialization task, not a general editor-control API.
-The existing exact executable/Qt compatibility check precedes all native settings
-access. Engine-owned startup/persistence evidence for 1.9.0.37:
-`6b14d975b26d4295bd31856a35be3f68`, `592fec3623754e45acafc5d6bcf498d8`.
-Listener ownership is verified before declaring initialization complete; a port
-occupied by another process is reported without changing that port or stopping
-the other process. Uninstall removes GC initialization but leaves Workbench's
-NET API preference as set, rather than overwriting subsequent user changes.
+`ScriptBridge.cpp` admits only `GC_EditorChoices`, `GC_StringArrayEdit` and
+`GC_EntityReferenceCommit`. These are Managed script classes, not NetApiHandler
+registrations. JsonApiStruct supplies serialization only. Existing validation,
+transaction ownership, receipt checks and undo behavior remain in the scripts.
+Requests run once on the application thread after a queued event turn. Canceling
+before dispatch prevents the call; dispatched edits are never retried. The bridge
+resolves fresh types and releases all script references within each call, so it
+retains no VM pointers across reloads. Requests/replies are bounded to 64 KiB.
 
-Validation (2026-11-14): the real installer test passed with no prior package or
-preferences export, then with a disabled/stale export. The packaged dependency
-installer also completed against live PID 29468 with NET API disabled and no
-listener. Normal restart PID 34948 initialized the listener on the preserved live
-port 5775 (the stale export said 5776); read-only status confirmed enabled and
-process-owned. AO faction/return choices subsequently returned ready. All ten
-native tests passed. Port-conflict handling was reviewed but not live exercised.
+Native evidence for supported Workbench 1.9.0.37: the engine's Managed creation,
+method invocation, reference lifetime and JSON serialization sequence is visible
+at RVA `0x2fd040` (research artifact `6870ade0905c48559f5a0250c55747ef`;
+instructions `5d8f4604b0454e938a5b22f2d58ae29b`). The GC bridge uses those primitive
+operations directly, without the NET dispatcher or its registration/listener.
+Exact executable and Qt compatibility checks precede native access.
+
+Validation (2026-11-14): all ten native tests and installer regression tests
+passed. The packaged Install.ps1 completed with NET API disabled and no listener
+(PID 34948). After the networking-module admission check was removed, normal
+restart PID 37584 loaded the DLL with NET API still disabled. AO faction choices
+showed `(None)`, `US`, `USSR`; AO return choices also reported ready. Selecting
+`USSR` in faction-array index 0 committed once; one Undo restored the original
+`US`, preserving index 1 (`test`). Script reload completed and both providers
+returned ready again, with NET API still disabled/no listener. Reload diagnostics
+contained existing Arland resource-reference errors and the existing
+`PacejkaPlotTool` leak; no GC handler leaks or compilation errors were reported.
+Native report: installation `adf2c8b9d0304b45858387444792673f`, sequences 0-40;
+reload operation `3ff610d8cf02471fa29a6ed5fbafc676`.
 
 ## Verification
 
 Native tests cover compatibility refusal, direct and queued initialization,
-editable choices, array operations, wire protocol and menu presentation.
+editable choices, array operations, reply validation and menu presentation.
 The build script runs these before creating a package. GC UI tests are under
 `tools/tests`; Git tests use isolated repositories and mocked GitHub responses.
 A native rebuild requires a normal saved-work Workbench restart before live testing;

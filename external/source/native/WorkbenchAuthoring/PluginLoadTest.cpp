@@ -26,7 +26,7 @@ int main(int argc, char **argv)
         QFile config(configPath);
         if (!config.open(QIODevice::WriteOnly)) return 16;
         config.write(QJsonDocument(QJsonObject{{"schema", 1}, {"mode", "choices"},
-            {"reportPath", QString::fromStdWString(reportPath)}, {"port", 9841},
+            {"reportPath", QString::fromStdWString(reportPath)},
             {"adapterBuild", QString(64, QChar('A'))}}).toJson());
         config.close();
         const auto specification = (QStringLiteral("@") + configPath).toStdWString();

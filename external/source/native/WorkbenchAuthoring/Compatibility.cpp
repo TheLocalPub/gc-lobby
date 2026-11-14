@@ -19,8 +19,7 @@ const Module modules[] = {
     {L"ArmaReforgerWorkbenchSteamDiag.exe", "456a3e4e3b55f47d89c09e4364df78d9a0b1f7348bdc2354cce3b34e1db70b28"},
     {L"Qt6Core.dll", "0cc62e841959fb8f6d366ea116c6f6bbc273e30f0ef90d8aa2e4adeb81fd63f8"},
     {L"Qt6Gui.dll", "ca9f20d9b59d5bc321a87005b926b853ebcd6a2394823e14d3c8b5fc5702fa8c"},
-    {L"Qt6Widgets.dll", "d34ef78b3d3b5506ee8279ce6efbfc263d773b74860af76e66b0715346897a3a"},
-    {L"Qt6Network.dll", "2c2f65c70989646f06d668883c031f06fac3f8de1f459278c94cc50dfe89988d"}
+    {L"Qt6Widgets.dll", "d34ef78b3d3b5506ee8279ce6efbfc263d773b74860af76e66b0715346897a3a"}
 };
 }
 

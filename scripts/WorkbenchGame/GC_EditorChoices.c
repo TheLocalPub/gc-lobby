@@ -41,16 +41,16 @@ class GC_EditorChoicesResponse : JsonApiStruct
 	}
 }
 
-class GC_EditorChoices : NetApiHandler
+class GC_EditorChoices : Managed
 {
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetRequest()
+	JsonApiStruct GetRequest()
 	{
 		return new GC_EditorChoicesRequest();
 	}
 
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetResponse(JsonApiStruct request)
+	JsonApiStruct GetResponse(JsonApiStruct request)
 	{
 		GC_EditorChoicesRequest input = GC_EditorChoicesRequest.Cast(request);
 		GC_EditorChoicesResponse response = new GC_EditorChoicesResponse();

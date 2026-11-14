@@ -1,6 +1,5 @@
 #include "Compatibility.h"
 #include "ChoicesClient.h"
-#include "ChoiceTransport.h"
 #include "EditableChoices.h"
 #include "ArraySelection.h"
 #include "MenuIcons.h"
@@ -26,13 +25,13 @@ class ReferenceField final : public QObject
 {
 public:
     ReferenceField(QObject *property, QObject *editor, QComboBox *combo, QString providerName,
-        quint16 selectedPort, QString build, std::function<void(QJsonObject)> logger)
-        : QObject(editor), property(property), provider(std::move(providerName)), port(selectedPort),
+        QString build, std::function<void(QJsonObject)> logger)
+        : QObject(editor), property(property), provider(std::move(providerName)),
           expectedBuild(std::move(build)), log(std::move(logger))
     {
 
         if (PropertyEditors::destination(property).arrayIndex >= 0)
-            arraySelection = new ArraySelection(property, editor, combo, port, expectedBuild, log);
+            arraySelection = new ArraySelection(property, editor, combo, expectedBuild, log);
         const QPointer<ReferenceField> guard(this);
         binding = new EditableChoices(combo, [guard](quint64 id) { if (guard) guard->refresh(id); });
         connect(property, &QObject::destroyed, this, &QObject::deleteLater);
@@ -47,7 +46,6 @@ private:
     QPointer<ArraySelection> arraySelection;
 
     QString provider;
-    quint16 port;
     QString expectedBuild;
     std::function<void(QJsonObject)> log;
     void refresh(quint64 id)
@@ -55,7 +53,7 @@ private:
         delete request;
         if (!property || !binding || (arraySelection && arraySelection->isBusy())) return;
         const QPointer<ReferenceField> guard(this);
-        request = ChoicesClient::fetch(this, port, expectedBuild, provider, [guard, id](ChoicesReply reply) {
+        request = ChoicesClient::fetch(this, expectedBuild, provider, [guard, id](ChoicesReply reply) {
             if (!guard || !guard->property || !guard->binding) return;
             if (guard->arraySelection && guard->arraySelection->isBusy()) return;
 
@@ -87,7 +85,6 @@ public:
     {
         QString reportPath = specification;
         bool choicesEnabled = false;
-        quint16 port = 0;
         QString expectedBuild;
         // Explicit @absolute-config.json enables the experimental choice path.
         // A plain path retains diagnostic-only activation for existing probes.
@@ -99,15 +96,13 @@ public:
             const auto document = QJsonDocument::fromJson(config.readAll(), &error);
             if (error.error != QJsonParseError::NoError || !document.isObject()) return -2;
             const auto settings = document.object();
-            const auto selectedPort = settings.value("port").toInt(-1);
             expectedBuild = settings.value("adapterBuild").toString();
             static const QRegularExpression hash(QStringLiteral("^[A-Fa-f0-9]{64}$"));
             if (settings.value("schema").toInt() != 1 || settings.value("mode").toString() != "choices" ||
-                selectedPort < 0 || selectedPort > 65535 || !hash.match(expectedBuild).hasMatch()) return -2;
+                !hash.match(expectedBuild).hasMatch()) return -2;
             for (const auto &key : settings.keys())
-                if (key != "schema" && key != "mode" && key != "port" && key != "adapterBuild" && key != "reportPath") return -2;
+                if (key != "schema" && key != "mode" && key != "adapterBuild" && key != "reportPath") return -2;
             reportPath = settings.value("reportPath").toString();
-            port = quint16(selectedPort);
             choicesEnabled = true;
         }
         // Explicit opt-in diagnostic output; never overwrite previous evidence.
@@ -130,14 +125,8 @@ public:
         write(record);
         if (!reason.isEmpty() || !qobject_cast<QApplication *>(QCoreApplication::instance())) return -1;
         if (choicesEnabled) {
-            if (port == 0) {
-                const auto error = initializeChoiceTransport(port);
-                write({{"event", "choiceTransport"}, {"state", error.isEmpty() ? "initialized" : "unavailable"},
-                    {"port", port}, {"error", error}});
-                if (!error.isEmpty()) return -1;
-            }
             const QPointer<Session> guard(this);
-            auto *editors = new PropertyEditors(this, [guard, port, expectedBuild](QObject *property,
+            auto *editors = new PropertyEditors(this, [guard, expectedBuild](QObject *property,
                     QObject *editor, QComboBox *combo, const QString &provider, bool) {
                 if (!guard) return;
                 const auto source = PropertyEditors::sourceValue(property);
@@ -153,7 +142,7 @@ public:
                     {"state", destination.state}, {"entityIdHex", destination.entityIdHex},
                     {"key", destination.key}, {"className", destination.className},
                     {"path", path}, {"arrayIndex", destination.arrayIndex}});
-                new ReferenceField(property, editor, combo, provider, port, expectedBuild,
+                new ReferenceField(property, editor, combo, provider, expectedBuild,
                     [guard](QJsonObject record) { if (guard) guard->write(record); });
             });
             const auto hookError = editors->install();

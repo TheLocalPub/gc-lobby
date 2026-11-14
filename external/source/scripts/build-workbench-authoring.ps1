@@ -42,7 +42,7 @@ try {
     $taskDependenciesPath = Join-Path $taskBuild 'dependencies.txt'
     $taskDependencies = @([regex]::Matches((Get-Content -LiteralPath $taskDependenciesPath -Raw), '(?im)^\s+([a-z0-9_.-]+\.dll)\s*$') |
         ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique)
-    $taskAllowedDependencies = @('Qt6Core.dll', 'Qt6Gui.dll', 'Qt6Widgets.dll', 'Qt6Network.dll', 'IPHLPAPI.DLL', 'KERNEL32.dll')
+    $taskAllowedDependencies = @('Qt6Core.dll', 'Qt6Gui.dll', 'Qt6Widgets.dll', 'KERNEL32.dll')
     if ($taskDependencies.Count -ne $taskAllowedDependencies.Count -or
         @($taskDependencies | Where-Object { $_ -notin $taskAllowedDependencies }).Count -ne 0) {
         throw "Unexpected DLL dependencies: $($taskDependencies -join ', '). Nothing packaged."

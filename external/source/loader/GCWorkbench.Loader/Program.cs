@@ -54,7 +54,7 @@ internal static class Program
                     throw new InvalidOperationException("An earlier dropdown DLL is already loaded. Save and restart Workbench.");
                 var report = Path.Combine(state, identity + ".ndjson");
                 var config = Path.Combine(state, identity + "-choices.json");
-                File.WriteAllText(config, JsonSerializer.Serialize(new { schema = 1, mode = "choices", port = 0, adapterBuild = Protocol, reportPath = report }));
+                File.WriteAllText(config, JsonSerializer.Serialize(new { schema = 1, mode = "choices", adapterBuild = Protocol, reportPath = report }));
                 WriteResult(resultPath, "starting", "", parent.Id, report);
                 using var remote = new RemoteProcess(parent.Id);
                 // Resolve the actual Windows module containing LoadLibraryW (forwarders included).

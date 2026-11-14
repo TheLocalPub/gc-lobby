@@ -12,8 +12,8 @@
 
 namespace gc {
 ArraySelection::ArraySelection(QObject *source, QObject *editor, QComboBox *widget,
-    quint16 selectedPort, QString expectedBuild, std::function<void(QJsonObject)> logger)
-    : QObject(editor), property(source), combo(widget), port(selectedPort),
+    QString expectedBuild, std::function<void(QJsonObject)> logger)
+    : QObject(editor), property(source), combo(widget),
       build(std::move(expectedBuild)), log(std::move(logger))
 {
     const QPointer<ArraySelection> guard(this);
@@ -62,7 +62,7 @@ void ArraySelection::commit(const QString &value)
     combo->setEnabled(false);
     const QPointer<ArraySelection> guard(this);
     const auto logger = log;
-    ChoicesClient::edit(QCoreApplication::instance(), port, build, request,
+    ChoicesClient::edit(QCoreApplication::instance(), build, request,
         [guard, logger](EntityEditReply reply) {
             logger({{"event", "arrayCommit"}, {"state", reply.state}, {"value", reply.name},
                 {"reason", reply.reason}, {"error", reply.error}});

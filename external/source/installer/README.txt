@@ -8,13 +8,13 @@ The bootstrap loads only its own checksum-verified DLL into its launching
 Workbench. It exposes no generic editor commands or suppression features.
 
 Requires supported Workbench 1.9.0.37 and its exact Qt 6.8.3 binaries.
-First installation requires neither enabled NET API nor exported preferences.
-After the normal installation restart, the bundled DLL enables NET API through
-Workbench's own settings and starts its listener. It preserves the current port
-and saves only the enable setting. GC adapters connect on loopback; the editor
-may listen on other interfaces. No previously installed GC dependency is needed.
+Installation and dropdown operation do not require NET API or exported preferences.
+The bundled DLL calls GC's script handlers directly inside Workbench. It does not
+change NET API settings, start a listener or connect to a port. No previously
+installed GC dependency is needed.
 GC Lobby supplies the GC dropdown and string lookup providers. The DLL applies
-to gc-choices fields; other editor fields keep normal behavior.
+automatically to supported typed reference fields, including FactionKey arrays;
+other editor fields keep normal behavior.
 
 Installed files live under %LOCALAPPDATA%/GCWorkbench. Changed bootstrap or
 Git helper files are preserved and reported. The installed state directory

@@ -291,7 +291,7 @@ class GC_PreparedEntityReference
 //! Prepare is read-only. Commit consumes the prepared edit exactly once.
 //! Native callers must recapture their destination after prepare and refuse a
 //! changed property binding before sending commit; no UI is retained here.
-class GC_EntityReferenceCommit : NetApiHandler
+class GC_EntityReferenceCommit : Managed
 {
 	// A response loss is not permission to replay a write. Keep recent receipts
 	// across handler instances; clients must inspect an uncertain result.
@@ -352,13 +352,13 @@ class GC_EntityReferenceCommit : NetApiHandler
 	}
 
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetRequest()
+	JsonApiStruct GetRequest()
 	{
 		return new GC_EntityReferenceCommitRequest();
 	}
 
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetResponse(JsonApiStruct request)
+	JsonApiStruct GetResponse(JsonApiStruct request)
 	{
 		GC_EntityReferenceCommitRequest input = GC_EntityReferenceCommitRequest.Cast(request);
 		GC_EntityReferenceCommitResponse response = new GC_EntityReferenceCommitResponse();
@@ -497,16 +497,16 @@ class GC_StringArrayEditRequest : JsonApiStruct
 	}
 }
 
-class GC_StringArrayEdit : NetApiHandler
+class GC_StringArrayEdit : Managed
 {
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetRequest()
+	JsonApiStruct GetRequest()
 	{
 		return new GC_StringArrayEditRequest();
 	}
 
 	//------------------------------------------------------------------------------------------------
-	override JsonApiStruct GetResponse(JsonApiStruct request)
+	JsonApiStruct GetResponse(JsonApiStruct request)
 	{
 		GC_StringArrayEditRequest input = GC_StringArrayEditRequest.Cast(request);
 		GC_EntityReferenceCommitResponse response = new GC_EntityReferenceCommitResponse();
