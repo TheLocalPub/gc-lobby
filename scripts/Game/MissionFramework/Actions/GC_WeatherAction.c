@@ -4,8 +4,8 @@ class GC_WeatherAction : GC_ActionBase
 {
 	[Attribute("1", UIWidgets.CheckBox, "Change the weather when this action runs. Uncheck to leave weather alone and change only the time.")]
 	bool m_bChangeWeather;
-	[Attribute("Clear", UIWidgets.EditComboBox, "Choose or type a weather preset name from this map. Only used when Change Weather is checked. An unavailable preset rejects the action before changing weather or time.", enums: {ParamEnum("", "", "gc-choices:1:GC_WeatherChoices")})]
-	string m_sWeatherPreset;
+	[Attribute("Clear", UIWidgets.Auto, "Choose or type a weather preset name from this map. Only used when Change Weather is checked. An unavailable preset rejects the action before changing weather or time.")]
+	GC_WeatherPresetName m_sWeatherPreset;
 	[Attribute("0", UIWidgets.EditBox, "Weather transition duration in seconds of the game's weather timeline. Zero changes immediately. Time acceleration can affect real time taken. Only used when Change Weather is checked; it does not delay the time change.", "0 86400")]
 	float m_fTransitionSeconds;
 	[Attribute("0", UIWidgets.CheckBox, "Only used when Change Weather is checked. Unchecked: keep this weather until another system changes it. Checked: allow the map's normal weather progression after reaching this preset.")]

@@ -1,6 +1,7 @@
 #include "PropertyEditors.h"
 #include "Compatibility.h"
 #include "EditableChoices.h"
+#include "ReferenceTypes.h"
 #include <QCoreApplication>
 #include <QLineEdit>
 #include <QPointer>
@@ -105,16 +106,15 @@ QWidget *PropertyEditors::createEditor(QObject *property, QWidget *parent)
 {
     bool entities = false;
     auto provider = detail::provider(property, entities);
-    const auto declaredType = readPropertyDeclaredType(property, detail::image);
-    if (provider.isEmpty() && detail::owner &&
-        declaredType == QStringLiteral("FactionKey")) {
+    const auto automaticProvider = referenceProvider(readPropertyDeclaredType(property, detail::image));
+    if (provider.isEmpty() && detail::owner && !automaticProvider.isEmpty()) {
         // Select the engine's editable combo before it creates/initializes the
         // native value owner. Serialization and undo remain engine-owned.
         *reinterpret_cast<int *>(reinterpret_cast<char *>(property) + 0xf0) = 1;
         // StringPropCommon::IsEditable (1404b5210); consumed by the native
         // combo constructor to wire editingFinished and preserve free text.
         *reinterpret_cast<unsigned char *>(reinterpret_cast<char *>(property) + 0xf4) = 1;
-        provider = QStringLiteral("GC_FactionChoices");
+        provider = automaticProvider;
     }
     auto *widget = detail::original(property, parent);
     if (!detail::owner || !widget) return widget;

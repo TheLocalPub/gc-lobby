@@ -2,8 +2,8 @@
 [BaseContainerProps(), BaseContainerCustomStringTitleField("Flag Action")]
 class GC_FlagAction : GC_ActionBase
 {
-	[Attribute("", UIWidgets.EditComboBox, "Exact name in Mission Flags.", enums: {ParamEnum("", "", "gc-choices:1:GC_MissionFlagChoices")})]
-	string m_sFlagName;
+	[Attribute("", UIWidgets.Auto, "Exact name in Mission Flags.")]
+	GC_MissionFlagName m_sFlagName;
 	[Attribute("0", UIWidgets.ComboBox, "Call checks the flag's conditions and repeatability. All other operations edit its remembered count directly. Zero means false; a positive count means true. Reset does not reset mission events.", enums: {ParamEnum("Call", "0"), ParamEnum("Set count", "1"), ParamEnum("Add", "2"), ParamEnum("Subtract", "3"), ParamEnum("Reset to zero", "4"), ParamEnum("Restore starting count", "5")})]
 	int m_iOperation;
 	[Attribute("1", UIWidgets.SpinBox, "Amount for Set count, Add or Subtract only. Call always adds one when accepted. Subtract stops at zero. Reset and Restore use no amount.", "0 1000000 1")]
@@ -24,8 +24,8 @@ class GC_FlagAction : GC_ActionBase
 [BaseContainerProps(), BaseContainerCustomStringTitleField("Event Action")]
 class GC_EventControlAction : GC_ActionBase
 {
-	[Attribute("", UIWidgets.EditComboBox, "Name of the mission event or random event group to control. All event operations use this same name. A child event must still be selected by its group; Check now cannot run a child directly.", enums: {ParamEnum("", "", "gc-choices:1:GC_MissionEventChoices")})]
-	string m_sEventName;
+	[Attribute("", UIWidgets.Auto, "Name of the mission event or random event group to control. All event operations use this same name. A child event must still be selected by its group; Check now cannot run a child directly.")]
+	GC_MissionEventName m_sEventName;
 	[Attribute("0", UIWidgets.ComboBox, "Enable: allow future checks. Disable: stop future checks and cancel its pending delay. Reset: forget that it ran and cancel its delay; this does not enable it or run it. Check now: try to run using its normal conditions, chance and delay. Resetting a group does not reset its children. These operations do not change flags or random-condition results.", enums: {ParamEnum("Enable", "0"), ParamEnum("Disable", "1"), ParamEnum("Reset", "2"), ParamEnum("Check now", "3")})]
 	int m_iOperation;
 
@@ -83,8 +83,8 @@ class GC_MessageAction : GC_ActionBase
 [BaseContainerProps(), BaseContainerCustomStringTitleField("Reset Random Chance Action")]
 class GC_ResetRandomChanceAction : GC_ActionBase
 {
-	[Attribute("", UIWidgets.EditComboBox, "Unique Reset Name on a Random Chance Condition. Clears its answer to false and waits its full Check Interval before rolling again. Also allows Roll Once to roll again. Does not reset flags, events or random groups.", enums: {ParamEnum("", "", "gc-choices:1:GC_RandomResetChoices")})]
-	string m_sResetName;
+	[Attribute("", UIWidgets.Auto, "Unique Reset Name on a Random Chance Condition. Clears its answer to false and waits its full Check Interval before rolling again. Also allows Roll Once to roll again. Does not reset flags, events or random groups.")]
+	GC_RandomResetName m_sResetName;
 
 	//------------------------------------------------------------------------------------------------
 	override GC_RuleAction BuildAction()

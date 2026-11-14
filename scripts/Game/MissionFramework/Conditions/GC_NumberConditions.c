@@ -11,8 +11,8 @@ class GC_ConditionCount : GC_ConditionBase
 	[Attribute("1", UIWidgets.SpinBox, "The number to compare against. For conditions, use 0 to 256. For flag calls, use 0 to 1000000. Less than 5 permits calls while the remembered count is below five.", "0 1000000 1")]
 	int m_iRequiredCount;
 
-	[Attribute("", UIWidgets.EditComboBox, "Only used when Count Flag Calls is checked. Enter the exact name from Mission Flags. To limit the flag containing this condition, enter that flag's name.", enums: {ParamEnum("", "", "gc-choices:1:GC_MissionFlagChoices")})]
-	string m_sFlagName;
+	[Attribute("", UIWidgets.Auto, "Only used when Count Flag Calls is checked. Enter the exact name from Mission Flags. To limit the flag containing this condition, enter that flag's name.")]
+	GC_MissionFlagName m_sFlagName;
 
 	[Attribute("", UIWidgets.Object, "Only used when Count Flag Calls is unchecked. Conditions to count. Each entry gives one true or false answer and may contain other groups. Add at least one condition.")]
 	ref array<ref GC_ConditionBase> m_aConditions;

@@ -55,6 +55,57 @@ errors. Reload still reported existing Arland resource references and a
 `PacejkaPlotTool` leaked instance; this is not a clean whole-project diagnostic
 baseline. All ten native tests and six audit fixtures passed.
 
+## Reference-type prototype
+
+The same automatic editor path now registers these string-compatible reference
+types once in `native/WorkbenchAuthoring/ReferenceTypes.h`:
+
+| Attribute type | Current-world choices |
+| --- | --- |
+| `FactionKey` | Factions |
+| `GC_MissionFlagName` | Authored mission flags |
+| `GC_MissionEventName` | Events and random event groups |
+| `GC_TimerName` | Named timer conditions |
+| `GC_RandomResetName` | Named random-chance conditions |
+| `GC_WeatherPresetName` | Map weather presets |
+
+Scalar attributes and `array<T>` entries use the same registration, independent
+of their field name, declaring class or addon. New semantic categories require
+one type/provider registration, not annotations on each field. Ordinary strings,
+including similarly named fields, are not inferred from names or descriptions.
+Special entity selectors keep their explicit provider/identity contracts.
+
+The five GC types follow the installed engine's `FactionKey` typedef pattern
+(`scripts/GameCode/Faction/FactionKey.c`, SHA-256
+`e60bbd3acedb41068de0839ca0a843ecf521a81cdc066b5a5d51628fcaf616d9`).
+Existing reference attributes now declare these types with `UIWidgets.Auto`.
+Fields defining new flags/events/timers/reset identifiers remain plain strings;
+they create names rather than reference existing definitions. The providers,
+serialized field names, values and gameplay ownership are unchanged. Explicit
+provider markers remain compatible. Typed arrays require element-wise conversion
+when passing into an existing `array<string>` API, as with faction arrays.
+
+Prototype verification (2026-11-14, Workbench 1.9.0.37): ten native tests passed;
+production scripts compiled. An external temporary ScriptDialog exercised all
+five scalar/array pairs with arbitrary names, an inherited flag reference and a
+nested event reference. All five providers replied successfully. The Arland
+world had no flag/event/timer/reset definitions, so those lists offered only
+`(None)`; selecting it stored empty strings. Weather offered Clear, Cloudy,
+Overcast and Rainy; scalar/array selection read back `Clear`/`Rainy`. Existing
+unlisted identifiers and ordinary text survived unchanged. This does not yet
+establish populated mission-definition selection coverage for the prototype.
+
+Experiment limitation: MCP accessibility inspection after collapsing the first
+array in the multi-array ScriptDialog froze Workbench. The identical layout with
+only ordinary `string`/`array<string>` attributes reproduced this with no GC
+choice bindings (PID 38368; native report contained startup/hook/menu records
+only). Existing FactionKey fields also reproduced it; a single native string
+array and single explicit EditComboBox array did not. This is a multi-array
+editor/inspection baseline issue, not evidence that the new type registration
+causes it. Selection/readback tests completed without the collapse sequence.
+Native UI-thread sampling during the freeze showed Qt accessibility and
+UIAutomationCore frames. General manual collapse behavior remains unverified.
+
 ## Startup ownership
 
 The profile bootstrap launches `GCWorkbench.Loader.exe` without arguments.

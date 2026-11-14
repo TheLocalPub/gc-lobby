@@ -26,8 +26,8 @@ class GC_RuleCondition
 	[Attribute("0", UIWidgets.CheckBox, "Turn a passing answer into a failing answer, and a failing answer into a passing answer.")]
 	bool m_bReverseAnswer;
 
-	[Attribute("", UIWidgets.EditComboBox, "For Flag is true: the exact flag name. Missing flags are false.", enums: {ParamEnum("", "", "gc-choices:1:GC_MissionFlagChoices")})]
-	string m_sFlagName;
+	[Attribute("", UIWidgets.Auto, "For Flag is true: the exact flag name. Missing flags are false.")]
+	GC_MissionFlagName m_sFlagName;
 
 	[Attribute("1", UIWidgets.CheckBox, "For Test answer: checked means true; unchecked means false.")]
 	bool m_bTestAnswer;

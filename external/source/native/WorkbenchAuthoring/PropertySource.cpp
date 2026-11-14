@@ -191,8 +191,11 @@ QString readPropertyDeclaredType(QObject *property, quintptr image)
         const auto *fieldType = function<const void *(*)(const void *)>(image, 0x1fea1a0)(field);
         if (!fieldType) return {};
         const auto name = metadataText(member<const char *>(fieldType, 0x10));
-        if (arrayElement)
-            return name == QStringLiteral("array<FactionKey>") ? QStringLiteral("FactionKey") : QString{};
+        if (arrayElement) {
+            if (!name.startsWith(QStringLiteral("array<")) || !name.endsWith(QLatin1Char('>')))
+                return {};
+            return name.mid(6, name.size() - 7);
+        }
         return name;
     }
     return {};
