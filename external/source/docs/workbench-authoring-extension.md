@@ -122,9 +122,31 @@ Change both consumers deliberately when changing the wire contract. Generic
 MCP adapters have their own RST names and lifecycle. GC Tools has no editor-control
 connection: submission and mod updates operate only on saved files and GitHub.
 
-The installer reads Workbench's saved NET API preferences. It does not enable,
-reconfigure or suppress the editor. Missing/disabled NET API is an explicit setup
-requirement. Normal Workbench authorization prompts remain an editor policy.
+First installation does not require NET API, an exported preferences file, or an
+existing GC DLL. Installation copies the complete package and registers its fixed
+bootstrap. On the normal post-install restart, configuration port `0` asks the
+bundled DLL to read the live Workbench settings, enable NET API when needed and
+start the engine-owned listener. It preserves the selected port and saves only
+Enable NET API. Stale exported ports are never pinned into new installations.
+Explicit nonzero ports remain supported for development probes. Normal Workbench
+authorization prompts remain an editor policy.
+
+This is a fixed dependency-initialization task, not a general editor-control API.
+The existing exact executable/Qt compatibility check precedes all native settings
+access. Engine-owned startup/persistence evidence for 1.9.0.37:
+`6b14d975b26d4295bd31856a35be3f68`, `592fec3623754e45acafc5d6bcf498d8`.
+Listener ownership is verified before declaring initialization complete; a port
+occupied by another process is reported without changing that port or stopping
+the other process. Uninstall removes GC initialization but leaves Workbench's
+NET API preference as set, rather than overwriting subsequent user changes.
+
+Validation (2026-11-14): the real installer test passed with no prior package or
+preferences export, then with a disabled/stale export. The packaged dependency
+installer also completed against live PID 29468 with NET API disabled and no
+listener. Normal restart PID 34948 initialized the listener on the preserved live
+port 5775 (the stale export said 5776); read-only status confirmed enabled and
+process-owned. AO faction/return choices subsequently returned ready. All ten
+native tests passed. Port-conflict handling was reviewed but not live exercised.
 
 ## Verification
 

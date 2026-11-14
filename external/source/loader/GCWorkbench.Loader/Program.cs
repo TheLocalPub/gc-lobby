@@ -52,11 +52,9 @@ internal static class Program
                 var export = ExportRva(pinned);
                 if (parent.Modules.Cast<ProcessModule>().Any(m => m.ModuleName.Equals("gcworkbench.dll", StringComparison.OrdinalIgnoreCase) || m.ModuleName.Equals("rstauthoring.dll", StringComparison.OrdinalIgnoreCase)))
                     throw new InvalidOperationException("An earlier dropdown DLL is already loaded. Save and restart Workbench.");
-                var port = settings.RootElement.GetProperty("port").GetInt32();
-                if (port is < 1 or > 65535) throw new IOException("Invalid Workbench connection setting.");
                 var report = Path.Combine(state, identity + ".ndjson");
                 var config = Path.Combine(state, identity + "-choices.json");
-                File.WriteAllText(config, JsonSerializer.Serialize(new { schema = 1, mode = "choices", port, adapterBuild = Protocol, reportPath = report }));
+                File.WriteAllText(config, JsonSerializer.Serialize(new { schema = 1, mode = "choices", port = 0, adapterBuild = Protocol, reportPath = report }));
                 WriteResult(resultPath, "starting", "", parent.Id, report);
                 using var remote = new RemoteProcess(parent.Id);
                 // Resolve the actual Windows module containing LoadLibraryW (forwarders included).

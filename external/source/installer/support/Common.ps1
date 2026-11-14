@@ -107,18 +107,11 @@ function Install-GcFiles([string]$Source, [string]$Destination, [string]$Workben
     foreach ($name in @('Common.ps1', 'Uninstall.ps1', 'LobbyTools.ps1', 'Cleanup.ps1', 'GC-GitInstallation.ps1')) { Copy-Item -LiteralPath (Join-Path $Source $name) -Destination $Destination }
     $profilePath = Get-GcCanonicalPath $Profile
     if (!(Test-Path -LiteralPath $profilePath -PathType Container)) { throw 'Open GC Tools from your Workbench profile.' }
-    # Read the editor's own exported preferences; never configure or control Workbench.
-    $preferences = Join-Path $profilePath 'wbSettingsDump.ini'
-    if (!(Test-Path -LiteralPath $preferences)) { throw 'Save Workbench preferences and reopen GC Tools.' }
-    $settings = Get-Content -LiteralPath $preferences -Raw
-    $enabled = [regex]::Match($settings, '(?m)^NetAPI_Enabled=(1|true)\r?$')
-    $portMatch = [regex]::Match($settings, '(?m)^NetAPI_Port=(\d+)\r?$')
-    if (!$enabled.Success -or !$portMatch.Success) { throw 'Enable NET API in Workbench preferences, save, then install again. GC Tools does not change editor preferences.' }
-    $port = [int]$portMatch.Groups[1].Value
-    if ($port -lt 1 -or $port -gt 65535) { throw 'Workbench NET API port is invalid.' }
+    # First installation needs no running API or exported preferences. The
+    # bundled bootstrap initializes its transport after the normal restart.
     @{
         schema = 1; workbenchExecutable = [IO.Path]::GetFullPath($WorkbenchExecutable)
-        profileDirectory = $profilePath; port = $port
+        profileDirectory = $profilePath
         dllSha256 = (Get-FileHash -LiteralPath (Join-Path $Destination 'payload/generic/gcworkbench.dll')).Hash
     } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Destination 'settings.json') -Encoding UTF8
     return $Destination

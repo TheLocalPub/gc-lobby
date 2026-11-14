@@ -12,7 +12,7 @@ try {
     New-Item -ItemType Directory -Force -Path $profile,(Join-Path $source 'payload/generic'),(Join-Path $source 'payload/helper'),(Join-Path $source 'payload/lobby2-tools') | Out-Null
     $exe = Join-Path $fixture 'ArmaReforgerWorkbenchSteamDiag.exe'
     Set-Content -LiteralPath $exe -Value 'fixture'
-    Set-Content -LiteralPath (Join-Path $profile 'wbSettingsDump.ini') -Value "NetAPI_Enabled=1`nNetAPI_Port=5776"
+    # Truly fresh profile: no preferences export or previously installed DLL.
     foreach ($name in @('Common.ps1','Uninstall.ps1','LobbyTools.ps1','Cleanup.ps1')) { Copy-Item -LiteralPath (Join-Path $PSScriptRoot ('../../installer/support/' + $name)) -Destination $source }
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot '../GC-GitInstallation.ps1') -Destination $source
     foreach ($name in @('GC-GitInstallation.ps1','GC-ModLauncher.js','GC-ModWorkflow.ps1','GC-SubmitMission.ps1','GC-Review.ps1','GC-GitHub.ps1','GC-ModStatus.ps1')) {
@@ -23,6 +23,9 @@ try {
     $destination = Join-Path $env:LOCALAPPDATA 'GCWorkbench/versions/test'
     Install-GcFiles $source $destination $exe $profile | Out-Null
     Enable-GcStartup $destination
+    if (Test-Path -LiteralPath (Join-Path $profile 'wbSettingsDump.ini')) { throw 'Install must not require or invent exported preferences.' }
+    Set-Content -LiteralPath (Join-Path $profile 'wbSettingsDump.ini') -Value "NetAPI_Enabled=0`nNetAPI_Port=5776"
+    $preferencesBefore = Get-FileHash -LiteralPath (Join-Path $profile 'wbSettingsDump.ini')
     # Workbench supplies a trailing slash, while older installers saved none.
     # Exercise a real new-version update, including preexisting helper ownership.
     $update = Join-Path $env:LOCALAPPDATA 'GCWorkbench/versions/update'
@@ -44,7 +47,8 @@ try {
     if ($script -notmatch 'GCWorkbench.Loader.exe' -or $script -match 'ReforgerMcp|--config|--start-authoring') { throw 'Bootstrap is not independent.' }
     if (Test-Path -LiteralPath (Join-Path $destination 'configuration.json')) { throw 'Server configuration leaked into install.' }
     $settings = Get-Content -LiteralPath (Join-Path $destination 'settings.json') -Raw | ConvertFrom-Json
-    if ($settings.port -ne 5776 -or $settings.profileDirectory -ne $profile) { throw 'Wrong profile/port.' }
+    if ($settings.PSObject.Properties.Name -contains 'port' -or $settings.profileDirectory -ne $profile) { throw 'Installation must not pin an exported port.' }
+    if ((Get-FileHash -LiteralPath (Join-Path $profile 'wbSettingsDump.ini')).Hash -ne $preferencesBefore.Hash) { throw 'Installer changed the preferences export.' }
     Enable-GcStartup $destination
     Add-Content -LiteralPath $record.startupPath -Value '// user edit'
     $refused = $false

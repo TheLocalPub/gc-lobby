@@ -1,5 +1,6 @@
 #include "Compatibility.h"
 #include "ChoicesClient.h"
+#include "ChoiceTransport.h"
 #include "EditableChoices.h"
 #include "ArraySelection.h"
 #include "MenuIcons.h"
@@ -102,7 +103,7 @@ public:
             expectedBuild = settings.value("adapterBuild").toString();
             static const QRegularExpression hash(QStringLiteral("^[A-Fa-f0-9]{64}$"));
             if (settings.value("schema").toInt() != 1 || settings.value("mode").toString() != "choices" ||
-                selectedPort < 1 || selectedPort > 65535 || !hash.match(expectedBuild).hasMatch()) return -2;
+                selectedPort < 0 || selectedPort > 65535 || !hash.match(expectedBuild).hasMatch()) return -2;
             for (const auto &key : settings.keys())
                 if (key != "schema" && key != "mode" && key != "port" && key != "adapterBuild" && key != "reportPath") return -2;
             reportPath = settings.value("reportPath").toString();
@@ -129,6 +130,12 @@ public:
         write(record);
         if (!reason.isEmpty() || !qobject_cast<QApplication *>(QCoreApplication::instance())) return -1;
         if (choicesEnabled) {
+            if (port == 0) {
+                const auto error = initializeChoiceTransport(port);
+                write({{"event", "choiceTransport"}, {"state", error.isEmpty() ? "initialized" : "unavailable"},
+                    {"port", port}, {"error", error}});
+                if (!error.isEmpty()) return -1;
+            }
             const QPointer<Session> guard(this);
             auto *editors = new PropertyEditors(this, [guard, port, expectedBuild](QObject *property,
                     QObject *editor, QComboBox *combo, const QString &provider, bool) {
