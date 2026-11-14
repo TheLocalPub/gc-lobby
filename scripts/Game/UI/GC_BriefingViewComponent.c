@@ -267,7 +267,7 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
 
     protected void OnScenarioParametersChanged(int revision)
     {
-        RefreshParametersTab();
+        RefreshBriefings();
     }
 
     protected void OnLobbyPhaseChanged(SCR_EGameModeState phase)
