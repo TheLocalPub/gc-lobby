@@ -1,9 +1,31 @@
 # GC core-system audit
 
-Audit date: 2026-11-15. Scope: all **141 non-vanilla addons** in the current
+Audit date: 2026-11-15. Scope: all **137 non-vanilla addons** in the current
 Global Conflicts Workbench collection's transitive dependency closure. This is
 an inventory and source-based classification, not a compatibility certification
-or an enabled server preset. No addon dependency declarations were changed.
+or an enabled server preset. The four obsolete tools listed below have been
+removed from GC Core Dev and the Workbench collection at the user's request.
+
+## Removed tools
+
+Server Admin Tools (`5AAAC70D754245DD`), Scenario Reload Menu
+(`606D03292879EF5B`), Bacon Loadout Editor (`606B100247F5C709`) and Everything
+Arsenal (`645AAE6848D75398`) were removed on 2026-11-15. They are no longer core
+candidates or Workbench collection dependencies. The legacy SAT AdminTools and
+MOTD pause-menu buttons were also removed from GC Core. The GC Lobby admin and
+mission interfaces remain the supported GC controls. Installed Workshop caches
+and already-published release packages are not changed by source dependency edits.
+
+Validation: a fresh Missions Dev session in Workbench 1.9.0.37 loaded 139 addons
+(137 non-vanilla plus two base-game addons), down from 143. The saved dependency
+closure contains none of the four removed GUIDs. Startup compilation and a fresh
+Reload completed, and the Arland Lobby world entered Play and rendered its lobby
+preview. Every pause-layout token outside the two removed button subtrees was
+preserved. Log session `logs_2026-11-15_10-37-03` still contains world/content
+errors, including Pronto/TF component and equipment-resource references also
+present in the earlier `logs_2026-11-15_09-10-36` session; this is not a clean
+whole-pack compatibility test. The pause menu itself was not exercised through
+the available MCP controls, so its rendered state remains unverified.
 
 ## Meaning of core
 
@@ -45,7 +67,6 @@ integration dependencies have been separated.
 | CSI - COALITION Squad Interface | Squad/HUD/player-data systems | Current Core directly extends CSI classes |
 | Enhanced Maps | Replaces satellite imagery in existing map entities | Arland/Everon configurations; do not infer all custom terrain support |
 | Woodys Soviet Map Markers | Map-marker presentation | Shared UI feature |
-| Server Admin Tools | Administration/game-mode/player-controller functionality | Coordinate with GC Lobby administration rather than assume equivalent permissions |
 | ACE Core Dev | Shared ACE runtime/settings/helper support | Required by the selected ACE features; also contains small supporting/example items |
 | ACE Captives Dev | Captive-state and restraint actions | Adds zip cuffs and helpers |
 | ACE Carrying Dev | Casualty carry/drag behavior | Character/helper prefabs |
@@ -67,10 +88,7 @@ integration dependencies have been separated.
 - **Map Drawing:** a system feature, but the existing GC Lobby integration is
   explicitly optional and belongs in its companion addon. This audit does not
   make it mandatory or merge it into Lobby/Core.
-- **Scenario Reload Menu:** an operational system with a Server Admin Tools
-  dependency. Its mission-switching path needs coordination with the new
-  per-mission server launcher; identifying it as a system is not permission to
-  bypass manifest selection.
+
 - **FPTR:** system-like existing-vehicle changes, but its native project directly
   requires **RHS: Status Quo**, which in turn requires its two content packs.
   Making FPTR unconditional currently makes RHS content unconditional too. Keep
@@ -82,10 +100,7 @@ integration dependencies have been separated.
 - **ACE Facepaint / Tactical Ladder / Tactical Periscope:** equipment-led
   features with behavior scripts. Keep as selected capabilities/content unless
   GC chooses them for the shared baseline.
-- **Bacon Loadout Editor / Everything Arsenal:** loadout/arsenal tools, including
-  in-game code. They are not Workbench-only simply because they help authoring.
-  Decide whether they belong on mission servers; neither requires inclusion
-  merely to scan a saved loadout.
+
 - **Chungus Core, WCS Weapon Scripts, SightSystem, MFD Framework, Grey Man's
   Parachute Framework and similar support packages:** they contain systems,
   but are required by particular equipment families. Preserve them through
@@ -116,14 +131,7 @@ Representative inspected sources (addon-relative paths, one-based lines):
   defines the suppression GameSystem and its settings.
 - CSI: `Scripts/Game/Core/WorldSystems/CSI_HUDSystem.c:1` defines the HUD
   GameSystem, with client/frame registration at lines 21–26.
-- Server Admin Tools: `scripts/Game/ServerAdminTools_GamemodeComponent.c:9`
-  defines the game-mode component and its administration invokers.
-- Scenario Reload Menu: `scripts/Game/Modded/ServerAdminTools_Core.c:1`
-  extends ServerAdminTools and loads rotation settings.
-- Bacon: `scripts/Game/BaconLoadoutEditor/GunBuilderUI_Modded_ArsenalManagerComponent.c:1`
-  extends the arsenal manager and schedules server-side initialization.
-- Everything Arsenal: `scripts/Game/EverythingArsenal_ArsenalComponent.c:3`
-  overrides arsenal filtering and collects catalog items across factions.
+
 - TroopFit: `Scripts/Game/MorphPatchSystem.c:1` describes patch-slot morphing;
   the package inventory also contains many actual character/patch prefabs. It
   is not just a generic arsenal system despite its title.
@@ -162,8 +170,8 @@ that mixing their current versions is safe.
 
 ## Complete collection inventory
 
-The table includes transitive dependencies, not only the 105 non-vanilla direct
-addons in the collection prototype (106 direct entries including the base game).
+The table includes transitive dependencies, not only the 101 non-vanilla direct
+addons in the collection prototype (102 direct entries including the base game).
 A representative source path is an evidence locator,
 not a claim that the package contains only that file or behavior. `System+assets`
 still belongs in the core discussion; `Conditional system` is a feature decision;
@@ -203,7 +211,6 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | ARMA-RY SOVIET EQUIPMENT | `671F3CDAC20CDDC1` | Content | `Prefabs/Characters/Footwear/ARY_CombatBoots_Soviet_Kirza_01.et` |
 | ARMA-RY UZI | `668F458EC133AE50` | Content | `Prefabs/Characters/Factions/BLUFOR/US_Army/GreenBerets/Suppressed/ARY_Character_US_SF_S_UZI.et` |
 | AUS_CORE | `6276E6E3CC97A22B` | Content support | `Prefabs/Characters/Footwear/AUS_AirCrew_Boots_01/AUS_AirCrew_Boots_Bwn.et` |
-| Bacon Loadout Editor | `606B100247F5C709` | Tooling (includes in-game code) | `scripts/Game/BaconLoadoutEditor/BaconLoadoutEditor_Event.c` |
 | Bad Orb 5km | `64A51967EC407267` | Content | `Worlds/Dev Branch/Bad_Orb_5km.ent` |
 | Big Chungus Bolt Guns | `61BD6595183FCEBD` | Content | `Prefabs/Particles/Bullet_Case/BC_Bullet_Case_762x51_M40A1.et` |
 | Big Chungus LMGs | `61344BDC155A5A28` | Content | `Prefabs/Weapons/Ammo/BC_Ammo_762x51_Ball_M2.et` |
@@ -220,7 +227,6 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | Cuban Lizard | `624E761E6B1DE8DF` | Content | `Prefabs/Characters/HeadGear/Hat_Patrol_US_01/Hat_Patrol_Castro.et` |
 | Drums Gear and Clothing Pack | `654F178CCD7D1122` | Content | `Prefabs/Characters/Eyewear/Bolle X800/Bolle X800 1.et` |
 | Enhanced Maps | `644B042109700804` | System | `Prefabs/World/Game/Arland/MapEntity_Arland.et` |
-| Everything Arsenal | `645AAE6848D75398` | Tooling (includes in-game code) | `scripts/Game/EverythingArsenal_ArsenalComponent.c` |
 | FPTR | `607D472207F3EE65` | Conditional system | `Prefabs/Vehicles/Wheeled/BRDM2/BRDM2_base.et` |
 | FunctionalBangalore | `66A68CAFC8B00A5C` | Conditional system | `scripts/Game/Components/UserActions/SCR_BangaloreDuplicateAction.c` |
 | GC Line of Sight | `6A4AF7AA127CC8A1` | System | `scripts/Game/LOS/GC_LineOfSightUI.c` |
@@ -266,8 +272,6 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | RHS: Status Quo - Content Pack 02 | `BADC0DEDABBEDA5E` | Content support | `addon.gproj (source checkout)` |
 | Ruha | `653CB36244ADBE0F` | Content | `worlds/Gamemaster/GM_Ruha.ent` |
 | SB300 | `687268B1992E5B17` | Content | `Prefabs/Drones/DJIBase/SB300RECON.et` |
-| Scenario Reload Menu | `606D03292879EF5B` | Conditional system | `scripts/Game/Admin/Menus/SATSRM_AddonListMenu.c` |
-| Server Admin Tools | `5AAAC70D754245DD` | System | `scripts/Game/Admin/ListBox/ServerAdminTools_ListBox.c` |
 | SightSystem | `696AFA6207142000` | Content support | `Prefabs/Vehicles/Core/Vehicle_Base.et` |
 | Sikorsky H60 Project | `60ED3CC6E7E40221` | Content | `Worlds/AUS_AssetImages.ent` |
 | Tactical Flava | `5D550926D43F1409` | Content | `Prefabs/Compositions/Misc/Tutorial/BaseSandbags.et` |
@@ -313,4 +317,4 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | Zelik's Character | `5D0551624969C92E` | Content support | `Worlds/MP/unnamed.ent` |
 | ZU-23 | `5C9AD9EF76F6B5EA` | Content | `worlds/ZU23/GM_Arland/GM_Arland.ent` |
 
-Inventory counts: 5 Conditional system, 75 Content, 26 Content support, 1 Core system support, 3 Equipment feature, 4 GC package (migration/ownership), 1 Legacy framework — excluded, 16 System, 8 System+assets, 2 Tooling (includes in-game code). Total: 141.
+Inventory counts: 4 Conditional system, 75 Content, 26 Content support, 1 Core system support, 3 Equipment feature, 4 GC package (migration/ownership), 1 Legacy framework — excluded, 15 System, 8 System+assets. Total: 137.
