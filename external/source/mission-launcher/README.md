@@ -158,11 +158,11 @@ resources and produced 15 blocking checks: 13 references into packed base-game
 data, one unsupported string-table format and one runtime-script coverage check.
 Its candidate addon list contained
 GC Lobby alone, but was **not certified complete**. No launch config was made.
-The generated Workbench collection now contains 102 direct addon requirements (including the base game),
+The generated Workbench collection now contains 101 direct addon requirements (including the base game),
 including the four GC Dev projects. The obsolete Server Admin Tools, Scenario
 Reload Menu, Bacon Loadout Editor and Everything Arsenal dependencies have been
 removed from Core Dev and the collection. Units/Missions declarations are unchanged.
-The current GC Missions Dev native dependency closure now contains 137 non-vanilla
+The current GC Missions Dev native dependency closure now contains 136 non-vanilla
 addons, with all declarations found in local source/installed projects. That
 confirms why launcher selection alone cannot yet shrink the current package.
 

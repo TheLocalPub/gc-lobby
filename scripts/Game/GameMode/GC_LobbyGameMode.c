@@ -6,6 +6,9 @@ class GC_LobbyGameModeClass : SCR_BaseGameModeClass
 
 class GC_LobbyGameMode : SCR_BaseGameMode
 {
+	[Attribute("1", UIWidgets.CheckBox, "Stow the held weapon when becoming unconscious. Live grenades still drop. Set before starting the world.", category: "GC Lobby Gameplay")]
+	protected bool m_bKeepWeaponWhenUnconscious = true;
+
 	[Attribute("1", UIWidgets.CheckBox, "Collect GC Lobby statistics, session history and playback. Disable for a full collection-off performance run. Set before starting the world.", category: "GC Lobby Collection")]
 	protected bool m_bCollectionEnabled = true;
 
@@ -27,6 +30,12 @@ class GC_LobbyGameMode : SCR_BaseGameMode
 	bool IsCollectionEnabled()
 	{
 		return m_bCollectionEnabled;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	bool IsKeepWeaponWhenUnconsciousEnabled()
+	{
+		return m_bKeepWeaponWhenUnconscious;
 	}
 
 	//------------------------------------------------------------------------------------------------

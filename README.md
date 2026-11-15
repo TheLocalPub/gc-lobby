@@ -30,6 +30,14 @@ game mode. `GC_MissionSettings_US_USSR.et` supplies faction-specific parameters;
 `GC_MissionTemplate_Coop.et` supplies the supporting mission managers. Both
 inherit the same game mode. Their resource GUIDs are preserved.
 
+The game-mode entity exposes **GC Lobby Gameplay > Keep Weapon When Unconscious**
+(`m_bKeepWeaponWhenUnconscious`), enabled by default. Set it on the mission's
+game-mode instance before starting the world. It extends vanilla AI's weapon
+stowing to non-AI characters while unconscious; live grenades or grenades being thrown still
+drop. Disabling it preserves inherited handling. Other game modes are unaffected.
+The separate Maeh-NoWeapDropUnCon addon is no longer required; loading it
+independently can still impose its own behavior when this option is disabled.
+
 Shared script hooks must preserve inherited behavior unless the active mode is
 `GC_LobbyGameMode`. The formation source is a separate GC Lobby prefab, not an
 override of the game's AI world. The bullet-base override adds only a telemetry

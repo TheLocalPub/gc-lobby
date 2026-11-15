@@ -1,6 +1,6 @@
 # GC core-system audit
 
-Audit date: 2026-11-15. Scope: all **137 non-vanilla addons** in the current
+Audit date: 2026-11-15. Scope: all **136 non-vanilla addons** in the current
 Global Conflicts Workbench collection's transitive dependency closure. This is
 an inventory and source-based classification, not a compatibility certification
 or an enabled server preset. The four obsolete tools listed below have been
@@ -26,6 +26,10 @@ errors, including Pronto/TF component and equipment-resource references also
 present in the earlier `logs_2026-11-15_09-10-36` session; this is not a clean
 whole-pack compatibility test. The pause menu itself was not exercised through
 the available MCP controls, so its rendered state remains unverified.
+
+Maeh-NoWeapDropUnCon (`60612C225328522E`) has also been removed from Core Dev
+and the collection. GC Lobby now owns an optional game-mode setting for weapon
+retention while unconscious; it is enabled by default.
 
 ## Meaning of core
 
@@ -62,7 +66,6 @@ integration dependencies have been separated.
 | GC Suppression | Registers fired projectiles and runs suppression behavior | Projectile/player prefab changes support the system |
 | GC Line of Sight | Map UI and line-of-sight tracing system | Registered through map/system configurations |
 | Grays Adjustable Doors | Adds adjustable-door actions to the door base | Existing door behavior, not a terrain pack |
-| Maeh-NoWeapDropUnCon | Unconscious weapon-retention behavior | Existing character behavior |
 | Mountable BTR-70 | Extends interaction with the existing BTR-70 | Vehicle-specific system; does not imply all vehicle packs |
 | CSI - COALITION Squad Interface | Squad/HUD/player-data systems | Current Core directly extends CSI classes |
 | Enhanced Maps | Replaces satellite imagery in existing map entities | Arland/Everon configurations; do not infer all custom terrain support |
@@ -170,8 +173,8 @@ that mixing their current versions is safe.
 
 ## Complete collection inventory
 
-The table includes transitive dependencies, not only the 101 non-vanilla direct
-addons in the collection prototype (102 direct entries including the base game).
+The table includes transitive dependencies, not only the 100 non-vanilla direct
+addons in the collection prototype (101 direct entries including the base game).
 A representative source path is an evidence locator,
 not a claim that the package contains only that file or behavior. `System+assets`
 still belongs in the core discussion; `Conditional system` is a feature decision;
@@ -247,7 +250,6 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | Longmoor | `61BD1072371B5470` | Content | `Worlds/GM_Longmoor/GM_Longmoor.ent` |
 | M113 | `5E5C154FEE1094BB` | Content | `Prefabs/Vehicles/Core/Vehicle_Part_US_Radio.et` |
 | M4MAAWS | `61C2509A023211FE` | Content | `Walds/StarsRange.ent` |
-| Maeh-NoWeapDropUnCon | `60612C225328522E` | System | `scripts/Game/Character/Maeh_CharacterControllerComponent.c` |
 | Map Drawing | `656AC01634459D8D` | Conditional system | `scripts/Game/Components/TILW_DrawingSyncComponent.c` |
 | MES_2 | `68A2C605FC3B76A6` | Content support | `Prefabs/MES_Prefabs/Apartment_13_WinDoor.et` |
 | MFD Framework | `64EE818E08AFCF94` | Content support | `Scripts/Game/Components/AG0_MapGadgetComponent.c` |
@@ -317,4 +319,4 @@ still belongs in the core discussion; `Conditional system` is a feature decision
 | Zelik's Character | `5D0551624969C92E` | Content support | `Worlds/MP/unnamed.ent` |
 | ZU-23 | `5C9AD9EF76F6B5EA` | Content | `worlds/ZU23/GM_Arland/GM_Arland.ent` |
 
-Inventory counts: 4 Conditional system, 75 Content, 26 Content support, 1 Core system support, 3 Equipment feature, 4 GC package (migration/ownership), 1 Legacy framework — excluded, 15 System, 8 System+assets. Total: 137.
+Inventory counts: 4 Conditional system, 75 Content, 26 Content support, 1 Core system support, 3 Equipment feature, 4 GC package (migration/ownership), 1 Legacy framework — excluded, 14 System, 8 System+assets. Total: 136.
