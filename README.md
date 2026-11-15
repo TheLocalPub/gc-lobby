@@ -80,6 +80,11 @@ a build, install or runtime dependency.
 Keep external Windows packages out of the published Workshop package.
 
 Companion sources live in `external/development/lobby2` in this repository.
+The [mission dependency prototype](external/source/mission-launcher/README.md)
+experiments with recursive mission-resource metadata and isolated Windows server
+launches. It blocks incomplete scans and is not a production restart worker.
+Its separate Global Conflicts Workbench collection prototype stays under
+`external/development/global-conflicts-workbench` and is excluded from releases.
 The standalone Workbench DLL installer and tools live in `external/source`:
 
 - `tools`: Windows Git updates, mission branches and submission. The installer

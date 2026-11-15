@@ -1,0 +1,159 @@
+# Mission dependency prototype
+
+This is a **source-scanning experiment, not a production mission restart worker**.
+It implements a recursive saved-resource graph, a mission metadata sidecar, a
+guarded server-config generator, and an isolated Windows test launcher. It has
+no MCP, Workbench process, GitHub, or website runtime dependency. Python 3.12 or
+newer is required; no third-party Python packages are needed.
+
+The target is the whole mission: parent world/terrain, every saved world layer,
+prefab inheritance, nested objects, inventory, weapons, attachments, configured
+random variants and recursively referenced resources. The prototype follows
+GUID-qualified references in saved text assets; it does not just count placed
+units or reuse the loaded-addon list. It includes the owning addons and their
+native `.gproj` dependency closure, including resource references in project
+configuration. Every selected mod has reasons and every
+resource edge records its origin.
+
+## Current coverage and limits
+
+**Real GC missions are not ready to launch through this prototype.** The Arland
+experiment was rejected, correctly, because base-game resources are packed and
+GC Lobby has runtime scripts. No server was restarted or advertised during that
+experiment. Successful automated launcher tests use a mocked executable; they
+are not evidence of game startup or multiplayer compatibility.
+
+- Source `.meta` files establish resource GUID ownership. GUIDs are preserved
+  across moves; stale path hints are reported as warnings. Ambiguous definitions
+  are blocked rather than assigning an arbitrary override winner.
+- All `.layer` files under each visited world's `<world>_Layers` directory are
+  traversed, including layers of a referenced parent world. All serialized
+  variants are followed, not just whichever variant spawned in one test.
+- Runtime script presence, custom script modules, packed addons, missing
+  references, path-only references, and unsupported/binary resources make the
+  report **incomplete**. There is no force-launch switch. Native implicit
+  resource relationships, script defaults, class ownership and dynamic strings
+  still need an engine-backed analysis/validation stage.
+- `static-complete` means the supported saved-text traversal completed. It is
+  **not** a guarantee that arbitrary scripted behavior or an engine-specific
+  implicit reference has been discovered. The config/launch commands are only
+  for controlled prototype fixtures with known coverage, not general missions.
+- The scan is conservative, not a mathematical minimum: authored variants and
+  native addon dependencies can include content unused during a particular run.
+- Existing generated catalogue metadata is not dependency authority and is
+  excluded from traversal. Existing author-declared `m_aRequiredAddonIds` adds
+  requirements; it cannot subtract discovered or native dependencies.
+- `.gproj` is dependency authority. Installed `ServerData.json` contributes the
+  installed version only. Local evidence showed empty `revision.dependencies`
+  even when the same addon's `.gproj` required other mods.
+- The sidecar currently includes local source paths and SHA-256 checks. It is an
+  authoring-machine experiment, not yet a portable published manifest. A server
+  deployment needs a versioned build artifact with equivalent integrity checks
+  against the published packages. It must not depend on the author's disk paths.
+
+## Commands
+
+Run in PowerShell from this directory. Supply each relevant source project
+explicitly, including terrain/equipment projects; duplicate addon identities
+are rejected. Use a new output filename for each experiment. Files are never
+silently replaced.
+
+```powershell
+python .\mission_launch.py scan `
+  --project 'C:\Mods\Mission\addon.gproj' `
+  --project 'C:\Mods\Terrain\addon.gproj' `
+  --project 'C:\Mods\Equipment\addon.gproj' `
+  --mission 'C:\Mods\Mission\Missions\Operation.conf' `
+  --output 'C:\Mods\Mission\Missions\Operation.conf.launch.json'
+```
+
+The `.conf.launch.json` sidecar belongs beside its mission header and should
+travel with the mission's source. It records scenario/world identity, candidate
+mods and versions, resource edges, content hashes, file-set snapshots, warnings
+and unresolved checks. Exit 0 means `static-complete`; 2 means the report was
+written but is incomplete; 1 means an input/output error. The original header,
+world, prefabs and project dependencies are never changed.
+
+For a controlled, statically complete fixture with installed version metadata:
+
+```powershell
+python .\mission_launch.py config `
+  --metadata 'C:\Mods\Mission\Missions\Operation.conf.launch.json' `
+  --template 'C:\Server\base.json' --output 'C:\Server\experiment.json'
+```
+
+The template's server settings are retained. `game.scenarioId` and `game.mods`
+are replaced, not appended; every selected mod is required and version-pinned.
+Missing versions, incomplete scans, changed files, changed metadata sets, newly
+added scripts and newly added/deleted world layers block config creation.
+New packed archives also invalidate the saved scan.
+Keep the template/output private if they contain server passwords.
+
+The `launch` command takes those same arguments plus `--executable` and
+`--profile`. It generates the config and starts that executable with separate
+arguments, without a shell, using a **new** isolated profile. It waits for exit;
+Ctrl+C terminates only its own child. Use a private server template and unused
+ports for an experiment. The process is hidden on Windows and output goes to
+`<profile>/launcher.log`; inspect the engine's own profile logs for actual
+scenario readiness. Process creation alone is not success. This command does
+not stop/restart an existing server, poll the website queue, or alter voting.
+
+## Global Conflicts Workbench
+
+The separate prototype addon is at
+`../../development/global-conflicts-workbench/addon.gproj`. It has only project
+metadata, with its own experimental identity and the requested **Global
+Conflicts Workbench** name. It is not a GC Lobby dependency and is not published
+or installed automatically. The scanner blocks it if it enters a server's
+required dependency closure.
+
+Regenerate a collection snapshot into a new file with:
+
+```powershell
+python .\mission_launch.py collection `
+  --project 'C:\Mods\Core\addon.gproj' `
+  --project 'C:\Mods\Units\addon.gproj' `
+  --project 'C:\Mods\Missions\addon.gproj' `
+  --project 'C:\Mods\Lobby\addon.gproj' `
+  --guid 6B8E05204D634FA9 --output 'C:\NewCollection\addon.gproj'
+```
+
+This copies the selected addon identities plus their direct native requirements
+into a standalone authoring/download collection. It does **not** strip Core's
+requirements. Core currently contains actual third-party script extensions and
+vehicle overrides, so blindly deleting its dependency list would break features.
+The migration must move optional integrations/content to appropriate packages
+and validate the retained Core functionality. Units and Missions must likewise
+avoid a broad shared dependency list, or every mission still inherits it.
+
+## Tests and experiment results
+
+```powershell
+python -m unittest -v test_mission_launch
+```
+
+Tests cover terrain and implicit layers, nested inventory/weapon/attachment
+chains, inherited prefabs and random alternatives, unrelated addon exclusion,
+transitive native requirements despite empty ServerData dependencies, cycles,
+missing terrain/attachments, opaque and unqualified resources, overrides,
+collection rejection, stale files/new layers/new scripts, template preservation,
+and launcher argument/profile isolation.
+
+On 2026-11-15, scanning GC Lobby's saved Arland scenario resolved 13 local
+resources and produced 15 blocking checks: 13 references into packed base-game
+data, one unsupported string-table format and one runtime-script coverage check.
+Its candidate addon list contained
+GC Lobby alone, but was **not certified complete**. No launch config was made.
+The generated Workbench collection contains 106 direct addon requirements,
+including the four GC Dev projects. Existing Core/Units/Missions remain intact.
+The current GC Missions Dev native dependency closure contains 141 non-vanilla
+addons, with all declarations found in local source/installed projects. That
+confirms why launcher selection alone cannot yet shrink the current package.
+
+Native research used the installed 1.9.0.37 Workbench declarations:
+`ResourceDatabase.c`, `GameProject.c`, `BaseContainerTools.c`, and
+`WorkbenchGameCommon/ResourceInfo.c`. Public ResourceDatabase search enumerates
+resources; it does not expose a complete dependency-graph call. Container
+introspection is a promising next experiment for packed prefabs, but worlds,
+implicit resources, global script hooks and dynamic spawns must also be covered
+before enabling unattended mission launches.
