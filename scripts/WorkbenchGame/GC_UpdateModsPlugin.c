@@ -15,7 +15,9 @@ class GC_ModWorkflow
 		{
 			string project;
 			string sourceMount = mount;
-			if (mount != "Lobby2")
+			if (mount == "Lobby2")
+				sourceMount = "GlobalConflictsLobbyDev";
+			else
 				sourceMount += "Dev";
 			if (Workbench.GetAbsolutePath("$" + sourceMount + ":addon.gproj", project))
 				arguments += " -" + mount + " \"" + project + "\"";

@@ -1,6 +1,18 @@
 GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
  components {
   GC_LobbyManager "{6A137A39106A4973}" {
+   m_aMissionEvents {
+    GC_Event "{6ADCEE025676459B}" {
+     m_aConditions {
+      GC_AreaCondition "{6ADCEE02388E09C2}" {
+      }
+     }
+    }
+   }
+   m_aBriefings {
+    GC_Briefing "{6ADCEE026048B83C}" {
+    }
+   }
   }
  }
  coords 0 0 0
@@ -11,7 +23,7 @@ GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_Mi
  }
 }
 GC_RadiusAreaEntity : "{2C4447C53A1E450B}Prefabs/Logic/Mission/RadiusArea.et" {
- coords 1192.994 39 2714.322
+ coords 1194.698 39 2714.745
 }
 GC_SetupZoneEntity : "{6A4D831C2E5079B3}Prefabs/Logic/Mission/SetupZone.et" {
  coords 897.361 39 2628.521
@@ -94,11 +106,13 @@ $grp GenericEntity : "{924D4B5FA0B24B22}Prefabs/Logic/Mission/MapMarker.et" {
  {
   components {
    GC_BriefingMarkerComponent "{00C8292F836D4D6F}" {
+    m_bWorldScale 1
     m_fSize 100
+    m_Color 0.666 0.012 0.643 1
     m_sDescription "Objective"
    }
   }
-  coords 1192.669 39 2714.201
+  coords 1192.242 39 2714.316
  }
 }
 SCR_AIGroup : "{DDF3799FA1387848}Prefabs/Groups/BLUFOR/Group_US_RifleSquad.et" {
@@ -110,6 +124,7 @@ SCR_AIGroup : "{DDF3799FA1387848}Prefabs/Groups/BLUFOR/Group_US_RifleSquad.et" {
  coords 887.736 39 2632.891
  angles 0 75.949 0
  m_bPlayable 1
+ m_sGC_Description "Rifle Squad"
 }
 SCR_AIGroup : "{E552DABF3636C2AD}Prefabs/Groups/OPFOR/Group_USSR_RifleSquad.et" {
  components {

@@ -4,7 +4,7 @@ class GC_ExternalDependencies
 	static void Run()
 	{
 		string installer;
-		if (!Workbench.GetAbsolutePath("$Lobby2:external/workbench/Install.js", installer) || !FileIO.FileExists(installer))
+		if (!Workbench.GetAbsolutePath("$GlobalConflictsLobbyDev:external/workbench/Install.js", installer) || !FileIO.FileExists(installer))
 		{
 			Workbench.Dialog("Install External Dependencies", "Open the GC Lobby source checkout with its external/workbench folder. The installer requires ordinary Windows files and cannot run from a packed Workshop addon.");
 			return;

@@ -20,7 +20,7 @@ class GC_ToolsPlugin : WorkbenchPlugin
 			s_Process = null;
 		}
 		string launcher;
-		if (!Workbench.GetAbsolutePath("$Lobby2:external/workbench/Install.js", launcher) || !FileIO.FileExists(launcher))
+		if (!Workbench.GetAbsolutePath("$GlobalConflictsLobbyDev:external/workbench/Install.js", launcher) || !FileIO.FileExists(launcher))
 		{
 			Print("GC Tools: external/workbench/Install.js is missing.", LogLevel.ERROR);
 			return;

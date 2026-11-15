@@ -7,10 +7,10 @@ TilW is a research reference, not a runtime dependency or behavior specification
 GC Lobby uses its own mission logic and the base game's APIs; reference designs
 must be evaluated against GC Lobby's requirements rather than reproduced by default.
 
-Branding, editor categories and messages use **GC Lobby**. The internal project
-ID/mount `Lobby2`, existing resource GUIDs, profile paths, database schema,
-and `LOBBY2` compatibility define retain their existing contracts.
-These technical names are not the displayed mod title.
+Branding, editor categories and messages use **GC Lobby**. The Dev project
+ID/mount is `GlobalConflictsLobbyDev`; its addon GUID remains `6A115D5DFF7ED870`.
+Existing resource GUIDs, profile paths, database schema, `Lobby2` tool argument
+keys and the `LOBBY2` compatibility define retain their existing contracts.
 
 ## Addon contents
 

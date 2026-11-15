@@ -1,18 +1,18 @@
 GameProject {
- ID "Lobby2"
+ ID "GlobalConflictsLobbyDev"
  GUID "6A115D5DFF7ED870"
- TITLE "GC Lobby - Dev"
+ TITLE "Global Conflicts Lobby - Dev"
  Dependencies {
   "58D0FB3206B6F859"
  }
  Configurations {
   GameProjectConfig PC {
-   WidgetManagerSettings WidgetManagerSettings {
+   WidgetManagerSettings WidgetManagerSettings "{6ADEE14FB4396FBF}" {
     StringTables {
-     StringTableDefinition {
+     StringTableDefinition "{6ADEE14FB4396FCC}" {
       StringTableSource "{DC391DA320AE2001}Language/GC_Catalogue.st"
       Languages {
-       LanguageDefinition {
+       LanguageDefinition "{6ADEE14FB4396FE0}" {
         Code "en_us"
         StringTableRuntime "{DC391DA320AE2002}Language/GC_Catalogue.en_us.conf"
        }
@@ -20,6 +20,18 @@ GameProject {
      }
     }
    }
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+  GameProjectConfig PS5 {
+  }
+  GameProjectConfig HEADLESS {
+  }
+  GameProjectConfig Xbox {
   }
  }
 }
