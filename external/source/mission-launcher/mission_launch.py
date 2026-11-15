@@ -204,7 +204,7 @@ class Scanner:
             for dependency in reversed(project["dependencies"]):
                 pending.append((dependency, current, (*ancestors, current)))
 
-    def scan(self, mission):
+    def scan(self, mission, core_addon_ids=()):
         self.expanded = set()
         mission = Path(mission).resolve()
         _, meta = root(str(mission) + ".meta")
@@ -223,6 +223,9 @@ class Scanner:
         catalog = field(body, "m_GC_Catalog", True)
         explicit = [guid(unquote(v)) for v in field(catalog, "m_aRequiredAddonIds", True)]
         self.require(owner, "mission owner")
+        core_addon_ids = sorted({guid(value) for value in core_addon_ids})
+        for addon in core_addon_ids:
+            self.require(addon, "GC core system policy")
         for addon in explicit:
             self.require(addon, "mission declared requirement")
         queue = self.pending
@@ -315,6 +318,7 @@ class Scanner:
                            "version": version, "required": True, "reasons": sorted(reasons)})
         return {"schemaVersion": 1, "scanner": "gc-saved-source-prototype",
                 "scenarioId": scenario, "world": world, "ownerAddonId": owner,
+                "coreAddonIds": core_addon_ids,
                 "status": "incomplete" if self.issues else "static-complete",
                 "coverage": "Saved text resource references and native addon dependency closure; not an engine/runtime certificate.",
                 "issues": sorted(self.issues), "mods": addons, "resources": resources,
@@ -419,6 +423,8 @@ def main():
     scan.add_argument("--project", action="append", required=True, type=Path)
     scan.add_argument("--mission", required=True, type=Path)
     scan.add_argument("--output", required=True, type=Path)
+    scan.add_argument("--core-mod", action="append", default=[],
+                      help="Always-required system addon GUID; repeat for the selected GC core policy")
     configure = commands.add_parser("config")
     configure.add_argument("--metadata", required=True, type=Path)
     configure.add_argument("--template", required=True, type=Path)
@@ -440,7 +446,7 @@ def main():
         return 0
     if args.command == "scan":
         scanner = Scanner(args.project)
-        result = scanner.scan(args.mission)
+        result = scanner.scan(args.mission, args.core_mod)
         write_new(args.output, result)
         print(f'{result["status"]}: {len(result["mods"])} mods, {len(result["resources"])} resources, {len(result["issues"])} unresolved checks')
         return 2 if result["issues"] else 0

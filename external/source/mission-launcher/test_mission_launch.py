@@ -73,6 +73,24 @@ class MissionDependencyTests(unittest.TestCase):
         self.assertEqual(len(result["mods"]), 6)
         self.assertTrue(any(e["to"] == setting and e["from"].startswith("project:") for e in result["edges"]))
 
+    def test_core_system_selected_without_any_mission_asset_reference(self):
+        result = Scanner(self.projects).scan(self.mission, [self.ids["Unused"], self.ids["Unused"]])
+        self.assertEqual(result["coreAddonIds"], [self.ids["Unused"]])
+        core = next(m for m in result["mods"] if m["modId"] == self.ids["Unused"])
+        self.assertIn("GC core system policy", core["reasons"])
+        self.assertEqual(len(make_config(result, self.template)["game"]["mods"]), 6)
+
+    def test_core_selection_does_not_bypass_missing_or_script_coverage(self):
+        missing = Scanner(self.projects).scan(self.mission, ["FFFFFFFFFFFFFFFF"])
+        self.assertTrue(any("Missing addon" in issue for issue in missing["issues"]))
+        script = self.folder / "Unused/scripts/Game/Feature.c"
+        script.parent.mkdir(parents=True)
+        script.write_text('class Feature {}')
+        result = Scanner(self.projects).scan(self.mission, [self.ids["Unused"]])
+        self.assertTrue(any("Runtime script" in issue for issue in result["issues"]))
+        with self.assertRaisesRegex(ValueError, "incomplete"):
+            make_config(result, self.template)
+
     def test_missing_attachment_blocks_config(self):
         (self.folder / "Attachments/optic.et").unlink()
         result = self.scan()

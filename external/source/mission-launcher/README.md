@@ -53,6 +53,20 @@ are not evidence of game startup or multiplayer compatibility.
 
 ## Commands
 
+System mods are an explicit baseline, independent of placed content. Repeat
+`--core-mod GUID` on `scan` for each selected core system, and supply its project
+with `--project` like other addons. For example, Adult Mortars is
+`6318DCB19B389CC8` and GC Suppression is `684CE8AA3B1D6573`. The sidecar records
+`coreAddonIds` and a `GC core system policy` reason; their native dependencies
+are included even when no mission resource mentions them. Core selection does
+not bypass missing-resource, script-coverage or stale-source checks.
+
+The launch list is **explicit core systems + discovered mission content + the
+native dependency closure of both**. See the [core-mod audit](core-mod-audit.md)
+for the current collection's classification. Classification is an audit, not
+an automatically enabled dependency list. `scan` has no implicit core defaults;
+operators must pass the intended baseline explicitly in this prototype.
+
 Run in PowerShell from this directory. Supply each relevant source project
 explicitly, including terrain/equipment projects; duplicate addon identities
 are rejected. Use a new output filename for each experiment. Files are never
