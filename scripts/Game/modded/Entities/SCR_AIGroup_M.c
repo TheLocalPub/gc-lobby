@@ -8,18 +8,18 @@ modded class SCR_AIGroup : ChimeraAIGroup
 	[Attribute("", UIWidgets.EditBox, "Description shown below the group call sign, for example Weapons team.", category: "GC Lobby")]
 	protected string m_sGC_Description;
 
-	[Attribute("", UIWidgets.EditBox, "Manual group call sign. Takes priority over faction call signs in GC Lobby.", category: "GC Lobby: Call sign")]
+	[Attribute("", UIWidgets.EditBox, "Manual group call sign. Takes priority over faction call signs in GC Lobby.", category: "GC Lobby")]
 	protected string m_sGC_ManualCallsign;
 
 	// Keep the serialized field names so existing authored indices survive.
 	// Strings distinguish an empty editor field from the valid index zero.
-	[Attribute("", UIWidgets.EditBox, "Company index (0 or higher). Blank uses faction assignment.", category: "GC Lobby: Call sign")]
+	[Attribute("", UIWidgets.EditBox, "Company index (0 or higher). Blank uses faction assignment.", category: "GC Lobby")]
 	protected string m_iGC_CallsignCompany;
 
-	[Attribute("", UIWidgets.EditBox, "Platoon index (0 or higher). Blank uses faction assignment.", category: "GC Lobby: Call sign")]
+	[Attribute("", UIWidgets.EditBox, "Platoon index (0 or higher). Blank uses faction assignment.", category: "GC Lobby")]
 	protected string m_iGC_CallsignPlatoon;
 
-	[Attribute("", UIWidgets.EditBox, "Squad index (0 or higher). Blank uses faction assignment.", category: "GC Lobby: Call sign")]
+	[Attribute("", UIWidgets.EditBox, "Squad index (0 or higher). Blank uses faction assignment.", category: "GC Lobby")]
 	protected string m_iGC_CallsignSquad;
 
 	//------------------------------------------------------------------------------------------------
