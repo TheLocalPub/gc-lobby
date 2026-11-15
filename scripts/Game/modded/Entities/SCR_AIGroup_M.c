@@ -5,6 +5,9 @@
 //! the GC Lobby behavior is active only while GC_LobbyGameMode is the active mode.
 modded class SCR_AIGroup : ChimeraAIGroup
 {
+	[Attribute("", UIWidgets.EditBox, "Description shown below the group call sign, for example Weapons team.", category: "GC Lobby")]
+	protected string m_sGC_Description;
+
 	[Attribute("", UIWidgets.EditBox, "Manual group call sign. Takes priority over faction call signs in GC Lobby.", category: "GC Lobby: Call sign")]
 	protected string m_sGC_ManualCallsign;
 
@@ -18,6 +21,18 @@ modded class SCR_AIGroup : ChimeraAIGroup
 
 	[Attribute("", UIWidgets.EditBox, "Squad index (0 or higher). Blank uses faction assignment.", category: "GC Lobby: Call sign")]
 	protected string m_iGC_CallsignSquad;
+
+	//------------------------------------------------------------------------------------------------
+	//! Authored presentation metadata; does not change the native group name or callsign.
+	string GC_GetDescription()
+	{
+		if (!GC_LobbyGameMode.GetGameMode())
+			return string.Empty;
+
+		string description = m_sGC_Description;
+		description.TrimInPlace();
+		return description;
+	}
 
 	//------------------------------------------------------------------------------------------------
 	string GC_GetManualCallsign()

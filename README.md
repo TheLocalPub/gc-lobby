@@ -40,6 +40,9 @@ last-mission record so an intervening mission cannot restore an old map plan.
 Open `addon.gproj` to work on the production addon. Create a mission in its own
 addon, inherit a supported terrain, and use **Plugins > GC > Spawn Mission Template**.
 Configure playable groups, briefing, mission events and a mission header before publishing.
+Groups have an optional **GC Lobby > GC Description** field (`m_sGC_Description`)
+for labels such as "Weapons team". Slotting cards show it below the callsign in
+smaller text; blank descriptions are hidden. It does not replace the callsign.
 Use **Plugins > GC > Open Wiki** to open the
 [GC mission-making wiki](https://github.com/Global-Conflicts-ArmA/gc-reforger-missions/wiki)
 in your default browser.

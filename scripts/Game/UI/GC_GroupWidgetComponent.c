@@ -38,6 +38,7 @@ class GC_GroupWidgetComponent : SCR_ScriptedWidgetComponent
 	protected Widget m_wSlots;
 	protected Widget m_wHeaderDivider;
 	protected TextWidget m_wSquadName;
+	protected TextWidget m_wSquadDescription;
 	protected TextWidget m_wPlayerCount;
 	protected GC_GroupHeaderContextComponent m_GroupHeaderContext;
 	protected GC_LobbyManager m_LobbyManager;
@@ -55,6 +56,7 @@ class GC_GroupWidgetComponent : SCR_ScriptedWidgetComponent
 		m_wSlots = m_wRoot.FindAnyWidget("Slots");
 		m_wHeaderDivider = m_wRoot.FindAnyWidget("HeaderDivider");
 		m_wSquadName = TextWidget.Cast(m_wRoot.FindAnyWidget("SquadName"));
+		m_wSquadDescription = TextWidget.Cast(m_wRoot.FindAnyWidget("SquadDescription"));
 		m_wPlayerCount = TextWidget.Cast(m_wRoot.FindAnyWidget("PlayerCount"));
 		Widget groupHeader = m_wRoot.FindAnyWidget("SquadHeader");
 		if (groupHeader)
@@ -86,6 +88,7 @@ class GC_GroupWidgetComponent : SCR_ScriptedWidgetComponent
 		m_LobbyManager = null;
 		m_wPlayerCount = null;
 		m_wSquadName = null;
+		m_wSquadDescription = null;
 		m_GroupHeaderContext = null;
 		m_wHeaderDivider = null;
 		m_wSlots = null;
@@ -198,10 +201,16 @@ class GC_GroupWidgetComponent : SCR_ScriptedWidgetComponent
 
 	protected void UpdateGroupName()
 	{
-		if (!m_wSquadName)
-			return;
-
-		m_wSquadName.SetText(GC_GroupCallsignHelper.GetDisplayName(m_Group));
+		if (m_wSquadName)
+			m_wSquadName.SetText(GC_GroupCallsignHelper.GetDisplayName(m_Group));
+		if (m_wSquadDescription)
+		{
+			string description;
+			if (m_Group)
+				description = m_Group.GC_GetDescription();
+			m_wSquadDescription.SetText(description);
+			m_wSquadDescription.SetVisible(!description.IsEmpty());
+		}
 	}
 
 	void RefreshAdminNamePresentation(int playerId = -1)
