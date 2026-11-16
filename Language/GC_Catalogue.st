@@ -23,7 +23,7 @@ StringTable {
   CustomStringTableItem "{DC391DA320AF3023}" { Id "GC-Loadout_Icon" Target_en_us "ROLE ICON" }
   CustomStringTableItem "{DC391DA320AF3024}" { Id "GC-Loadout_CurrentIcon" Target_en_us "Current icon" }
   CustomStringTableItem "{DC391DA320AF3025}" { Id "GC-Loadout_InvalidMetadata" Target_en_us "Enter a valid faction key and choose a role icon." }
-  CustomStringTableItem "{DC391DA320AF3000}" { Id "GC-Loadout_Title" Target_en_us "Loadouts" }
+  CustomStringTableItem "{DC391DA320AF3000}" { Id "GC-Loadout_Title" Target_en_us "GC Units loadouts" }
   CustomStringTableItem "{DC391DA320AF3020}" { Id "GC-Loadout_Overwrite" Target_en_us "Overwrite" }
   CustomStringTableItem "{DC391DA320AF3021}" { Id "GC-Loadout_OverwriteMessage" Target_en_us "Replace this prefab with your current gear?" }
   CustomStringTableItem "{DC391DA320AF3022}" { Id "GC-Loadout_Continue" Target_en_us "Continue" }
@@ -36,7 +36,7 @@ StringTable {
   CustomStringTableItem "{DC391DA320AF3007}" { Id "GC-Loadout_Save" Target_en_us "Save" }
   CustomStringTableItem "{DC391DA320AF3008}" { Id "GC-Loadout_Inherit" Target_en_us "Inherit" }
   CustomStringTableItem "{DC391DA320AF3009}" { Id "GC-Loadout_Duplicate" Target_en_us "Duplicate" }
-  CustomStringTableItem "{DC391DA320AF300A}" { Id "GC-Loadout_LoadFailed" Target_en_us "Cannot load this prefab in this session. Your gear is unchanged." }
+  CustomStringTableItem "{DC391DA320AF300A}" { Id "GC-Loadout_LoadFailed" Target_en_us "Cannot load. For a newly saved prefab, stop and restart Play, then load again." }
   CustomStringTableItem "{DC391DA320AF300B}" { Id "GC-Loadout_InvalidName" Target_en_us "Enter a faction, team and name. Use letters, numbers, spaces, hyphens or underscores." }
   CustomStringTableItem "{DC391DA320AF300C}" { Id "GC-Loadout_NameExists" Target_en_us "That name already exists. Enter a new name." }
   CustomStringTableItem "{DC391DA320AF300D}" { Id "GC-Loadout_CreateFailed" Target_en_us "Could not create the prefab. Check the destination before trying again." }
@@ -96,7 +96,7 @@ StringTable {
   }
   CustomStringTableItem "{DC391DA320AF0073}" {
    Id "GC-Loadout_SavedLoadFailed"
-   Target_en_us "Saved, but cannot load in this session. Your gear is unchanged."
+   Target_en_us "Saved. Stop and restart Play to load the new prefab."
   }
   CustomStringTableItem "{DC391DA320AF0008}" {
    Id "GC-Catalogue_Clothing"
@@ -196,11 +196,11 @@ StringTable {
   }
   CustomStringTableItem "{DC391DA320AF5050}" {
    Id "GC-Loadout_AllFactions"
-   Target_en_us "All factions"
+   Target_en_us "Choose faction"
   }
   CustomStringTableItem "{DC391DA320AF5051}" {
    Id "GC-Loadout_AllTeams"
-   Target_en_us "All teams"
+   Target_en_us "Choose team"
   }
   CustomStringTableItem "{6B02000100000001}" { Id "GC-Jip_Title" Target_en_us "JOIN IN PROGRESS" }
   CustomStringTableItem "{6B02000100000002}" { Id "GC-Jip_Offer" Target_en_us "Double-press J to join your group. Available once this mission." }
@@ -249,5 +249,6 @@ StringTable {
   CustomStringTableItem "{7E161126B2000002}" { Id "GC-Loadout_SaveVariants" Target_en_us "Save variants" }
   CustomStringTableItem "{7E161126B2000003}" { Id "GC-Loadout_CreateChild" Target_en_us "Create child" }
   CustomStringTableItem "{7E161126B2000004}" { Id "GC-Loadout_RemoveVariant" Target_en_us "Remove variant" }
+  CustomStringTableItem "{7E161126B3000001}" { Id "GC-Loadout_Search" Target_en_us "Search loadouts" }
  }
 }

@@ -1,0 +1,18 @@
+GC Units catalogue and save destination verification — 2026-11-16
+Workbench 1.9.0.37, GC Workshop, Arland_Lobby, embedded local Play; separate GCLoadoutDependencyTests addon temporarily loaded.
+
+Final standard: Units Dev Prefabs/Characters/Factions/<side>/<faction>/<team...>/<name>.et.
+Existing Loadouts tree remains accessible; existing content not migrated. Native affiliation retained from prefab.
+Weapons: <team>/Weapons/<loadout>_<base gun>_<01...>.et. Other customized gear: Equipment. Child characters stay beside parent.
+
+Verified: compile without script errors; indexed 3102 resources before owned fixtures, resolved 18 rows for BLUFOR/US_Army -> 1975/Infantry (OD)/P; search Sergeant returned its one loadout; legacy test -> numbered variant -> saved child selection; new nested team folder save; numbered child save; traversal, reserved filenames and trailing-dot rejection.
+Native save/registration: replaced manual sidecar generation with ResourceManager.RegisterResourceFile(path,true). Same-Play new GUID spawn remains an existing engine limitation (also documented in GC_CatalogueTransfer.c). Native registration/WaitForFile do not remove it. Stopping and starting Play successfully loads new saved characters without restarting Workbench. UI failure text and README explain this.
+Weapon round trip: native US Sniper, removed ARTII optic using native inventory manager, saved RU_Rifleman -> Weapons/RU_Rifleman_M21_SWS_01.et. Weapon inherits native Rifle_M21_ARTII and overrides only Scope prefab empty. Stop/start Play, Load succeeds, reopen has saved RU_Rifleman GUID, no removable scope remains. Native faction remains inherited US despite custom filename and folder category. Numbered child created successfully under same team directory.
+
+A discarded early test removed a magazine; ACE Overheating asserted that an empty-magazine custom rifle has no default bullets. This is not covered as supported by the optic round trip. No ACE code was changed. Other preexisting resource errors remain in the large Workshop pack.
+
+UI: named-weapon-save.png shows final visible placeholder, selected saved loadout and parent connector. final-variants.png shows numbered variant. Existing screenshot examples include earlier iterations; receipts preserve failures as well as successes.
+Tests invoke production handlers through an explicit test addon, not physical keyboard/mouse. No dedicated-server test or broad controller/UI-scale coverage performed in this slice.
+Independent reviewer approved scoped code, UI and evidence; acknowledged Play-restart limit.
+
+Cleanup: 23 test-owned files archived as .txt under saved-files with SHA256 manifest. Live fixture directory moved out of all addon roots to C:/Users/Gray/.codex/tmp/GC_Catalogue_Verification_20261116_2046. Normal Workshop project restored byte-for-byte; test addon removed. No user unit prefabs moved or overwritten.

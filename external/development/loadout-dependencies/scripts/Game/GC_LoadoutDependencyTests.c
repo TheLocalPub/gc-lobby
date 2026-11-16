@@ -73,9 +73,75 @@ modded class GC_LoadoutFilesMenu
 		}
 		if (action == "state")
 			return "selected=" + m_sSelected + " current=" + m_bCurrentGear + " status=" + m_Status.GetText() + " mods=" + TextWidget.Cast(GetRootWidget().FindAnyWidget("Dependencies")).GetText();
+		if (action == "removeWeaponPart")
+		{
+			SCR_InventoryStorageManagerComponent manager = SCR_InventoryStorageManagerComponent.Cast(m_Owner.FindComponent(SCR_InventoryStorageManagerComponent));
+			set<BaseInventoryStorageComponent> storages = new set<BaseInventoryStorageComponent>();
+			SCR_PlayerArsenalLoadout.FindStorageComponents(m_Owner, storages);
+			foreach (BaseInventoryStorageComponent storage : storages)
+				for (int i; i < storage.GetSlotsCount(); i++)
+				{
+					IEntity weapon = storage.GetSlot(i).GetAttachedEntity();
+					if (!weapon || !weapon.FindComponent(BaseWeaponComponent))
+						continue;
+					set<BaseInventoryStorageComponent> attachments = new set<BaseInventoryStorageComponent>();
+					SCR_PlayerArsenalLoadout.FindStorageComponents(weapon, attachments);
+					foreach (BaseInventoryStorageComponent attachment : attachments)
+						for (int j; j < attachment.GetSlotsCount(); j++)
+						{
+							IEntity item = attachment.GetSlot(j).GetAttachedEntity();
+							if (item && !SCR_ResourceNameUtils.GetPrefabName(item).Contains("Magazines/") && !SCR_ResourceNameUtils.GetPrefabName(item).Contains("ACE_Overheating"))
+							{
+								string path = SCR_ResourceNameUtils.GetPrefabName(item);
+								return manager.TryDeleteItem(item).ToString() + " " + path;
+							}
+						}
+				}
+			return "no weapon part";
+		}
+		if (action == "waitResource")
+		{
+			ResourceManager manager = Workbench.GetModule(ResourceManager);
+			string path;
+			Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:" + m_sSelected.GetPath(), path);
+			return manager.WaitForFile(path, 2000).ToString();
+		}
+		if (action == "paths")
+		{
+			array<string> names = {"../escape", "CON", "NUL.txt", "name.", "good (name)", "name/child"};
+			string result;
+			foreach (string name : names)
+				result += name + "=" + GC_LoadoutPrefab.ValidName(name) + "\n";
+			result += "escape=" + GC_LoadoutPaths.Directory("BLUFOR/US_Army", "../Lobby") + "\n";
+			result += "nestedEquipment=" + GC_LoadoutPaths.EquipmentDirectory("Prefabs/Characters/Factions/BLUFOR/US_Army/Team/Equipment/Gun.et");
+			return result;
+		}
+		if (action == "catalogue")
+			return "indexed=" + m_aLibraryResources.Count() + " resolved=" + m_aResources.Count() + " rows=" + m_aRows.Count() + " faction=" + m_Faction.GetText() + " team=" + m_Group.GetText();
+		if (action == "folder")
+		{
+			array<string> parts = {};
+			value.Split("|", parts, true);
+			m_Faction.SetText(parts[0]);
+			m_Group.SetText(parts[1]);
+			RefreshTeamChoices();
+			ApplyScopeFilter();
+			return GC_TestLoadout("catalogue", "");
+		}
+		if (action == "filter")
+		{
+			m_Search.SetText(value);
+			m_SearchEvents.GetOnChange().Invoke(m_Search);
+			return GC_TestLoadout("tree", "");
+		}
+		if (action == "filename")
+		{
+			m_Name.SetText(value);
+			return GC_LoadoutPrefab.Destination(m_Faction.GetText(), m_Group.GetText(), value);
+		}
 		if (action == "scope")
 		{
-			m_Faction.SetText("US");
+			m_Faction.SetText("Loadouts/US");
 			m_Group.SetText(value);
 			m_Group.m_OnFilterChanged.Invoke();
 			return "scope changed";
@@ -129,7 +195,7 @@ modded class GC_LoadoutFilesMenu
 		}
 		if (action == "name")
 		{
-			m_Faction.SetText("US");
+			m_Faction.SetText("Loadouts/US");
 			m_Group.SetText("DependencyTest");
 			m_Name.SetText(value);
 			return "named";

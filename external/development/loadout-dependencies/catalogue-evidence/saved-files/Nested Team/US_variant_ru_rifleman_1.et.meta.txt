@@ -1,0 +1,19 @@
+MetaFileClass {
+ Name "{C298F3CB9CEF49BC}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/US_variant_ru_rifleman_1.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+  EntityTemplateResourceClass Xbox : PC {
+  }
+ }
+}

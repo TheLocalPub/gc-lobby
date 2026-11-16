@@ -1,0 +1,11 @@
+MetaFileClass {
+ Name "{6AE1479A5D6E7988}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/ModifiedWeapon.et"
+ Configurations {
+  EntityTemplateResourceClass PC {}
+  EntityTemplateResourceClass XBOX_ONE : PC {}
+  EntityTemplateResourceClass XBOX_SERIES : PC {}
+  EntityTemplateResourceClass PS4 : PC {}
+  EntityTemplateResourceClass PS5 : PC {}
+  EntityTemplateResourceClass HEADLESS : PC {}
+ }
+}

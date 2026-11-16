@@ -1,0 +1,38 @@
+SCR_ChimeraCharacter : "{0F6689B491641155}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Sniper.et" {
+ ID "6AE1479B4094471D"
+ components {
+  SCR_CharacterInventoryStorageComponent "{520EA1D2DB118DAC}" {
+   components {
+    ACE_EquipmentStorageComponent "{671625C6478FB2AB}" {
+     InitialStorageSlots {
+      SCR_EquipmentStorageSlot LaryngealTubeSlot {
+       Prefab ""
+      }
+      EquipmentStorageSlot OxygenMaskSlot {
+       Prefab ""
+      }
+     }
+    }
+   }
+  }
+  SCR_EditableCharacterComponent "{520EA1D2F659C85C}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    Name "RU_Rifleman"
+   }
+   m_VariantData SCR_EditableEntityVariantData "{6AE1479B0C0662CD}" {
+    m_bRandomizeDefaultVariant 1
+    m_iDefaultVariantRandomizerWeight 1
+    m_aVariants {
+     SCR_EditableEntityVariant "{6AE1479B0C6B4843}" {
+      m_sVariantPrefab "{C298F3CB9CEF49BC}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/US_variant_ru_rifleman_1.et"
+      m_iRandomizerWeight 1
+      m_bEnabled 1
+     }
+    }
+   }
+  }
+  CharacterWeaponSlotComponent "{520EA1D2F659CFAB}" {
+   WeaponTemplate "{3E7CD31522E6E102}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/Weapons/RU_Rifleman_M21_SWS_01.et"
+  }
+ }
+}

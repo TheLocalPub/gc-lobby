@@ -1,0 +1,10 @@
+SCR_ChimeraCharacter : "{6AE1479AA3D4B432}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/Rifleman.et" {
+ ID "6AE1479BF8B37DAD"
+ components {
+  SCR_EditableCharacterComponent "{520EA1D2F659C85C}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    Name "Immediate"
+   }
+  }
+ }
+}

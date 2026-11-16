@@ -8,6 +8,8 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected string m_sScopeFaction;
 	protected bool m_bScopeFactionChosen;
 	protected EditBoxWidget m_Name;
+	protected EditBoxWidget m_Search;
+	protected SCR_EventHandlerComponent m_SearchEvents;
 	protected GC_LoadoutIconSelector m_Icon;
 	protected TextWidget m_Status;
 	protected ItemPreviewWidget m_Preview;
@@ -17,6 +19,9 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected SCR_ConfigurableDialogUi m_OverwriteDialog;
 	protected bool m_bCurrentGear = true;
 	protected ref array<ResourceName> m_aResources = {};
+	protected ref array<ResourceName> m_aLibraryResources = {};
+	protected ref map<string, ResourceName> m_mLibraryByGuid = new map<string, ResourceName>();
+	protected string m_sBuiltScope;
 	protected ref array<SCR_ButtonBaseComponent> m_aButtons = {};
 	protected ref array<SCR_ButtonBaseComponent> m_aRows = {};
 	protected ref array<ResourceName> m_aRowResources = {};
@@ -57,6 +62,9 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		m_Faction.m_OnFilterChanged.Insert(OnFactionFilter);
 		m_Group.m_OnFilterChanged.Insert(ApplyScopeFilter);
 		m_Name = EditBoxWidget.Cast(root.FindAnyWidget("Name"));
+		m_Search = EditBoxWidget.Cast(root.FindAnyWidget("LoadoutSearch"));
+		m_SearchEvents = SCR_EventHandlerComponent.Cast(m_Search.FindHandler(SCR_EventHandlerComponent));
+		m_SearchEvents.GetOnChange().Insert(OnSearch);
 		m_Icon = GC_LoadoutIconSelector.Cast(root.FindAnyWidget("RoleSelector").FindHandler(GC_LoadoutIconSelector));
 		m_Icon.m_OnChanged.Insert(OnIconChanged);
 		m_Status = TextWidget.Cast(root.FindAnyWidget("Status"));
@@ -64,9 +72,6 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		ChimeraWorld world = GetGame().GetWorld();
 		if (world)
 			m_PreviewManager = world.GetItemPreviewManager();
-		FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(m_Owner.FindComponent(FactionAffiliationComponent));
-		if (affiliation && affiliation.GetAffiliatedFaction())
-			m_Faction.SetText(affiliation.GetAffiliatedFaction().GetFactionKey());
 		m_Group.SetPlaceholderText("My Team");
 		m_Name.SetPlaceholderText("Base");
 		m_VariantPicker = SCR_ComboBoxComponent.Cast(root.FindAnyWidget("VariantPrefab").FindHandler(SCR_ComboBoxComponent));
@@ -115,18 +120,11 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		GC_LoadoutMetadata metadata = GC_LoadoutMetadata.Read(resource);
 		m_Icon.Populate(metadata);
 		OnIconChanged(m_Icon, m_Icon.GetCurrentIndex());
-		if (metadata)
-			m_Faction.SetText(metadata.m_sFaction);
-		if (!resource.GetPath().StartsWith("Prefabs/Loadouts/"))
+		string faction, team;
+		if (!GC_LoadoutPaths.Parts(resource, faction, team))
 			return;
-		array<string> parts = {};
-		string relativePath = resource.GetPath();
-		relativePath.Replace("Prefabs/Loadouts/", "");
-		FilePath.StripExtension(relativePath).Split("/", parts, true);
-		if (parts.Count() != 3)
-			return;
-		m_Group.SetText(parts[1]);
-		m_Name.SetText(parts[2]);
+		m_Faction.SetText(faction);
+		m_Group.SetText(team);
 		RefreshTeamChoices();
 		ApplyScopeFilter();
 	}
@@ -145,7 +143,15 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 			return null;
 		GC_LoadoutMetadata metadata = new GC_LoadoutMetadata();
 		metadata.m_sName = m_Name.GetText();
-		metadata.m_sFaction = m_Faction.GetText();
+		GC_LoadoutMetadata original = GC_LoadoutMetadata.Read(m_sSelected);
+		if (original)
+			metadata.m_sFaction = original.m_sFaction;
+		else
+		{
+			FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(m_Owner.FindComponent(FactionAffiliationComponent));
+			if (affiliation && affiliation.GetAffiliatedFaction())
+				metadata.m_sFaction = affiliation.GetAffiliatedFaction().GetFactionKey();
+		}
 		metadata.m_sIcon = icon.m_sIcon;
 		metadata.m_sIconName = icon.m_sIconName;
 		return metadata;
@@ -153,6 +159,22 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 
 	//------------------------------------------------------------------------------------------------
 	protected void RefreshList()
+	{
+		m_aLibraryResources.Clear();
+		m_mLibraryByGuid.Clear();
+		array<string> roots = {GC_LoadoutPaths.CHARACTERS, GC_LoadoutPaths.LEGACY};
+		foreach (string relative : roots)
+		{
+			string directory;
+			if (Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:" + relative, directory, false))
+				FileIO.FindFiles(OnFile, directory, ".et");
+		}
+		m_sBuiltScope = "!refresh";
+		RefreshScopeChoices();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void BuildRows()
 	{
 		foreach (SCR_ButtonTextComponent parentRow : m_aParentRows)
 		{
@@ -178,11 +200,12 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		m_aRowDepths.Clear();
 		m_aResources.Clear();
 		m_mParents.Clear();
-		// Authoring reads source files, including files created before the paused
-		// Play-time resource database has incorporated them.
-		string directory;
-		if (Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:Prefabs/Loadouts/", directory, false))
-			FileIO.FindFiles(OnFile, directory, ".et");
+		// Index paths globally, but resolve native prefabs/widgets only for one team.
+		if (m_Faction.GetText().IsEmpty() || m_Group.GetText().IsEmpty())
+			return;
+		foreach (ResourceName candidate : m_aLibraryResources)
+			if (MatchesResourceScope(candidate) && (!GC_LoadoutPaths.Template(candidate.GetPath()) || candidate == m_sSelected) && GC_LoadoutVariants.Load(candidate))
+				m_aResources.Insert(candidate);
 		array<string> names = {};
 		map<string, ResourceName> resources = new map<string, ResourceName>();
 		foreach (ResourceName resource : m_aResources)
@@ -197,16 +220,21 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		foreach (string key : names)
 			m_aResources.Insert(resources.Get(key));
 		map<ResourceName, ref GC_LoadoutVariants> lists = new map<ResourceName, ref GC_LoadoutVariants>();
-		foreach (ResourceName resource : m_aResources)
+		for (int resourceIndex; resourceIndex < m_aResources.Count(); resourceIndex++)
 		{
+			ResourceName resource = m_aResources[resourceIndex];
 			GC_LoadoutVariants variants = GC_LoadoutVariants.Load(resource);
 			if (m_Variants && resource == m_sVariantOwner)
 				variants = m_Variants;
 			lists.Insert(resource, variants);
 			ResourceName parent = ParentPrefab(resource);
-			foreach (ResourceName candidate : m_aResources)
-				if (SCR_ConfigHelper.GetGUID(candidate) == SCR_ConfigHelper.GetGUID(parent))
-					parent = candidate;
+			ResourceName savedParent = m_mLibraryByGuid.Get(SCR_ConfigHelper.GetGUID(parent));
+			if (!savedParent.IsEmpty())
+			{
+				parent = savedParent;
+				if (MatchesResourceScope(parent) && !m_aResources.Contains(parent))
+					m_aResources.Insert(parent);
+			}
 			m_mParents.Set(resource, parent);
 		}
 		array<ResourceName> visited = {};
@@ -217,7 +245,6 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		foreach (ResourceName resource : m_aResources)
 			if (!visited.Contains(resource))
 				AddPrefabRows(resource, 0, lists, visited);
-		RefreshScopeChoices();
 		RefreshRelationship();
 	}
 
@@ -304,16 +331,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	//------------------------------------------------------------------------------------------------
 	protected bool ScopeParts(ResourceName resource, out string faction, out string team)
 	{
-		string path = resource.GetPath();
-		if (!path.StartsWith("Prefabs/Loadouts/"))
-			return false;
-		array<string> parts = {};
-		path.Split("/", parts, true);
-		if (parts.Count() != 5)
-			return false;
-		faction = parts[2];
-		team = parts[3];
-		return true;
+		return GC_LoadoutPaths.Parts(resource, faction, team);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -349,12 +367,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected void RefreshScopeChoices()
 	{
 		array<string> values = {};
-		array<Faction> factions = {};
-		if (GetGame().GetFactionManager())
-			GetGame().GetFactionManager().GetFactionsList(factions);
-		foreach (Faction faction : factions)
-			AddScopeChoice(values, faction.GetFactionKey());
-		foreach (ResourceName resource : m_aResources)
+		foreach (ResourceName resource : m_aLibraryResources)
 		{
 			string factionName, team;
 			if (ScopeParts(resource, factionName, team))
@@ -372,7 +385,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		m_sScopeFaction = m_Faction.GetText();
 		m_bScopeFactionChosen = m_Faction.HasChoice();
 		array<string> values = {};
-		foreach (ResourceName resource : m_aResources)
+		foreach (ResourceName resource : m_aLibraryResources)
 		{
 			string faction, team;
 			if (ScopeParts(resource, faction, team) && MatchesScope(faction, m_Faction))
@@ -408,16 +421,37 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected bool MatchesResourceScope(ResourceName resource)
 	{
 		string faction, team;
-		return ScopeParts(resource, faction, team) && MatchesScope(faction, m_Faction) && MatchesScope(team, m_Group);
+		if (!ScopeParts(resource, faction, team))
+			return false;
+		string chosenFaction = m_Faction.GetText();
+		string chosenTeam = m_Group.GetText();
+		faction.ToLower();
+		team.ToLower();
+		chosenFaction.ToLower();
+		chosenTeam.ToLower();
+		return faction == chosenFaction && team == chosenTeam;
 	}
 
 	//------------------------------------------------------------------------------------------------
 	protected void ApplyScopeFilter()
 	{
+		string scope = m_Faction.GetText() + "|" + m_Group.GetText();
+		if (scope != m_sBuiltScope)
+		{
+			m_sBuiltScope = scope;
+			BuildRows();
+		}
+		string query = m_Search.GetText();
+		GetRootWidget().FindAnyWidget("SearchHint").SetVisible(query.IsEmpty());
+		query.ToLower();
 		set<ResourceName> matching = new set<ResourceName>();
 		foreach (ResourceName resource : m_aResources)
 		{
 			if (!MatchesResourceScope(resource))
+				continue;
+			string name = Label(resource);
+			name.ToLower();
+			if ((!query.IsEmpty() && !name.Contains(query)) || (GC_LoadoutPaths.Template(resource.GetPath()) && resource != m_sSelected))
 				continue;
 			ResourceName branch = resource;
 			for (int depth; m_aResources.Contains(branch) && depth < 128; depth++)
@@ -446,17 +480,15 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	}
 
 	//------------------------------------------------------------------------------------------------
+	protected void OnSearch(Widget widget)
+	{
+		ApplyScopeFilter();
+	}
+
+	//------------------------------------------------------------------------------------------------
 	protected bool IsMatchingBranch(ResourceName resource, set<ResourceName> matching)
 	{
-		// Filters retain relevant families; expanding one reveals its children even
-		// when selecting the parent changes the authoring faction/team fields.
-		for (int depth; m_aResources.Contains(resource) && depth < 128; depth++)
-		{
-			if (matching.Contains(resource))
-				return true;
-			resource = m_mParents.Get(resource);
-		}
-		return false;
+		return matching.Contains(resource);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -481,10 +513,13 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	//------------------------------------------------------------------------------------------------
 	protected bool IsBranchVisible(ResourceName resource)
 	{
+		if (!m_Search.GetText().IsEmpty())
+			return true;
 		ResourceName parent = m_mParents.Get(resource);
 		for (int depth; m_aResources.Contains(parent) && depth < 128; depth++)
 		{
-			if (!IsExpanded(parent))
+			// Ancestors outside this folder provide context, not another navigation gate.
+			if (MatchesResourceScope(parent) && !GC_LoadoutPaths.Template(parent.GetPath()) && !IsExpanded(parent))
 				return false;
 			parent = m_mParents.Get(parent);
 		}
@@ -528,7 +563,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		// Reopening the selected number enters its saved prefab and its own variants.
 		if (m_iVariant == m_aVariantIndices[index] && m_sSelected == m_aVariantOwners[index])
 		{
-			foreach (ResourceName resource : m_aResources)
+			foreach (ResourceName resource : m_aLibraryResources)
 				if (SCR_ConfigHelper.GetGUID(resource) == SCR_ConfigHelper.GetGUID(m_aVariantPrefabs[index]))
 				{
 					SelectPrefab(resource);
@@ -677,7 +712,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		}
 		if (action == "AddVariant")
 		{
-			if (!m_sSelected.GetPath().StartsWith("Prefabs/Loadouts/") || !ReadVariants())
+			if (!GC_LoadoutPrefab.IsWritable(m_sSelected) || !ReadVariants())
 				return true;
 			SCR_EditableEntityVariant entry = new SCR_EditableEntityVariant();
 			entry.m_bEnabled = true;
@@ -762,8 +797,11 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		if (!meta)
 			return;
 		ResourceName resource = meta.GetResourceID();
-		if (!resource.IsEmpty() && !resource.GetPath().Contains("/Weapons/"))
-			m_aResources.Insert(resource);
+		if (!resource.IsEmpty() && GC_LoadoutPaths.Allowed(resource.GetPath()) && !GC_LoadoutPaths.Equipment(resource.GetPath()))
+		{
+			m_aLibraryResources.Insert(resource);
+			m_mLibraryByGuid.Set(SCR_ConfigHelper.GetGUID(resource), resource);
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -1202,6 +1240,8 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuClose()
 	{
+		if (m_SearchEvents)
+			m_SearchEvents.GetOnChange().Remove(OnSearch);
 		GetGame().GetCallqueue().Remove(ScanDependencies);
 		GetGame().GetCallqueue().Remove(ApplyFactionFilter);
 		if (m_Faction)

@@ -144,9 +144,24 @@ Use the local Dev addon checkouts (GlobalConflictsCoreDev, GlobalConflictsUnitsD
 GlobalConflictsMissionsDev); release addons have different identities.
 
 - GC Core Dev owns shared mod-pack functionality and changes.
-- GC Units Dev owns unit/loadout prefabs. The loadout authoring tools write only
-  to its `Prefabs/Loadouts` tree, including gear and weapon variants. Load this
-  addon in Workbench before saving; other addons' prefabs remain read-only inputs.
+- GC Units Dev owns unit/loadout prefabs and authored equipment. Load this addon
+  in Workbench before saving; other addons' prefabs remain read-only inputs.
+  New loadouts follow `Prefabs/Characters/Factions/<side>/<faction>/<team>/<name>.et`.
+  In the save dialog, Faction selects `side/faction`, Team selects or creates the
+  relative team folder (including existing nested folders), and Name selects the
+  prefab filename. `(Root)` selects the faction folder itself. Folder categories
+  preserve the source character's native faction affiliation.
+  Character variants stay beside their parent. Customized weapons go into the
+  team's `Weapons` subfolder, named `<loadout>_<gun>_<number>.et` (for example,
+  `RU_Rifleman_M16A2_03.et`). Numbers start at `01`; existing matching versions
+  are reused and changed versions get the next available number. Other customized
+  gear goes into `Equipment`, using the same loadout/item/number convention. Existing `Prefabs/Loadouts` content remains
+  accessible through `Loadouts/<faction>` and is not moved or assigned new GUIDs.
+  The browser resolves one selected faction/team at a time; search narrows its
+  loadouts while retaining inheritance context. Base templates and deprecated
+  prefabs appear only when needed as ancestors or explicitly selected.
+  New prefab GUIDs require stopping and restarting Workbench Play before loading
+  them into the character. Saving retains current gear and never restarts Play.
 - GC Missions Dev owns GC mission worlds, headers and mission-specific scripts
   and data. Save GC mission worlds there. Create Mission Data intentionally follows
   the selected world's owning addon, so other addons' worlds keep their own headers.

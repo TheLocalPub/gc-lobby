@@ -8,6 +8,7 @@ class GC_LoadoutPrefab
 	protected WorldEditorAPI m_API;
 	protected ResourceName m_sResource;
 	protected string m_sError;
+	protected string m_sUnitStem;
 	protected int m_iChanges;
 	protected IEntity m_Reference;
 	protected ref array<ref GC_LoadoutPrefab> m_aPendingWeapons;
@@ -29,26 +30,28 @@ class GC_LoadoutPrefab
 	//------------------------------------------------------------------------------------------------
 	static bool ValidName(string value)
 	{
-		if (value.IsEmpty() || value.Length() > 64 || value == "." || value == "..")
+		if (value.IsEmpty() || value.Length() > 128 || value == "." || value == "..")
 			return false;
 		string upper = value;
 		upper.ToUpper();
 		array<string> reserved = {"CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
-		if (reserved.Contains(upper))
+		array<string> nameParts = {};
+		upper.Split(".", nameParts, true);
+		if (reserved.Contains(upper) || (nameParts.Count() > 0 && reserved.Contains(nameParts[0])))
 			return false;
 		for (int i; i < value.Length(); i++)
 		{
 			string ch = value.Substring(i, 1);
-			if (!"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_- ".Contains(ch))
+			if (!"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_- ().'".Contains(ch))
 				return false;
 		}
-		return !value.StartsWith(" ") && !value.EndsWith(" ");
+		return !value.StartsWith(" ") && !value.EndsWith(" ") && !value.EndsWith(".");
 	}
 
 	//------------------------------------------------------------------------------------------------
 	static bool IsWritable(ResourceName resourceName)
 	{
-		if (!resourceName.GetPath().StartsWith("Prefabs/Loadouts/"))
+		if (!GC_LoadoutPaths.Allowed(resourceName.GetPath()))
 			return false;
 		string path;
 		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:" + resourceName.GetPath(), path))
@@ -63,16 +66,16 @@ class GC_LoadoutPrefab
 	//------------------------------------------------------------------------------------------------
 	static string Destination(string faction, string group, string name)
 	{
-		if (!ValidName(faction) || !ValidName(group) || !ValidName(name))
+		string relative = GC_LoadoutPaths.Directory(faction, group);
+		if (relative.IsEmpty() || !ValidName(name))
 			return string.Empty;
 		string root;
 		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:", root))
 			return string.Empty;
-		root = FilePath.Concat(root, "Prefabs/Loadouts/");
+		root = FilePath.Concat(root, relative);
 		array<string> files = {};
 		FileIO.FindFiles(files.Insert, root, ".et");
-		string directory = ExistingDirectoryCase(FilePath.Concat(root, faction) + "/", files);
-		directory = ExistingDirectoryCase(FilePath.Concat(directory, group) + "/", files);
+		string directory = ExistingDirectoryCase(root, files);
 		return FilePath.Concat(directory, name + ".et");
 	}
 
@@ -97,9 +100,6 @@ class GC_LoadoutPrefab
 	//------------------------------------------------------------------------------------------------
 	static ResourceName Register(string path)
 	{
-		// RegisterResourceFile always opens Workbench's registration progress UI,
-		// even with runtime building disabled. Author the native prefab sidecar
-		// directly; the resource manager reads it without invoking the importer.
 		string root;
 		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:", root))
 			return string.Empty;
@@ -107,29 +107,10 @@ class GC_LoadoutPrefab
 		path.Replace("\\", "/");
 		if (!root.EndsWith("/"))
 			root += "/";
-		if (!path.StartsWith(root + "Prefabs/Loadouts/") || path.Contains("/../") || !path.EndsWith(".et") || FileIO.FileExists(path + ".meta"))
+		if (!path.StartsWith(root) || !GC_LoadoutPaths.Allowed(path.Substring(root.Length(), path.Length() - root.Length())) || FileIO.FileExists(path + ".meta"))
 			return string.Empty;
-		string guid = Workbench.GenerateGloballyUniqueID64();
-		guid.Replace("{", "");
-		guid.Replace("}", "");
-		if (guid.Length() != 16)
-			return string.Empty;
-		string identity = "{" + guid + "}" + path.Substring(root.Length(), path.Length() - root.Length());
-		FileHandle file = FileIO.OpenFile(path + ".meta", FileMode.WRITE);
-		if (!file)
-			return string.Empty;
-		file.WriteLine("MetaFileClass {");
-		file.WriteLine(" Name " + Quote(identity));
-		file.WriteLine(" Configurations {");
-		file.WriteLine("  EntityTemplateResourceClass PC {}");
-		array<string> platforms = {"XBOX_ONE", "XBOX_SERIES", "PS4", "PS5", "HEADLESS"};
-		foreach (string platform : platforms)
-			file.WriteLine("  EntityTemplateResourceClass " + platform + " : PC {}");
-		file.WriteLine(" }");
-		file.WriteLine("}");
-		file.Close();
 		ResourceManager manager = Workbench.GetModule(ResourceManager);
-		if (!manager)
+		if (!manager || !manager.RegisterResourceFile(path, true))
 			return string.Empty;
 		MetaFile meta = manager.GetMetaFile(path);
 		if (!meta)
@@ -144,14 +125,14 @@ class GC_LoadoutPrefab
 		if (!GetGame() || !GetGame().GetPlayerController() || !GC_PrefabAuthoringSession.IsAvailable(GetGame().GetPlayerController().GetControlledEntity()))
 			return string.Empty;
 		string root;
-		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:Prefabs/Loadouts/", root, false))
+		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:", root, false))
 			return string.Empty;
 		string normalized = path;
 		normalized.Replace("\\", "/");
 		root.Replace("\\", "/");
 		if (!root.EndsWith("/"))
 			root += "/";
-		if (!normalized.StartsWith(root) || normalized.Contains("/../") || !normalized.EndsWith(".et"))
+		if (!normalized.StartsWith(root) || !GC_LoadoutPaths.Allowed(normalized.Substring(root.Length(), normalized.Length() - root.Length())))
 			return string.Empty;
 		if (path.IsEmpty() || FileIO.FileExists(path) || FileIO.FileExists(path + ".meta"))
 			return string.Empty;
@@ -191,6 +172,8 @@ class GC_LoadoutPrefab
 		if (!IsWritable(resourceName))
 			return false;
 		m_sResource = resourceName;
+		m_sUnitStem = FilePath.StripExtension(FilePath.StripPath(resourceName.GetPath()));
+		m_sUnitStem.Replace(" ", "_");
 		m_Resource = Resource.Load(resourceName);
 		WorldEditor editor = Workbench.GetModule(WorldEditor);
 		if (!editor || !m_Resource || !m_Resource.IsValid())
@@ -412,16 +395,12 @@ class GC_LoadoutPrefab
 	//------------------------------------------------------------------------------------------------
 	protected ResourceName SaveVariant(IEntity item)
 	{
-		array<string> parts = {};
-		m_sResource.GetPath().Split("/", parts, true);
-		if (parts.Count() < 5)
-			return string.Empty;
 		ResourceName parent = SCR_ResourceNameUtils.GetPrefabName(item);
 		Resource parentResource = Resource.Load(parent);
 		IEntitySource source = SCR_BaseContainerTools.FindEntitySource(parentResource);
 		// Use the original weapon name, not an already numbered variant's label.
 		BaseContainer original = source;
-		while (original && original.GetAncestor() && original.GetResourceName().GetPath().StartsWith("Prefabs/Loadouts/"))
+		while (original && original.GetAncestor() && IsWritable(original.GetResourceName()))
 			original = original.GetAncestor();
 		string name = FilePath.StripExtension(FilePath.StripPath(parent));
 		IEntityComponentSource inventory = SCR_ComponentHelper.GetInventoryItemComponentSource(IEntitySource.Cast(original));
@@ -439,17 +418,19 @@ class GC_LoadoutPrefab
 		}
 		if (stem.IsEmpty())
 			stem = "Weapon";
-		string team = parts[3];
-		team.Replace(" ", "_");
+		bool weapon = item.FindComponent(BaseWeaponComponent) != null;
 		string directory;
-		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:Prefabs/Loadouts/" + parts[2] + "/" + parts[3] + "/Weapons/", directory, false))
+		if (!Workbench.GetAbsolutePath("$GlobalConflictsUnitsDev:" + GC_LoadoutPaths.EquipmentDirectory(m_sResource, weapon), directory, false))
 			return string.Empty;
 		ResourceManager manager = Workbench.GetModule(ResourceManager);
 		string path;
 		ResourceName variant;
 		for (int number = 1; number <= 10000; number++)
 		{
-			path = FilePath.Concat(directory, stem + "_" + team + "_" + number + ".et");
+			string suffix = number.ToString();
+			if (number < 10)
+				suffix = "0" + suffix;
+			path = FilePath.Concat(directory, m_sUnitStem + "_" + stem + "_" + suffix + ".et");
 			if (!FileIO.FileExists(path) && !FileIO.FileExists(path + ".meta"))
 				break;
 			MetaFile meta = manager.GetMetaFile(path);
@@ -468,6 +449,7 @@ class GC_LoadoutPrefab
 		GC_LoadoutPrefab writer = new GC_LoadoutPrefab();
 		if (variant.IsEmpty() || !writer.Open(variant))
 			return string.Empty;
+		writer.m_sUnitStem = m_sUnitStem;
 		if (variant != parent && (!writer.m_Source.GetAncestor() || writer.m_Source.GetAncestor().GetResourceName() != parent))
 		{
 			m_sError = "Incompatible weapon variant: " + variant.GetPath();

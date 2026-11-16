@@ -1,0 +1,94 @@
+[
+  {
+    "path": "Nested Team\\Immediate.et",
+    "sha256": "379912bcfa03c358669b53f006226fa4ac9f52ac21916ba1e8ca7ad7f716194d"
+  },
+  {
+    "path": "Nested Team\\Immediate.et.dependencies.json",
+    "sha256": "b3be7e4c77a9287f3e6105e113f30433d9c9f2884f483395b9ee2ecdfc20b3fd"
+  },
+  {
+    "path": "Nested Team\\Immediate.et.meta",
+    "sha256": "873c5a1a23129570f04eefff59e9a4957920bacd6233fb201bd411c296a1f50f"
+  },
+  {
+    "path": "Nested Team\\ModifiedWeapon.et",
+    "sha256": "24b3866312f79ef29dc6b533d597986eba3de245838c84d8eb0da8cc94f4d63e"
+  },
+  {
+    "path": "Nested Team\\ModifiedWeapon.et.dependencies.json",
+    "sha256": "85dc463825cef6267b5dced26f5da04fad8133d672a18889e2b3cdae5c8cf7d2"
+  },
+  {
+    "path": "Nested Team\\ModifiedWeapon.et.meta",
+    "sha256": "a74dcefb9a9a0449f1e4b69a4f5a83a3546c7eccf1a5ab995ef9f79aff04142d"
+  },
+  {
+    "path": "Nested Team\\NativeRegistered.et",
+    "sha256": "1ec9fcd4c92a60f1962b52ddc89e6744556c64d12fcd3e5c884af39b9cc380e8"
+  },
+  {
+    "path": "Nested Team\\NativeRegistered.et.dependencies.json",
+    "sha256": "bc062a2da121b37cc46503e4f0226ae2d6697b44dc634471664f40779d9e12d6"
+  },
+  {
+    "path": "Nested Team\\NativeRegistered.et.meta",
+    "sha256": "a69e00ed6ec669ec9228ea81644b8e05c8fe674568e5dfd769bfdac5d388b5c2"
+  },
+  {
+    "path": "Nested Team\\Rifleman.et",
+    "sha256": "6ad301c8c5490e7c3ac72245cc90301fd324a12d07e2b403aa3c124055c78865"
+  },
+  {
+    "path": "Nested Team\\Rifleman.et.dependencies.json",
+    "sha256": "a393a07be69f9b52b2a3d807cacc804075f7683b73a5b13563a20b45664e08f1"
+  },
+  {
+    "path": "Nested Team\\Rifleman.et.meta",
+    "sha256": "789d84e4fa5ed88a060a53c7b4e4bad1c4eaabfd3108b5d17787d82dcf4b98f9"
+  },
+  {
+    "path": "Nested Team\\RU_Rifleman.et",
+    "sha256": "9984ab8710e3e24878e3b2fe33cffc61de62bbfcd7c076a57f4941677a6a669e"
+  },
+  {
+    "path": "Nested Team\\RU_Rifleman.et.dependencies.json",
+    "sha256": "81be0356b3635db14216517e76a4b3ea8a8232b0bff215496bda30383f52d688"
+  },
+  {
+    "path": "Nested Team\\RU_Rifleman.et.meta",
+    "sha256": "13d14a0b0ce45db08a4d6a45375255e6c159364f4941c6dd5a9d0fccbc141624"
+  },
+  {
+    "path": "Nested Team\\US_variant_rifleman_2.et",
+    "sha256": "8a2b04447ecc2f99ad84f3df4a6afd04715f6a05df0ed689193bfff6c6308e7a"
+  },
+  {
+    "path": "Nested Team\\US_variant_rifleman_2.et.meta",
+    "sha256": "45650b40878379cb25539f358827c26ae0da911ca4ea306aee1e43e0934247a0"
+  },
+  {
+    "path": "Nested Team\\US_variant_ru_rifleman_1.et",
+    "sha256": "119e8bfbc48917951a966c6186e416feb33379593bf1a90bde2b416126741975"
+  },
+  {
+    "path": "Nested Team\\US_variant_ru_rifleman_1.et.meta",
+    "sha256": "c9db289054a341520a187541f15ba19c25b41eeb1b5f69b74830dd2c31438a78"
+  },
+  {
+    "path": "Nested Team\\Equipment\\M16A2_Nested_Team_1.et",
+    "sha256": "2cf22f037d4f27fce152da7fd3b6c3a17c5dbe895ec322787d74c82eb0686a7a"
+  },
+  {
+    "path": "Nested Team\\Equipment\\M16A2_Nested_Team_1.et.meta",
+    "sha256": "ab6814ced122e10b068efe78a6d0037b2748331902c60bf27a7b9bf3ebc56288"
+  },
+  {
+    "path": "Nested Team\\Weapons\\RU_Rifleman_M21_SWS_01.et",
+    "sha256": "1c27cf5c7fed0cd407a78bc2c03d5a898851ef5b3dbb3695805f1cde77e5a459"
+  },
+  {
+    "path": "Nested Team\\Weapons\\RU_Rifleman_M21_SWS_01.et.meta",
+    "sha256": "95f923d99a9568faef2a927282b6fb1a58fb90f0b40a08d612da7989f765f058"
+  }
+]

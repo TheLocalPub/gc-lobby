@@ -1,0 +1,209 @@
+[
+  {
+    "action": "spawn",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "c59d38ea496f4ea0844429770966ef25",
+    "receipt": "r41f45543fe4b40d8b526d5bbd525f20f",
+    "returnType": "string",
+    "returned": "spawned",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 22,
+      "serverMs": 110.6644
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "open",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "d68665a175cb4dcb999343564319cb27",
+    "receipt": "r039302c0361b4e119175857664fba82c",
+    "returnType": "string",
+    "returned": "opened",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 821,
+      "serverMs": 960.7588
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "folder",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "5bb232b21ac84762845ce41135abf712",
+    "receipt": "r57c0148acad1498382e2b484cad50381",
+    "returnType": "string",
+    "returned": "indexed=3108 resolved=6 rows=6 faction=BLUFOR/US_Army team=GC_Catalogue_Verification_20261116/Nested Team",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 75,
+      "serverMs": 179.5002
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "select",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "9dd8822f45234bdd9d800f8e8affbf4d",
+    "receipt": "r7f3e1d649db748d7a46a67b1c43df57b",
+    "returnType": "string",
+    "returned": "selected",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 49,
+      "serverMs": 154.2843
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "Load",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "89f34f6cb9034b8e84f9bd8290fc1760",
+    "receipt": "r2eb7a4832a244100a3f143cd9b7f7a23",
+    "returnType": "string",
+    "returned": "dispatched",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 18,
+      "serverMs": 306.8293
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "3dc0059830954bd286104f4fd94ea1ed",
+    "receipt": "r51a88729a7d6414b970d1ef42baea091",
+    "returnType": "string",
+    "returned": "menu absent",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 0,
+      "serverMs": 447.4297
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "open",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "74a896bcb32a40888aa900cdbd641492",
+    "receipt": "r10c325e468084ab98f689c063dc67599",
+    "returnType": "string",
+    "returned": "opened",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 826,
+      "serverMs": 1122.5091
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "1a1625b06aa5462399f4cf21a38af40e",
+    "receipt": "ref315f1c31c3421a8d84d3a4e7973d02",
+    "returnType": "string",
+    "returned": "selected={95277BB13199BC9F}Prefabs/Characters/Factions/BLUFOR/US_Army/GC_Catalogue_Verification_20261116/Nested Team/RU_Rifleman.et current=true status= mods=Unsaved gear",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 116.7979
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "removeWeaponPart",
+    "state": "invoked",
+    "processId": 56220,
+    "operationId": "f50724ab1bf045ac99da51ff8c01912f",
+    "receipt": "r74470c18f64145c4b4ec7e1d2f7d0fc7",
+    "returnType": "string",
+    "returned": "no weapon part",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 123.5339
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  }
+]
