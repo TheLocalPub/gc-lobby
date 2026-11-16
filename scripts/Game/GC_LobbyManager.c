@@ -708,6 +708,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 
     override void OnPlayerAuditSuccess(int playerId)
     {
+        GC_AutoAdmin.OnPlayerAuditSuccess(this, playerId);
         GC_LobbyGameMode mode = GC_LobbyGameMode.GetGameMode();
         if (mode && mode.GetJip())
             mode.GetJip().Register(playerId);

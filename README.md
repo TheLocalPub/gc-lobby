@@ -55,6 +55,27 @@ Use **Plugins > GC > Open Wiki** to open the
 [GC mission-making wiki](https://github.com/Global-Conflicts-ArmA/gc-reforger-missions/wiki)
 in your default browser.
 
+## Automatic admin login
+
+Create `Lobby2Admins.json` in the server profile directory with only an array of
+Bohemia player identity UIDs (the same UIDs used by Server Admin Tools):
+
+```json
+["00000000-0000-0000-0000-000000000001"]
+```
+
+Replace the example with real UIDs. After a player passes the engine's identity
+audit in GC Lobby, a listed UID receives the native administrator role. This is
+the server-configured login bootstrap; admin actions still require the current
+native admin role. Server Admin Tools is not required. Other game modes do not
+run this bootstrap.
+
+The file is read on each successful join audit. An absent file or `[]` disables
+promotion; unreadable, malformed or oversized files (over 64 KiB) fail closed.
+Changes apply on subsequent joins, not to existing sessions. Removing a UID does
+not revoke an existing admin session. Logging out is respected until the next
+join; there is no periodic re-promotion. Promotion outcomes use the admin audit log.
+
 ## External components
 
 `external/workbench/Preview UI.js` opens the shared GC tool-window design preview.
