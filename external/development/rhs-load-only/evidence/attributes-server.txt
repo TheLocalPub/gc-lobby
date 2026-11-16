@@ -1,0 +1,26 @@
+Source: C:\Users\Gray\Documents\VS\reforger-script-tools\work\rhs-server-profile\logs\logs_2026-11-16_10-28-30\console.log
+Selected original lines; full stopped logs hashed in attributes.json.
+
+351: 10:28:45.025      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=5614BBCCBB55ED1C id=core
+352: 10:28:45.025      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=58D0FB3206B6F859 id=ArmaReforger
+353: 10:28:45.025      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=6A115D5DFF7ED870 id=GlobalConflictsLobbyDev
+354: 10:28:45.025      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=7E161126A01D0001 id=GCRhsLoadOnlyTest
+355: 10:28:45.025      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=1337C0DE5DABBEEF id=RHS_Content_01
+356: 10:28:45.026      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=BADC0DEDABBEDA5E id=RHS_Content_02
+357: 10:28:45.026      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=595F2BF2F44836FB id=RHS_Core
+358: 10:28:45.026      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=7E161126A01D1001 id=GCAttributeContentTest
+359: 10:28:45.026      SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=1 rhsResource=1
+360: 10:28:45.026      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 resourceValid=1 resource={7E161126A01D1002}Prefabs/AttributeCompass.et
+361: 10:28:45.026      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 resourceValid=1 resource={7E161126A01D1003}Prefabs/AttributeBandage.et
+362: 10:28:45.026      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 resourceValid=1 resource={7E161126A01D1004}Prefabs/AttributeHead.et
+441: 10:28:51.265   SCRIPT       : GC | OnPlayerAuditSuccess: 1, connected!
+474: 10:28:51.529 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=1 sample=1 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+478: 10:28:51.563   SCRIPT       : GC | OnPlayerAuditSuccess: 2, connected!
+481: 10:28:51.563   NETWORK      : Players connected: 2 / 2
+505: 10:28:56.529 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 inventory={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+528: 10:28:56.531 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 inventory={7E161126A01D1003}Prefabs/AttributeBandage.et
+529: 10:28:56.531 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 inventory={7E161126A01D1002}Prefabs/AttributeCompass.et
+541: 10:28:56.531 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=1 head={7E161126A01D1004}Prefabs/AttributeHead.et
+551: 10:29:46.562 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=1 sample=12 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+564: 10:30:46.595 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=1 sample=24 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+576: 10:31:46.595 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=1 sample=36 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et

@@ -1,0 +1,7 @@
+MetaFileClass {
+ Name "{7E161126A01D1003}Prefabs/AttributeBandage.et"
+ Configurations {
+  EntityTemplateResourceClass PC {}
+  EntityTemplateResourceClass HEADLESS : PC {}
+ }
+}

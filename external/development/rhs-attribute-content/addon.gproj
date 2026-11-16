@@ -1,0 +1,8 @@
+GameProject {
+ ID "GCAttributeContentTest"
+ GUID "7E161126A01D1001"
+ TITLE "GC Attribute Content Test"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}

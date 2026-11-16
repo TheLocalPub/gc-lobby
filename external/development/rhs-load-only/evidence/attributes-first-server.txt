@@ -1,0 +1,61 @@
+Source: rhs-server-profile/logs/logs_2026-11-16_10-24-38/console.log
+360: 10:24:50.318      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 resourceValid=1 resource={7E161126A01D1002}Prefabs/AttributeCompass.et
+361: 10:24:50.318      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 resourceValid=1 resource={7E161126A01D1003}Prefabs/AttributeBandage.et
+362: 10:24:50.318      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 resourceValid=1 resource={7E161126A01D1004}Prefabs/AttributeHead.et
+425: 10:24:56.754 SCRIPT       : GC_RHS_TEST run=attributes-local-01 server=1 sample=1 rhsEntity=1 players=0 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+462: 10:24:56.957   SCRIPT       : GC | OnPlayerAuditSuccess: 1, connected!
+465: 10:24:56.957   NETWORK      : Players connected: 2 / 2
+479: 10:24:56.995   SCRIPT       : GC | OnPlayerAuditSuccess: 2, connected!
+482: 10:24:56.995   NETWORK      : Players connected: 2 / 2
+498: 10:24:58.621 NETWORK      : Player disconnected: connectionID=1
+505: 10:24:58.720 NETWORK      : Player disconnected: connectionID=0
+508: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={6676FF9B716402CC}Prefabs/Items/PersonalBelongings/PersonalBelongings_US.et
+509: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={0CF54B9A85D8E0D4}Prefabs/Items/Equipment/Binoculars/Binoculars_M22/Binoculars_M22.et
+510: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={78ED4FEF62BBA728}Prefabs/Items/Equipment/Watches/Watch_SandY184A.et
+511: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={FE5C49069C2499D9}Prefabs/Characters/HeadGear/Helmet_PASGT_01/Helmet_PASGT_01_cover.et
+512: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={C7861F11D5334C0E}Prefabs/Characters/Uniforms/Jacket_US_BDU.et
+513: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={4B57C11AA5161760}Prefabs/Characters/Vests/Vest_PASGT/Vest_PASGT.et
+514: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={604BB72BE8E023C2}Prefabs/Characters/Uniforms/Pants_US_BDU.et
+515: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={DAAFD15478BDE1C3}Prefabs/Characters/Footwear/CombatBoots_US_01.et
+516: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={2835A0EA3B79E63E}Prefabs/Characters/Vests/Vest_ALICE/Variants/Vest_ALICE_rifleman.et
+517: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={0CF54B9A85D8E0D4}Prefabs/Items/Equipment/Binoculars/Binoculars_M22/Binoculars_M22.et
+518: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={78ED4FEF62BBA728}Prefabs/Items/Equipment/Watches/Watch_SandY184A.et
+519: 10:25:01.787 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={6676FF9B716402CC}Prefabs/Items/PersonalBelongings/PersonalBelongings_US.et
+520: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+521: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et
+522: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={3A421547BC29F679}Prefabs/Items/Equipment/Flashlights/Flashlight_MX991/Flashlight_MX991.et
+523: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et
+524: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et
+525: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={558117556F3880A8}Prefabs/Weapons/Attachments/Bayonets/Bayonet_M9.et
+526: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+527: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+528: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+529: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+530: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+531: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_M855_M856_Last_5Tracer.et
+532: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et
+533: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={9DB69176CEF0EE97}Prefabs/Weapons/Grenades/Smoke_ANM8HC.et
+534: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={9DB69176CEF0EE97}Prefabs/Weapons/Grenades/Smoke_ANM8HC.et
+535: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={B95BD66EA8F863C8}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_suspenders_2.et
+536: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={E3154E0EAC48D67B}Prefabs/Items/Equipment/Accessories/Pouch_ALICE_30rnd_STANAG/Pouch_ALICE_30rnd_STANAG.et
+537: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={E3154E0EAC48D67B}Prefabs/Items/Equipment/Accessories/Pouch_ALICE_30rnd_STANAG/Pouch_ALICE_30rnd_STANAG.et
+538: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={1C2D23501BDA4B5E}Prefabs/Items/Equipment/Canteens/Holders/Canteen_Holder_US_01.et
+539: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={9A21918AC35AC182}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_buttpack.et
+540: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={02DF51DB063ABD36}Prefabs/Characters/Vests/Vest_ALICE/Vest_ALICE_firstaid.et
+541: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={1C2D23501BDA4B5E}Prefabs/Items/Equipment/Canteens/Holders/Canteen_Holder_US_01.et
+542: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={EE7FBAD35CA9D0F2}Prefabs/Items/Equipment/Accessories/Scabbard_Bayonet_M9/Scabbard_Bayonet_M9.et
+543: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={7E161126A01D1003}Prefabs/AttributeBandage.et
+544: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={7E161126A01D1002}Prefabs/AttributeCompass.et
+545: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={00F0B1FA28EF672B}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_SP_T_30rnd_M995.et
+546: 10:25:01.788 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={3515BB3BE4AE2414}Prefabs/Weapons/Attachments/Grips/PistolGrip_AR15_A2/RHS_M4A1_Grip.et
+547: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={CDD0D3355AD051DA}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4_BufferTube.et
+548: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={1FA4BF60B0648BFC}Prefabs/Weapons/Attachments/Stocks/Stock_AR15_USGI/RHS_M4_Buttstock.et
+549: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={8660F3D51CE3A99A}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4A1_RasUpper.et
+550: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={11FC584D7F39655E}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4A1_RasLower.et
+551: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={7B75124A0F96ACF3}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4_BARREL_10_3.et
+552: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={28BC392A46DD235C}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4A1_UpperReceiver.et
+553: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={79A64B5F2E13A878}Prefabs/Weapons/Attachments/Misc/M4ChargingHandles/USGI_A2CH.et
+554: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={77A74F65BAEC73E2}Prefabs/Weapons/Attachments/Misc/KacRailCover/KacRailCover_kit_m4a1_ras.et
+555: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 inventory={5F800ED7D8D5B89E}Prefabs/Weapons/Rifles/M4A1/base_parts/RHS_M4_FLASHHIDER.et
+556: 10:25:01.789 SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=1 head={BB90449192005AB8}Prefabs/Characters/Heads/Head_White_06.et
+566: 10:25:51.820 SCRIPT       : GC_RHS_TEST run=attributes-local-01 server=1 sample=12 rhsEntity=1 players=0 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et

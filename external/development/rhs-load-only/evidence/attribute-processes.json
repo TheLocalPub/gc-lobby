@@ -1,0 +1,210 @@
+{
+  "state": "processes_running",
+  "processId": 50712,
+  "tool": "dedicated",
+  "settings": {
+    "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger Server\\ArmaReforgerServerDiag.exe",
+    "profile": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-server-profile",
+    "parameters": "-addonsDir \"C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development\" -gcRhsProbe attributes-local-02",
+    "runPeers": true,
+    "maxFPS": 30,
+    "peerExecutable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe"
+  },
+  "world": {
+    "state": "observed",
+    "processId": 50712,
+    "tool": "dedicated",
+    "field": "world",
+    "value": "{7E161126A01D0002}Worlds/RhsLoadOnly.ent",
+    "nativeType": 1342177288,
+    "expectedThread": 29916,
+    "actualThread": 29916,
+    "allocationsReleased": true
+  },
+  "peers": [
+    {
+      "index": 0,
+      "settings": {
+        "title": "Peer Config",
+        "enabled": true,
+        "profile": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer",
+        "parameters": "-addonsDir \"C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development\" -gcRhsProbe attributes-local-02",
+        "autoJoin": true,
+        "autoReconnect": true,
+        "disableTimeout": true,
+        "windowed": true,
+        "forceUpdate": true,
+        "noFocus": true,
+        "maxFPS": 60,
+        "width": -1,
+        "height": -1,
+        "x": -1,
+        "y": -1
+      },
+      "process": {
+        "state": "running",
+        "processId": 51140,
+        "startedUtc": "2026-11-16T15:28:30.1157693Z",
+        "running": true,
+        "exitCode": null,
+        "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+        "arguments": [
+          "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+          "-gproj",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+          "-addonsDir",
+          "C:\\Program",
+          "Files",
+          "(x86)\\Steam\\steamapps\\common\\Arma",
+          "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\external\\development",
+          "-addons",
+          "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core,GCAttributeContentTest",
+          "-window",
+          "-maxFPS",
+          "60",
+          "-forceupdate",
+          "-nofocus",
+          "-client",
+          "-rpl-reconnect",
+          "-rpl-timeout-disable",
+          "-profile",
+          "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer1",
+          "-addonsDir",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development",
+          "-gcRhsProbe",
+          "attributes-local-02"
+        ],
+        "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer1\\logs",
+        "candidateSessions": [
+          "logs_2026-11-16_10-28-32"
+        ],
+        "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+      }
+    },
+    {
+      "index": 1,
+      "settings": {
+        "title": "Peer Config",
+        "enabled": true,
+        "profile": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer",
+        "parameters": "-addonsDir \"C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development\" -gcRhsProbe attributes-local-02",
+        "autoJoin": true,
+        "autoReconnect": true,
+        "disableTimeout": true,
+        "windowed": true,
+        "forceUpdate": true,
+        "noFocus": true,
+        "maxFPS": 60,
+        "width": -1,
+        "height": -1,
+        "x": -1,
+        "y": -1
+      },
+      "process": {
+        "state": "running",
+        "processId": 22116,
+        "startedUtc": "2026-11-16T15:28:30.1237157Z",
+        "running": true,
+        "exitCode": null,
+        "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+        "arguments": [
+          "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+          "-gproj",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+          "-addonsDir",
+          "C:\\Program",
+          "Files",
+          "(x86)\\Steam\\steamapps\\common\\Arma",
+          "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\external\\development",
+          "-addons",
+          "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core,GCAttributeContentTest",
+          "-window",
+          "-maxFPS",
+          "60",
+          "-forceupdate",
+          "-nofocus",
+          "-client",
+          "-rpl-reconnect",
+          "-rpl-timeout-disable",
+          "-profile",
+          "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer2",
+          "-addonsDir",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development",
+          "-gcRhsProbe",
+          "attributes-local-02"
+        ],
+        "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer2\\logs",
+        "candidateSessions": [
+          "logs_2026-11-16_10-28-32"
+        ],
+        "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+      }
+    }
+  ],
+  "server": {
+    "state": "running",
+    "processId": 36784,
+    "startedUtc": "2026-11-16T15:28:30.1075094Z",
+    "running": true,
+    "exitCode": null,
+    "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger Server\\ArmaReforgerServerDiag.exe",
+    "arguments": [
+      "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger Server\\ArmaReforgerServerDiag.exe",
+      "-gproj=C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+      "-server",
+      "Worlds/RhsLoadOnly.ent",
+      "-adminPassword",
+      "[redacted]",
+      "-addonsDir",
+      "C:\\Program",
+      "Files",
+      "(x86)\\Steam\\steamapps\\common\\Arma",
+      "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+      "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+      "Games\\ArmaReforgerWorkbench\\addons,C:\\Users\\Gray\\Documents\\My",
+      "Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\external\\development",
+      "-addons",
+      "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core,GCAttributeContentTest",
+      "-profile",
+      "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-server-profile",
+      "-maxFPS",
+      "30",
+      "-addonsDir",
+      "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development",
+      "-gcRhsProbe",
+      "attributes-local-02"
+    ],
+    "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-server-profile\\logs",
+    "candidateSessions": [
+      "logs_2026-11-16_10-28-30"
+    ],
+    "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+  },
+  "trackedProcesses": [
+    {
+      "processId": 36784,
+      "startedUtc": "2026-11-16T15:28:30.1075094Z",
+      "running": true
+    },
+    {
+      "processId": 51140,
+      "startedUtc": "2026-11-16T15:28:30.1157693Z",
+      "running": true
+    },
+    {
+      "processId": 22116,
+      "startedUtc": "2026-11-16T15:28:30.1237157Z",
+      "running": true
+    }
+  ],
+  "scope": "Live loaded plugin settings and observations from its own OS process handles. Running is not proof of connection or scenario readiness. Check candidate console.log startup and connection events. Peer indices are zero-based; profile suffixes use the order of enabled peers starting at 1. Settings changes are live for this Workbench instance; no registry writes are performed.",
+  "operationId": "58b8b9f29ff1461d81da801bce84e993",
+  "operationCompleted": true,
+  "revision": "f7e0400b9ba70a0941ce4fbc05586521d6c1a3048ae16c0a2fceab5afde33c74"
+}

@@ -1,0 +1,86 @@
+{
+  "run": "attributes-local-02",
+  "result": "passed",
+  "coverage": "partial_resource_field_graph",
+  "report_sha256": "a3c15356983223de96e79834b2df9356fd521daf039d91fb0e266a7208836a08",
+  "status_counts": {
+    "container": 1847,
+    "non_container_not_expanded": 4830
+  },
+  "root_provenance": {
+    "origin": "root",
+    "resource": "{7E161126A01D0020}Prefabs/AttributeCharacter.et",
+    "status": "container",
+    "addons": [
+      "ArmaReforger",
+      "GCRhsLoadOnlyTest",
+      "GlobalConflictsLobbyDev",
+      "RHS_Core"
+    ]
+  },
+  "attribute_references": [
+    {
+      "origin": "{7E161126A01D0020}Prefabs/AttributeCharacter.et/SCR_ChimeraCharacter.components[48]/SCR_InventoryStorageManagerComponent.InitialInventoryItems[0]/ItemsInitConfigurationItem.PrefabsToSpawn[0]",
+      "resource": "{7E161126A01D1002}Prefabs/AttributeCompass.et",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "origin": "{7E161126A01D0020}Prefabs/AttributeCharacter.et/SCR_ChimeraCharacter.components[48]/SCR_InventoryStorageManagerComponent.InitialInventoryItems[0]/ItemsInitConfigurationItem.PrefabsToSpawn[1]",
+      "resource": "{7E161126A01D1003}Prefabs/AttributeBandage.et",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "origin": "{7E161126A01D0020}Prefabs/AttributeCharacter.et/SCR_ChimeraCharacter.components[45]/SCR_CharacterIdentityComponent.Identity/Identity.VisualIdentity/VisualIdentity.Head",
+      "resource": "{7E161126A01D1004}Prefabs/AttributeHead.et",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "origin": "{7E161126A01D0020}Prefabs/AttributeCharacter.et/SCR_ChimeraCharacter.components[42]/CharacterWeaponSlotComponent.WeaponTemplate",
+      "resource": "{5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "RHS_Core"
+      ]
+    }
+  ],
+  "addon_guids": {
+    "core": "5614BBCCBB55ED1C",
+    "ArmaReforger": "58D0FB3206B6F859",
+    "GlobalConflictsLobbyDev": "6A115D5DFF7ED870",
+    "GCRhsLoadOnlyTest": "7E161126A01D0001",
+    "RHS_Content_01": "1337C0DE5DABBEEF",
+    "RHS_Content_02": "BADC0DEDABBEDA5E",
+    "RHS_Core": "595F2BF2F44836FB",
+    "GCAttributeContentTest": "7E161126A01D1001"
+  },
+  "logs": [
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\rhs-server-profile\\logs\\logs_2026-11-16_10-28-30\\console.log",
+      "sha256": "09546036edf6f91db70a63c6ac7c4df964e99373027d1e866942623e61929900"
+    },
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\rhs-peer1\\logs\\logs_2026-11-16_10-28-32\\console.log",
+      "sha256": "6004496054b35a1c394f119cdcedcf896c3688a13cada36f076bf902a15d8d6e"
+    },
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\rhs-peer2\\logs\\logs_2026-11-16_10-28-32\\console.log",
+      "sha256": "ea3199c1cb692a8967d057f16b87acf8abda2ec84daab604a49c41830423e616"
+    }
+  ]
+}

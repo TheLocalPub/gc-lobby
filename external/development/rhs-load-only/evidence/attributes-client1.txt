@@ -1,0 +1,20 @@
+Source: C:\Users\Gray\Documents\VS\reforger-script-tools\work\rhs-peer1\logs\logs_2026-11-16_10-28-32\console.log
+Selected original lines; full stopped logs hashed in attributes.json.
+
+392: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=5614BBCCBB55ED1C id=core
+393: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=58D0FB3206B6F859 id=ArmaReforger
+394: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=6A115D5DFF7ED870 id=GlobalConflictsLobbyDev
+395: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=7E161126A01D0001 id=GCRhsLoadOnlyTest
+396: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=1337C0DE5DABBEEF id=RHS_Content_01
+397: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=BADC0DEDABBEDA5E id=RHS_Content_02
+398: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=595F2BF2F44836FB id=RHS_Core
+399: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 addon=7E161126A01D1001 id=GCAttributeContentTest
+400: 10:28:50.338      SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=0 rhsResource=1
+401: 10:28:50.338      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=0 resourceValid=1 resource={7E161126A01D1002}Prefabs/AttributeCompass.et
+402: 10:28:50.338      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=0 resourceValid=1 resource={7E161126A01D1003}Prefabs/AttributeBandage.et
+403: 10:28:50.338      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-02 server=0 resourceValid=1 resource={7E161126A01D1004}Prefabs/AttributeHead.et
+487: 10:28:52.846   SCRIPT       : GC | Phase UI Trace | player controller ownership: this=GC_LobbyPlayerController<0x00000259CD9221F0> @"ENTITY:4611686018427387957" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et" player=2 changing=0 becameOwner=1 server=0 publishedController=GC_LobbyPlayerController<0x00000259CD9221F0> @"ENTITY:4611686018427387957" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et"
+517: 10:28:57.840 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=0 sample=1 rhsEntity=0 players=2 prefab=
+529: 10:29:52.839 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=0 sample=12 rhsEntity=0 players=2 prefab=
+541: 10:30:52.906 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=0 sample=24 rhsEntity=0 players=2 prefab=
+553: 10:31:52.939 SCRIPT       : GC_RHS_TEST run=attributes-local-02 server=0 sample=36 rhsEntity=0 players=2 prefab=

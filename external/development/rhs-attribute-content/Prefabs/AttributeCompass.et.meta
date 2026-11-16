@@ -1,0 +1,7 @@
+MetaFileClass {
+ Name "{7E161126A01D1002}Prefabs/AttributeCompass.et"
+ Configurations {
+  EntityTemplateResourceClass PC {}
+  EntityTemplateResourceClass HEADLESS : PC {}
+ }
+}

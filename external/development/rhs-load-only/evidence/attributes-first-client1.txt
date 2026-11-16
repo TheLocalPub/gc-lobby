@@ -1,0 +1,12 @@
+Source: rhs-peer1/logs/logs_2026-11-16_10-24-39/console.log
+401: 10:24:55.721      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=0 resourceValid=1 resource={7E161126A01D1002}Prefabs/AttributeCompass.et
+402: 10:24:55.721      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=0 resourceValid=1 resource={7E161126A01D1003}Prefabs/AttributeBandage.et
+403: 10:24:55.721      SCRIPT       : GC_ATTRIBUTE_TEST run=attributes-local-01 server=0 resourceValid=1 resource={7E161126A01D1004}Prefabs/AttributeHead.et
+491: 10:24:58.205   SCRIPT       : GC | Phase UI Trace | player controller ownership: this=GC_LobbyPlayerController<0x0000023FFCE6ADB0> @"ENTITY:4611686018427387953" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et" player=2 changing=0 becameOwner=1 server=0 publishedController=GC_LobbyPlayerController<0x0000023FFCE6ADB0> @"ENTITY:4611686018427387953" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et"
+515: 10:24:58.662   RPL       (E): ReplicationError: Prefab @"{7E161126A01D0020}Prefabs/AttributeCharacter.et" does not contain entity with ID 6AE0F626F9CC57A1 but it exists on server. This may be because ID is not saved in prefab file and loading on client has assigned different ID than on server. Forced resave of prefab using Workbench will fix this.
+516: 10:24:58.662   NETWORK   (E): LoadNode failed: entityId=6AE0F626F9CC57A1, prefab=Prefabs/AttributeCharacter.et
+517: 10:24:58.662   RPL       (E): RplLayoutError: Node creation was not successful! nodeId=0x80000143, cl='_RplComponent_Layout', sl='script::Game::RplComponent'
+519: 10:24:58.764 NETWORK      : Player disconnected: connectionID=0
+875: 10:25:06.063 DEFAULT   (E): Kicked from game. group=1 reason=1
+876: 10:25:06.063 SCRIPT       : string strDetail = 'Kick cause code: group=1 'REPLICATION', reason=1 'SYSTEM_FAILURE''
+881: 10:25:06.064 SCRIPT       : [SCR_ConfigurableDialogUi] presetsResourceName: {D3BFEE28E7D5B6A1}Configs/ServerBrowser/KickDialogs.conf, tag: REPLICATION_SYSTEM_FAILURE, customDialogObj: NULL

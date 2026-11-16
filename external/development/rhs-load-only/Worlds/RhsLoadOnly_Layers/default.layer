@@ -10,3 +10,6 @@ GC_LobbyGameMode GC_RhsTestMode : "{A79C4E0A43DEB821}Prefabs/Templates/GC_Missio
 GenericEntity GC_RhsPlacedRifle : "{5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et" {
  coords 1282.58 10 2380.75
 }
+SCR_ChimeraCharacter GC_AttributeCharacter : "{7E161126A01D0020}Prefabs/AttributeCharacter.et" {
+ coords 10 10 10
+}
