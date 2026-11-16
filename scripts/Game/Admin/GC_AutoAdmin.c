@@ -1,8 +1,6 @@
-//! Server configuration authorizes this login bootstrap; subsequent actions use native roles.
+//! The native server admin list authorizes login; subsequent actions use native roles.
 class GC_AutoAdmin
 {
-	static const string CONFIG_PATH = "$profile:Lobby2Admins.json";
-
 	//------------------------------------------------------------------------------------------------
 	//! Called only after the engine has authenticated the joining player.
 	static void OnPlayerAuditSuccess(GC_LobbyManager owner, int playerId)
@@ -15,33 +13,15 @@ class GC_AutoAdmin
 		if (playerId <= 0 || !players.IsPlayerConnected(playerId))
 			return;
 
-		string identity = GetGame().GetBackendApi().GetPlayerIdentityId(playerId);
-		if (identity.IsEmpty())
+		BackendApi backend = GetGame().GetBackendApi();
+		if (!backend || backend.GetPlayerIdentityId(playerId).IsEmpty())
 		{
-			GC_AdminActionLogger.Log(playerId, "auto-admin", CONFIG_PATH, "rejected-unresolved-identity");
+			GC_AdminActionLogger.Log(playerId, "auto-admin", "server-config game.admins", "rejected-unresolved-identity");
 			return;
 		}
-
-		if (!FileIO.FileExists(CONFIG_PATH))
-			return;
-		FileHandle file = FileIO.OpenFile(CONFIG_PATH, FileMode.READ);
-		if (!file)
+		if (!backend.IsListedServerAdmin(playerId))
 		{
-			GC_AdminActionLogger.Log(playerId, "auto-admin", CONFIG_PATH, "rejected-unreadable-config");
-			return;
-		}
-		string payload;
-		file.Read(payload, 65537);
-		file.Close();
-		array<string> identities = {};
-		if (payload.Length() > 65536 || !ParseIdentities(payload, identities))
-		{
-			GC_AdminActionLogger.Log(playerId, "auto-admin", CONFIG_PATH, "rejected-invalid-config");
-			return;
-		}
-		if (!identities.Contains(identity))
-		{
-			GC_AdminActionLogger.Log(playerId, "auto-admin", CONFIG_PATH, "not-listed");
+			GC_AdminActionLogger.Log(playerId, "auto-admin", "server-config game.admins", "not-listed");
 			return;
 		}
 		if (players.HasPlayerRole(playerId, EPlayerRole.ADMINISTRATOR))
@@ -50,19 +30,6 @@ class GC_AutoAdmin
 		string outcome = "rejected-native-role";
 		if (players.GivePlayerRole(playerId, EPlayerRole.ADMINISTRATOR))
 			outcome = "accepted";
-		GC_AdminActionLogger.Log(playerId, "auto-admin", CONFIG_PATH, outcome);
-	}
-
-	//------------------------------------------------------------------------------------------------
-	static bool ParseIdentities(string payload, out array<string> identities)
-	{
-		payload.TrimInPlace();
-		if (!payload.StartsWith("[") || !payload.EndsWith("]"))
-			return false;
-		// The serialization context reads named members; the on-disk document is only an array.
-		JsonLoadContext json = new JsonLoadContext(false);
-		// Validate the original document first so wrapping cannot accept trailing members.
-		return json.LoadFromString(payload) && json.LoadFromString("{\"admins\":" + payload + "}")
-			&& json.ReadValue("admins", identities);
+		GC_AdminActionLogger.Log(playerId, "auto-admin", "server-config game.admins", outcome);
 	}
 }

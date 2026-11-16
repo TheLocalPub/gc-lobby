@@ -57,24 +57,24 @@ in your default browser.
 
 ## Automatic admin login
 
-Create `Lobby2Admins.json` in the server profile directory with only an array of
-Bohemia player identity UIDs (the same UIDs used by Server Admin Tools):
+Add player identity UIDs to the existing `game.admins` array in the main server
+configuration (merge this fragment into its `game` object):
 
 ```json
-["00000000-0000-0000-0000-000000000001"]
+"admins": ["00000000-0000-0000-0000-000000000001"]
 ```
 
-Replace the example with real UIDs. After a player passes the engine's identity
-audit in GC Lobby, a listed UID receives the native administrator role. This is
-the server-configured login bootstrap; admin actions still require the current
-native admin role. Server Admin Tools is not required. Other game modes do not
-run this bootstrap.
+Replace the example with real UIDs and restart the server after config changes.
+GC Lobby checks the engine's `BackendApi.IsListedServerAdmin` after a successful
+player identity audit and grants the native administrator role. The engine owns
+list parsing and membership; its limit of 20 unique IDs applies. See
+[Bohemia's server config documentation](https://community.bistudio.com/wiki/Arma_Reforger:Server_Config#admins).
 
-The file is read on each successful join audit. An absent file or `[]` disables
-promotion; unreadable, malformed or oversized files (over 64 KiB) fail closed.
-Changes apply on subsequent joins, not to existing sessions. Removing a UID does
-not revoke an existing admin session. Logging out is respected until the next
-join; there is no periodic re-promotion. Promotion outcomes use the admin audit log.
+No separate file or Server Admin Tools dependency is needed. `Lobby2Admins.json`
+is no longer read; move any entries into `game.admins`. Other game modes do not
+run this bootstrap. Admin actions still require the current native admin role;
+logging out is respected until the next join, with no periodic re-promotion.
+Promotion outcomes use the admin audit log.
 
 ## External components
 
