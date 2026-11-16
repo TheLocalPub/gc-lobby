@@ -1,0 +1,3 @@
+Independent review approved 2026-11-16 (/root/branch_review).
+Resolved: duplicate representation hid nested saved descendants; interleaved subtree order; access to represented child's own variants and authoring context.
+Final review: no remaining actionable findings. Screenshots and handler receipts reviewed. Synthetic graph limits recorded in validation.txt.

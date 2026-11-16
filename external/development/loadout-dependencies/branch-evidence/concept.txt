@@ -1,0 +1,1 @@
+Parent identity is a normal node ABOVE the child, linked by neutral branch geometry and indentation. No Inherits from sentence, no plus/minus, numeric variant rows unchanged. Parent labels use native display names when available; local saved prefab names retain identity. Existing native rows/panels reused; diagram is illustrative.

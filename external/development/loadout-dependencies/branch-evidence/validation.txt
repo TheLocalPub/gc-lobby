@@ -1,0 +1,32 @@
+2026-11-16 — loadout hierarchy and numbered variants
+
+Request: replace inheritance sentence with a visual hierarchy; retain number-only variants and remove duplicate variant filenames.
+
+Implementation:
+- Native parent role header above its saved child; 28-unit indentation and simple elbow connectors.
+- Numbered variants replace duplicate direct saved-child rows.
+- Referenced child subtrees are interleaved immediately after the corresponding variant.
+- Selecting a number selects its variant mapping; reopening that selected number enters its saved prefab authoring context and own variants.
+- Saved children referenced by a parent variant retain numeric labels in that context.
+- No user prefab/dependency files were written.
+
+Evidence:
+before.png: actual original text relationship.
+concept.png: illustrative direction, not game evidence.
+after.png / variant.png: actual parent and selected-number states.
+nested.png: presentation-only test graph; first of two variants expanded to a plain saved descendant, before variant 2.
+nested-own.png: extended detached test graph; entered first child's own variant list and file-authoring controls.
+child-authoring.png: actual native saved child entered from its numbered variant.
+receipts.json: MCP reload and production handler interactions, collapse/reopen, nested traversal and return.
+
+Native sources:
+game/data/data010.pak/UI/layouts/Editor/Attributes/Base/SCR_AttributeDescription.layout lines21–29: plain ImageWidget thin line.
+game/data/data010.pak/UI/layouts/AirSupport/MapDotAreaFrame.layout lines1–20: Clipping False.
+PAK revision 366e99137dac49b7a1fde7c094cd92b9.
+Panel full style extends borders outside thin bounds; plain ImageWidget avoids oversized connector/selection blocks.
+
+Workbench 1.9.0.37; embedded Arland_Lobby, 2293x1595 window captures resized as noted.
+Compilation succeeded. Last reload logs an unrelated pre-existing PacejkaPlotTool leaked instance and mod resource diagnostics; no compilation error. This is not a clean whole-mod-pack log claim.
+Interactions invoke existing button handlers through the separate development addon; not physical mouse/gamepad coverage.
+Nested graph is synthetic UI evidence, not a persisted native ancestry test. Actual user test/US_variant_test_1 native ancestry and variants were separately exercised.
+Five original test-folder files verified byte-identical by SHA256. Temporary test dependency restored before handoff.

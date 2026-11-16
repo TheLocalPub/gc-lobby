@@ -23,6 +23,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected ref array<SCR_ButtonBaseComponent> m_aVariantRows = {};
 	protected ref array<ResourceName> m_aVariantOwners = {};
 	protected ref array<int> m_aVariantIndices = {};
+	protected ref array<ResourceName> m_aVariantPrefabs = {};
 	protected ref GC_LoadoutVariants m_Variants;
 	protected ResourceName m_sVariantOwner;
 	protected int m_iVariant = -1;
@@ -38,6 +39,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected ResourceName m_sParentPrefab;
 	protected ref map<ResourceName, ResourceName> m_mParents = new map<ResourceName, ResourceName>();
 	protected ref array<SCR_ButtonTextComponent> m_aParentRows = {};
+	protected ref array<int> m_aRowDepths = {};
 
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuOpen()
@@ -154,7 +156,6 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	{
 		foreach (SCR_ButtonTextComponent parentRow : m_aParentRows)
 		{
-			parentRow.m_OnClicked.Remove(OnAction);
 			parentRow.GetRootWidget().RemoveFromHierarchy();
 		}
 		m_aParentRows.Clear();
@@ -166,6 +167,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		m_aVariantRows.Clear();
 		m_aVariantOwners.Clear();
 		m_aVariantIndices.Clear();
+		m_aVariantPrefabs.Clear();
 		foreach (SCR_ButtonBaseComponent row : m_aRows)
 		{
 			row.m_OnClicked.Remove(OnSelect);
@@ -173,6 +175,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		}
 		m_aRows.Clear();
 		m_aRowResources.Clear();
+		m_aRowDepths.Clear();
 		m_aResources.Clear();
 		m_mParents.Clear();
 		// Authoring reads source files, including files created before the paused
@@ -225,23 +228,34 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 			return;
 		visited.Insert(resource);
 		Widget container = GetRootWidget().FindAnyWidget("SavedRows");
-		Widget widget = GetGame().GetWorkspace().CreateWidgets("{DC391DA320AE3002}UI/layouts/Inventory/GC_LoadoutButton.layout", container);
-		AlignableSlot.SetPadding(widget, Math.Min(depth, 4) * 20, 0, 0, 2);
-		SCR_ButtonTextComponent row = SCR_ButtonTextComponent.Cast(widget.FindHandler(SCR_ButtonTextComponent));
-		row.SetText(Label(resource));
-		row.SetToggleable(true);
-		SetSelection(row, !m_bCurrentGear && m_iVariant < 0 && resource == m_sSelected);
-		SetRoleIcon(widget, resource);
-		row.m_OnClicked.Insert(OnSelect);
-		m_aRows.Insert(row);
-		m_aRowResources.Insert(resource);
-
 		Widget parentWidget = GetGame().GetWorkspace().CreateWidgets("{DC391DA320AE3002}UI/layouts/Inventory/GC_LoadoutButton.layout", container);
 		parentWidget.SetName("Parent");
 		AlignableSlot.SetPadding(parentWidget, Math.Min(depth + 1, 5) * 20, 0, 0, 2);
 		SCR_ButtonTextComponent link = SCR_ButtonTextComponent.Cast(parentWidget.FindHandler(SCR_ButtonTextComponent));
-		link.m_OnClicked.Insert(OnAction);
+		link.SetEnabled(false);
 		m_aParentRows.Insert(link);
+
+		Widget widget = GetGame().GetWorkspace().CreateWidgets("{DC391DA320AE3002}UI/layouts/Inventory/GC_LoadoutButton.layout", container);
+		AlignableSlot.SetPadding(widget, Math.Min(depth, 4) * 20, 0, 0, 2);
+		SCR_ButtonTextComponent row = SCR_ButtonTextComponent.Cast(widget.FindHandler(SCR_ButtonTextComponent));
+		row.SetText(Label(resource));
+		bool numbered;
+		GC_LoadoutVariants parentVariants = lists.Get(m_mParents.Get(resource));
+		if (parentVariants)
+			foreach (int variantIndex, SCR_EditableEntityVariant parentVariant : parentVariants.m_aEntries)
+				if (SCR_ConfigHelper.GetGUID(parentVariant.m_sVariantPrefab) == SCR_ConfigHelper.GetGUID(resource))
+				{
+					row.SetText((variantIndex + 1).ToString());
+					numbered = true;
+				}
+		row.SetToggleable(true);
+		SetSelection(row, !m_bCurrentGear && m_iVariant < 0 && resource == m_sSelected);
+		if (!numbered)
+			SetRoleIcon(widget, resource);
+		row.m_OnClicked.Insert(OnSelect);
+		m_aRows.Insert(row);
+		m_aRowResources.Insert(resource);
+		m_aRowDepths.Insert(depth);
 
 		GC_LoadoutVariants variants = lists.Get(resource);
 		if (variants)
@@ -258,6 +272,11 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 				m_aVariantRows.Insert(variantRow);
 				m_aVariantOwners.Insert(resource);
 				m_aVariantIndices.Insert(index);
+				m_aVariantPrefabs.Insert(entry.m_sVariantPrefab);
+				// Keep the represented prefab's descendants immediately after its number.
+				foreach (ResourceName variantChild : m_aResources)
+					if (m_mParents.Get(variantChild) == resource && SCR_ConfigHelper.GetGUID(variantChild) == SCR_ConfigHelper.GetGUID(entry.m_sVariantPrefab))
+						AddPrefabRows(variantChild, depth + 1, lists, visited);
 			}
 		}
 		foreach (ResourceName childResource : m_aResources)
@@ -414,6 +433,15 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		}
 		foreach (int index, SCR_ButtonBaseComponent row : m_aVariantRows)
 			row.GetRootWidget().SetVisible(!m_bCurrentGear && m_sExpandedPrefab == m_aVariantOwners[index] && m_sSelected == m_aVariantOwners[index] && IsMatchingBranch(m_aVariantOwners[index], matching) && IsBranchVisible(m_aVariantOwners[index]));
+		// A numbered variant already represents its prefab in this branch.
+		foreach (int index, SCR_ButtonBaseComponent variantRow : m_aVariantRows)
+		{
+			if (!variantRow.GetRootWidget().IsVisible())
+				continue;
+			foreach (int rowIndex, ResourceName resource : m_aRowResources)
+				if (resource != m_sSelected && SCR_ConfigHelper.GetGUID(resource) == SCR_ConfigHelper.GetGUID(m_aVariantPrefabs[index]) && m_mParents.Get(resource) == m_aVariantOwners[index])
+					m_aRows[rowIndex].GetRootWidget().SetVisible(false);
+		}
 		RefreshRelationship();
 	}
 
@@ -437,6 +465,8 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		if (m_bCurrentGear)
 			return false;
 		if (resource == m_sExpandedPrefab)
+			return true;
+		if (m_iVariant >= 0 && m_Variants && SCR_ConfigHelper.GetGUID(resource) == SCR_ConfigHelper.GetGUID(m_Variants.m_aEntries[m_iVariant].m_sVariantPrefab))
 			return true;
 		ResourceName ancestor = m_mParents.Get(m_sSelected);
 		for (int depth; m_aResources.Contains(ancestor) && depth < 128; depth++)
@@ -495,6 +525,16 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		int index = m_aVariantRows.Find(button);
 		if (index < 0 || !CanChangeVariantOwner(m_aVariantOwners[index]))
 			return;
+		// Reopening the selected number enters its saved prefab and its own variants.
+		if (m_iVariant == m_aVariantIndices[index] && m_sSelected == m_aVariantOwners[index])
+		{
+			foreach (ResourceName resource : m_aResources)
+				if (SCR_ConfigHelper.GetGUID(resource) == SCR_ConfigHelper.GetGUID(m_aVariantPrefabs[index]))
+				{
+					SelectPrefab(resource);
+					return;
+				}
+		}
 		m_sSelected = m_aVariantOwners[index];
 		if (!ReadVariants())
 			return;
@@ -881,17 +921,60 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	}
 
 	//------------------------------------------------------------------------------------------------
+	protected ResourceName BranchRoot(ResourceName resource)
+	{
+		for (int depth; depth < 128; depth++)
+		{
+			ResourceName parent = m_mParents.Get(resource);
+			if (!m_aResources.Contains(parent))
+				return resource;
+			resource = parent;
+		}
+		return resource;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected bool ShowBaseParent(ResourceName resource)
+	{
+		return !m_bCurrentGear && !m_mParents.Get(resource).IsEmpty() && !m_aResources.Contains(m_mParents.Get(resource)) && (resource == m_sSelected || IsExpanded(resource));
+	}
+
+	//------------------------------------------------------------------------------------------------
 	protected void RefreshRelationship()
 	{
 		m_sParentPrefab = m_mParents.Get(m_sSelected);
 		foreach (int index, SCR_ButtonTextComponent link : m_aParentRows)
 		{
-			bool visible = !m_bCurrentGear && m_iVariant < 0 && m_aRowResources[index] == m_sSelected && m_aRows[index].GetRootWidget().IsVisible() && !m_sParentPrefab.IsEmpty();
-			link.GetRootWidget().SetVisible(visible);
-			if (!visible)
-				continue;
-			link.SetText(WidgetManager.Translate("#GC-Loadout_Inherits") + " · " + Label(m_sParentPrefab));
-			link.SetEnabled(!m_bVariantsDirty && m_aResources.Contains(m_sParentPrefab));
+			ResourceName resource = m_aRowResources[index];
+			bool header = ShowBaseParent(resource) && m_aRows[index].GetRootWidget().IsVisible();
+			link.GetRootWidget().SetVisible(header);
+			if (header)
+			{
+				ResourceName parent = m_mParents.Get(resource);
+				SCR_UIInfo info = GC_Slot.GetPrefabRoleInfo(parent);
+				string title = Label(parent);
+				if (info && !info.GetName().IsEmpty())
+					title = WidgetManager.Translate(info.GetName());
+				link.SetText(title);
+				SetRoleIcon(link.GetRootWidget(), parent);
+				AlignableSlot.SetPadding(link.GetRootWidget(), 0, 0, 0, 2);
+			}
+			int depth = m_aRowDepths[index];
+			if (ShowBaseParent(BranchRoot(resource)))
+				depth++;
+			Widget node = m_aRows[index].GetRootWidget();
+			AlignableSlot.SetPadding(node, Math.Min(depth, 6) * 28, 0, 0, 2);
+			node.FindAnyWidget("TreeBranch").SetVisible(depth > 0);
+		}
+		foreach (int index, SCR_ButtonBaseComponent variant : m_aVariantRows)
+		{
+			ResourceName owner = m_aVariantOwners[index];
+			int ownerIndex = m_aRowResources.Find(owner);
+			int depth = m_aRowDepths[ownerIndex] + 1;
+			if (ShowBaseParent(BranchRoot(owner)))
+				depth++;
+			AlignableSlot.SetPadding(variant.GetRootWidget(), Math.Min(depth, 6) * 28, 0, 0, 2);
+			variant.GetRootWidget().FindAnyWidget("TreeBranch").SetVisible(true);
 		}
 	}
 
@@ -912,12 +995,6 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		}
 		if (!GC_PrefabAuthoringSession.IsAvailable(m_Owner))
 			return;
-		if (action == "Parent")
-		{
-			if (!m_sParentPrefab.IsEmpty())
-				SelectPrefab(m_sParentPrefab);
-			return;
-		}
 		if (HandleVariantAction(action))
 			return;
 		if (action == "Current")
@@ -1124,8 +1201,6 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	override void OnMenuClose()
 	{
 		GetGame().GetCallqueue().Remove(ScanDependencies);
-		foreach (SCR_ButtonTextComponent link : m_aParentRows)
-			link.m_OnClicked.Remove(OnAction);
 		GetGame().GetCallqueue().Remove(ApplyFactionFilter);
 		if (m_Faction)
 		{
