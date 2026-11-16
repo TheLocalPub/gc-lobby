@@ -2,7 +2,7 @@
 class GC_MissionResult
 {
 	//! Shared native result construction for authored actions and authenticated admin controls.
-	static SCR_GameModeEndData Build(int result, string factionKey, array<string> winners)
+	static SCR_GameModeEndData Build(int result, array<string> winners)
 	{
 		if (result < 0 || result > 4 || (winners && winners.Count() > 16))
 			return null;
@@ -11,20 +11,27 @@ class GC_MissionResult
 		FactionManager manager = GetGame().GetFactionManager();
 		if (result > 0 && result < 4)
 		{
-			Faction faction = manager.GetFactionByKey(factionKey);
-			if (!faction)
+			if (!manager)
 				return null;
-			factions.Insert(manager.GetFactionIndex(faction));
 			if (result == 1)
 				reason = EGameOverTypes.EDITOR_FACTION_VICTORY;
 			else if (result == 2)
 				reason = EGameOverTypes.EDITOR_FACTION_DEFEAT;
 			else
 				reason = EGameOverTypes.EDITOR_FACTION_DRAW;
+			if (!winners || winners.IsEmpty())
+			{
+				array<Faction> registered = {};
+				manager.GetFactionsList(registered);
+				foreach (Faction faction : registered)
+					factions.Insert(manager.GetFactionIndex(faction));
+				if (factions.IsEmpty())
+					return null;
+			}
 		}
 		else if (result == 4)
 			reason = EGameOverTypes.LOOSE;
-		if (winners)
+		if (result > 0 && result < 4 && winners)
 		{
 			foreach (string key : winners)
 			{

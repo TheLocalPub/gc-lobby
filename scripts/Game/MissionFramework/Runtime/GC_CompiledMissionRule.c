@@ -151,10 +151,8 @@ class GC_RuleAction
 				return !m_sTextOrName.IsEmpty();
 			case GC_ERuleAction.END_MISSION:
 				return m_iOperation >= 0 && m_iOperation <= 4
-					&& (m_iOperation == 0 || m_iOperation == 4 || !m_sTextOrName.IsEmpty())
 					&& m_sEndMessage.Length() <= 512 && !m_sEndMessage.Contains("<") && !m_sEndMessage.Contains(">")
-					&& ValidTargetNames(m_aFlagNames) && (!m_aFlagNames || m_aFlagNames.Count() <= 16)
-					&& (m_iOperation == 1 || !m_aFlagNames || m_aFlagNames.IsEmpty());
+					&& ValidTargetNames(m_aFlagNames) && (!m_aFlagNames || m_aFlagNames.Count() <= 16);
 			case GC_ERuleAction.RESPAWN_TICKETS:
 				return !m_sTextOrName.IsEmpty() && m_iOperation >= 0 && m_iOperation <= 2 && m_iAmount >= 0 && m_iAmount <= 1000000;
 			case GC_ERuleAction.MISSION_MESSAGE:

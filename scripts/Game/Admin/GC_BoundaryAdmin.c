@@ -200,7 +200,10 @@ class GC_BoundaryAdmin
 		else
 		{
 			array<string> winners = {};
-			ref SCR_GameModeEndData data = GC_MissionResult.Build(result, faction, winners);
+			// Admin controls still require an explicit faction for faction results.
+			if (result > 0 && result < 4)
+				winners.Insert(faction);
+			ref SCR_GameModeEndData data = GC_MissionResult.Build(result, winners);
 			if (!data)
 				outcome = "Choose a valid result and a current faction.";
 			else

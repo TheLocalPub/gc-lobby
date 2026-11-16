@@ -249,7 +249,7 @@ modded class GC_LobbyManager
 	{
 		if (GetLobbyPhase() != SCR_EGameModeState.GAME)
 			return false;
-		ref SCR_GameModeEndData data = GC_MissionResult.Build(action.m_iOperation, action.m_sTextOrName, action.m_aFlagNames);
+		ref SCR_GameModeEndData data = GC_MissionResult.Build(action.m_iOperation, action.m_aFlagNames);
 		if (!data)
 			return false;
 		return EnterPostGame(data, action.m_sEndMessage);

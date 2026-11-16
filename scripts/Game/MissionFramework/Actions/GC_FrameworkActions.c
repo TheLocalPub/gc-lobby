@@ -101,9 +101,7 @@ class GC_EndMissionAction : GC_ActionBase
 {
 	[Attribute("0", UIWidgets.ComboBox, "Starts a two-minute mission-ending countdown. Admins can adjust, cancel or force it. The match and statistics stay active until the countdown finishes. Has no effect before Match, while another ending is pending, or after the mission has ended.", enums: {ParamEnum("Mission complete", "0"), ParamEnum("Faction victory", "1"), ParamEnum("Faction defeat", "2"), ParamEnum("Faction draw", "3"), ParamEnum("Mission failed", "4")})]
 	int m_iResult;
-	[Attribute("", UIWidgets.Auto, "Primary faction for a faction result; also counts as a winner for Victory. Leave empty for Mission complete or Mission failed.")]
-	FactionKey m_sFaction;
-	[Attribute("", UIWidgets.Auto, "Additional winning factions for Victory only. The primary faction is included automatically. Up to 16 additional entries; duplicates count once.")]
+	[Attribute("", UIWidgets.Auto, "Winning factions for Faction victory; affected factions for Faction defeat or Faction draw. Empty means all registered factions. Up to 16 entries; duplicates count once. Ignored for Mission complete and Mission failed.")]
 	ref array<FactionKey> m_aWinningFactions;
 	[Attribute("", UIWidgets.EditBox, "Optional ending description, up to 512 characters. Shown beneath the result heading in a notification and retained in the debrief and mission history. Blank means no notification.")]
 	string m_sMessage;
@@ -114,7 +112,6 @@ class GC_EndMissionAction : GC_ActionBase
 		GC_RuleAction action = new GC_RuleAction();
 		action.m_eDo = GC_ERuleAction.END_MISSION;
 		action.m_iOperation = m_iResult;
-		action.m_sTextOrName = m_sFaction;
 		action.m_sEndMessage = m_sMessage;
 		action.m_sEndMessage.TrimInPlace();
 		action.m_aFlagNames = {};
