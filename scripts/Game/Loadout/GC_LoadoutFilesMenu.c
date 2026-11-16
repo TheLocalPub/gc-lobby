@@ -31,6 +31,9 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 	protected ref array<ResourceName> m_aVariantChoices = {};
 	protected SCR_ConfigurableDialogUi m_DeleteDialog;
 	protected bool m_bVariantSaveFailed;
+	protected ref GC_LoadoutDependencies m_Dependencies;
+	protected ResourceName m_sDependencyTarget;
+	protected bool m_bDependencyVariants;
 
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuOpen()
@@ -492,6 +495,9 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 				RefreshList();
 				RefreshActions();
 				m_Status.SetText("#GC-Loadout_VariantsSaved");
+				if (!SaveDependencies(m_sSelected))
+					m_Status.SetText("#GC-Loadout_DependenciesSaveFailed");
+				RefreshDependencies(true);
 			}
 			return true;
 		}
@@ -675,6 +681,69 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		SCR_ButtonTextComponent.GetButtonText("Save", root).SetEnabled(true);
 		SCR_ButtonTextComponent.GetButtonText("Load", root).SetEnabled(!m_bCurrentGear);
 		RefreshVariantControls();
+		RefreshDependencies();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void RefreshDependencies(bool force = false)
+	{
+		GetGame().GetCallqueue().Remove(ScanDependencies);
+		TextWidget text = TextWidget.Cast(GetRootWidget().FindAnyWidget("Dependencies"));
+		ResourceName target = m_sSelected;
+		if (m_iVariant >= 0)
+			target = m_Variants.m_aEntries[m_iVariant].m_sVariantPrefab;
+		if (m_bCurrentGear || target.IsEmpty() || m_bVariantsDirty)
+		{
+			m_sDependencyTarget = string.Empty;
+			m_Dependencies = null;
+			if (m_bVariantsDirty)
+				text.SetText("#GC-Loadout_DependenciesPending");
+			else
+				text.SetText("#GC-Loadout_DependenciesUnsaved");
+			return;
+		}
+		bool allVariants = m_iVariant < 0;
+		if (!force && m_Dependencies && m_sDependencyTarget == target && m_bDependencyVariants == allVariants)
+			return;
+		m_sDependencyTarget = target;
+		m_bDependencyVariants = allVariants;
+		m_Dependencies = null;
+		text.SetText("#GC-Loadout_DependenciesScanning");
+		GetGame().GetCallqueue().CallLater(ScanDependencies, 1, false);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void ScanDependencies()
+	{
+		if (!GC_PrefabAuthoringSession.IsAvailable(m_Owner) || m_sDependencyTarget.IsEmpty())
+			return;
+		m_Dependencies = GC_LoadoutDependencies.Scan(m_sDependencyTarget, m_bDependencyVariants);
+		DrawDependencies();
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void DrawDependencies()
+	{
+		string value;
+		if (!m_Dependencies.m_sError.IsEmpty())
+			value = WidgetManager.Translate("#GC-Loadout_DependenciesFailed") + "\n";
+		else if (m_Dependencies.m_iUnresolved > 0 || m_Dependencies.m_iUnexpanded > 0)
+			value = WidgetManager.Translate("#GC-Loadout_DependenciesPartial") + "\n";
+		foreach (GC_LoadoutDependencyMod mod : m_Dependencies.m_aMods)
+		{
+			value += mod.m_sTitle;
+			value += "\n";
+		}
+		if (value.IsEmpty())
+			value = WidgetManager.Translate("#GC-Loadout_DependenciesNone");
+		TextWidget.Cast(GetRootWidget().FindAnyWidget("Dependencies")).SetText(value);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected bool SaveDependencies(ResourceName target)
+	{
+		GC_LoadoutDependencies report = GC_LoadoutDependencies.Scan(target, true);
+		return report.Save();
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -879,6 +948,7 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 		}
 		// The current character already contains the gear just written. Saving
 		// must not respawn it or restart the local Workbench session.
+		bool requirementsSaved = SaveDependencies(target);
 		if (!writeGear && !GC_PrefabAuthoringSession.LoadPrefab(target))
 		{
 			m_sSelected = target;
@@ -886,16 +956,33 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 			SetFields(target);
 			RefreshRelationship();
 			RefreshPreview();
+			RefreshDependencies(true);
 			m_Status.SetText("#GC-Loadout_SavedLoadFailed");
 			return;
 		}
 		GC_PrefabAuthoringSession.SetEditingPrefab(target);
-		Close();
+		m_Owner = GetGame().GetPlayerController().GetControlledEntity();
+		m_sSelected = target;
+		m_bCurrentGear = false;
+		m_iVariant = -1;
+		m_Variants = null;
+		m_sVariantOwner = string.Empty;
+		RefreshList();
+		SetFields(target);
+		RefreshRelationship();
+		RefreshPreview();
+		RefreshActions();
+		RefreshDependencies(true);
+		if (requirementsSaved)
+			m_Status.SetText("#GC-Loadout_LoadoutSaved");
+		else
+			m_Status.SetText("#GC-Loadout_DependenciesSaveFailed");
 	}
 
 	//------------------------------------------------------------------------------------------------
 	override void OnMenuClose()
 	{
+		GetGame().GetCallqueue().Remove(ScanDependencies);
 		GetGame().GetCallqueue().Remove(ApplyFactionFilter);
 		if (m_Faction)
 		{

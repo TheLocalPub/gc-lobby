@@ -236,5 +236,14 @@ StringTable {
   CustomStringTableItem "{E37A21004D951014}" { Id "GC-Vote_OneVote" Target_en_us "1 vote" }
   CustomStringTableItem "{E37A21004D951015}" { Id "GC-Vote_History" Target_en_us "%1 plays" }
   CustomStringTableItem "{E37A21004D951016}" { Id "GC-Vote_Never" Target_en_us "Never played" }
+  CustomStringTableItem "{7E161126B1000001}" { Id "GC-Loadout_RequiredMods" Target_en_us "Required mods" }
+  CustomStringTableItem "{7E161126B1000003}" { Id "GC-Loadout_DependenciesUnsaved" Target_en_us "Unsaved gear" }
+  CustomStringTableItem "{7E161126B1000004}" { Id "GC-Loadout_DependenciesPending" Target_en_us "Unsaved variants" }
+  CustomStringTableItem "{7E161126B1000005}" { Id "GC-Loadout_DependenciesScanning" Target_en_us "Checking…" }
+  CustomStringTableItem "{7E161126B1000006}" { Id "GC-Loadout_DependenciesNone" Target_en_us "Base game only" }
+  CustomStringTableItem "{7E161126B1000007}" { Id "GC-Loadout_DependenciesPartial" Target_en_us "Partial scan" }
+  CustomStringTableItem "{7E161126B1000008}" { Id "GC-Loadout_DependenciesFailed" Target_en_us "Requirements unavailable" }
+  CustomStringTableItem "{7E161126B1000009}" { Id "GC-Loadout_DependenciesSaveFailed" Target_en_us "Loadout saved · requirements not saved" }
+  CustomStringTableItem "{7E161126B100000A}" { Id "GC-Loadout_LoadoutSaved" Target_en_us "Loadout saved" }
  }
 }

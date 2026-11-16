@@ -1,0 +1,74 @@
+[
+  {
+    "action": "variantPrefab",
+    "value": "/WithoutRHS.et",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "4a9c48e75b3b469bba4c6fe907ff7a38",
+    "receipt": "ra64f132afbc048239dfe8f0690e056d4",
+    "returnType": "string",
+    "returned": "variant changed",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 10,
+      "serverMs": 91.8823
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "VariantSave",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "508384d45adc47faa9d1f10112e5f788",
+    "receipt": "r7fc4ad0a697241a29108006bdf06fe7f",
+    "returnType": "string",
+    "returned": "dispatched",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 636,
+      "serverMs": 722.8097
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "1058ee86d96f461ab174c9263cbbfdf6",
+    "receipt": "rf9e8359163cf47af986e0fac67376a20",
+    "returnType": "string",
+    "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status=Variants saved. mods=GC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 0,
+      "serverMs": 82.9042
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  }
+]

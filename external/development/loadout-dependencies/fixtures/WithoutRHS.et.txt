@@ -1,0 +1,24 @@
+SCR_ChimeraCharacter : "{26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et" {
+ ID "6AE12837C7E8811C"
+ components {
+  SCR_CharacterInventoryStorageComponent "{520EA1D2DB118DAC}" {
+   components {
+    ACE_EquipmentStorageComponent "{671625C6478FB2AB}" {
+     InitialStorageSlots {
+      SCR_EquipmentStorageSlot LaryngealTubeSlot {
+       Prefab ""
+      }
+      EquipmentStorageSlot OxygenMaskSlot {
+       Prefab ""
+      }
+     }
+    }
+   }
+  }
+  SCR_EditableCharacterComponent "{520EA1D2F659C85C}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{5298E609432D192D}" {
+    Name "WithoutRHS"
+   }
+  }
+ }
+}

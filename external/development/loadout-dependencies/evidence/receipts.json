@@ -1,0 +1,167 @@
+{
+  "reload": {
+    "state": "reloaded",
+    "operationId": "4f2464daadaf4fe8bec585b3292aa477"
+  },
+  "positiveSave": {
+    "state": "invoked",
+    "receipt": "rcc87ebe198e1426384f78fb9a281515d",
+    "returned": "dispatched",
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 329,
+      "serverMs": 425.6425
+    }
+  },
+  "positiveState": {
+    "state": "invoked",
+    "receipt": "r1a2af2e7c55d46a5a8944cbc36e64921",
+    "returned": "selected={6AE128348E55362B}Prefabs/Loadouts/US/DependencyTest/RHSFinal.et current=false status=Loadout saved mods=RHS: Status Quo\nACE Medical Breathing Dev\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 1,
+      "serverMs": 262.4579
+    }
+  },
+  "negativeSave": {
+    "state": "invoked",
+    "receipt": "r9b6a3dd2a89e4356b1e44c8cf1d71975",
+    "returned": "dispatched",
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 496,
+      "serverMs": 582.0536
+    }
+  },
+  "negativeState": {
+    "state": "invoked",
+    "receipt": "r77d78db2880c4c62a451eee4f5523821",
+    "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status=Loadout saved mods=ACE Medical Breathing Dev\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 1,
+      "serverMs": 83.8109
+    }
+  },
+  "reopenRHS": {
+    "state": "invoked",
+    "receipt": "rfb66393ede43404da579c4286657f14a",
+    "returned": "selected={6AE128348E55362B}Prefabs/Loadouts/US/DependencyTest/RHSFinal.et current=false status= mods=RHS: Status Quo\nACE Medical Breathing Dev\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 0,
+      "serverMs": 267.3349
+    }
+  },
+  "journey": [
+    {
+      "state": "invoked",
+      "receipt": "r7db25891538d4b3699424f8500b20717",
+      "returned": "dispatched",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 0,
+        "serverMs": 84.1668
+      },
+      "action": "Close",
+      "value": ""
+    },
+    {
+      "state": "invoked",
+      "receipt": "r0fdead3c3f4047ccb7e6fee6e155c164",
+      "returned": "opened",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 13,
+        "serverMs": 90.813
+      },
+      "action": "open",
+      "value": ""
+    },
+    {
+      "state": "invoked",
+      "receipt": "r0a13a87ed11a48709873ef32b05c3d4f",
+      "returned": "selected",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 0,
+        "invokeMs": 6,
+        "serverMs": 96.945
+      },
+      "action": "select",
+      "value": "RHSFinal.et"
+    },
+    {
+      "state": "invoked",
+      "receipt": "ra451072faa284fc891f3d1271f96d8f7",
+      "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status= mods=ACE Medical Breathing Dev\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+      "timings": {
+        "prepareMs": 0,
+        "compileMs": 0,
+        "invokeMs": 1,
+        "serverMs": 247.9313
+      },
+      "action": "state",
+      "value": ""
+    },
+    {
+      "state": "invoked",
+      "receipt": "r3985839e1501489183777d3dde540ac2",
+      "returned": "selected",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 11,
+        "serverMs": 98.8269
+      },
+      "action": "select",
+      "value": "WithRHSSaved.et"
+    },
+    {
+      "state": "invoked",
+      "receipt": "r3b53b12502874910a911542d3532bb4b",
+      "returned": "selected={6AE12837784BFC1B}Prefabs/Loadouts/US/DependencyTest/WithRHSSaved.et current=false status= mods=ACE Medical Breathing Dev\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 1,
+        "serverMs": 236.6417
+      },
+      "action": "state",
+      "value": ""
+    },
+    {
+      "state": "invoked",
+      "receipt": "r66e44bf3fa684805916bc35e5a896271",
+      "returned": "dispatched",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 5,
+        "serverMs": 92.9989
+      },
+      "action": "Current",
+      "value": ""
+    },
+    {
+      "state": "invoked",
+      "receipt": "re6ee689d2d2d476a95043169fbadbfb6",
+      "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=true status= mods=Unsaved gear",
+      "timings": {
+        "prepareMs": 1,
+        "compileMs": 1,
+        "invokeMs": 0,
+        "serverMs": 99.6487
+      },
+      "action": "state",
+      "value": ""
+    }
+  ]
+}

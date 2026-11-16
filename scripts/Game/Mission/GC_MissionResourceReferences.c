@@ -9,6 +9,45 @@ class GC_MissionResourceReferences
 	protected int m_iStarted;
 	protected int m_iContainers;
 	protected string m_sError;
+	protected ref array<string> m_aExcludedFields = {};
+	protected bool m_bLoadoutFields;
+
+	//------------------------------------------------------------------------------------------------
+	//! Only native equipment/identity references; excludes gameplay services and catalogues.
+	void UseLoadoutFields()
+	{
+		m_bLoadoutFields = true;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected bool IsLoadoutReference(BaseContainer container, string key)
+	{
+		typename type = container.GetClassName().ToType();
+		if (key == "Prefab")
+			return type && (type.IsInherited(InventoryStorageSlot) || type.IsInherited(LoadoutSlotInfo));
+		if (key == "WeaponTemplate")
+			return type && type.IsInherited(WeaponSlotComponent);
+		if (key == "MagazineTemplate")
+			return type && type.IsInherited(BaseMuzzleComponent);
+		if (key == "AmmoConfig")
+			return type && type.IsInherited(BaseMagazineComponent);
+		if (key == "AmmoResourceArray")
+			return container.GetClassName() == "MagazineConfig";
+		if (key == "PrefabsToSpawn")
+			return container.GetClassName() == "ItemsInitConfigurationItem";
+		if (key == "Head" || key == "Body")
+			return container.GetClassName() == "VisualIdentity";
+		if (key == "m_sVariantPrefab")
+			return type && type.IsInherited(SCR_EditableEntityVariant);
+		return false;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	//! Callers may narrow an evidence view without changing the mission export defaults.
+	void ExcludeField(string field)
+	{
+		m_aExcludedFields.Insert(field);
+	}
 
 	//------------------------------------------------------------------------------------------------
 	void GC_MissionResourceReferences(int started)
@@ -163,23 +202,34 @@ class GC_MissionResourceReferences
 	{
 		if (!container || !WithinBudget(depth))
 			return;
+		if (m_bLoadoutFields)
+		{
+			typename containerType = container.GetClassName().ToType();
+			// Match the loadout writer: temporary medical/hand storage is not equipment.
+			if (containerType && (containerType.IsInherited(SCR_HandSlotStorageComponent) || containerType.IsInherited(SCR_SalineStorageComponent) || containerType.IsInherited(SCR_TourniquetStorageComponent)))
+				return;
+		}
 		m_iContainers++;
 		for (int v; v < container.GetNumVars() && WithinBudget(depth); v++)
 		{
 			string key = container.GetVarName(v);
 			// Saved evidence is output, never a new dependency input.
-			if (key == "m_GC_GeneratedMetadata")
+			if (key == "m_GC_GeneratedMetadata" || m_aExcludedFields.Contains(key))
 				continue;
 			string field = origin + "/" + container.GetClassName() + "." + key;
 			DataVarType type = container.GetDataVarType(v);
 			if (type == DataVarType.RESOURCE_NAME || type == DataVarType.STRING)
 			{
+				if (m_bLoadoutFields && !IsLoadoutReference(container, key))
+					continue;
 				string value;
 				if (container.Get(key, value) && (type == DataVarType.RESOURCE_NAME || value.StartsWith("{")))
 					AddResource(value, field);
 			}
 			else if (type == DataVarType.RESOURCE_NAME_ARRAY || type == DataVarType.STRING_ARRAY)
 			{
+				if (m_bLoadoutFields && !IsLoadoutReference(container, key))
+					continue;
 				array<string> values = {};
 				if (container.Get(key, values))
 					foreach (int index, string item : values)

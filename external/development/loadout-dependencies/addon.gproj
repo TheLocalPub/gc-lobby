@@ -1,0 +1,6 @@
+GameProject {
+ ID "GCLoadoutDependencyTests"
+ GUID "7E161126B1000100"
+ TITLE "GC Loadout Dependency Tests"
+ Dependencies { "6A115D5DFF7ED870" }
+}

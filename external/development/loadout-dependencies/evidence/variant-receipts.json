@@ -1,0 +1,216 @@
+[
+  {
+    "action": "spawn",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "4c8f871b0d824e29a145d6ac03f7c10e",
+    "receipt": "r88e7776ea0ea4184a1f54f860d24c343",
+    "returnType": "string",
+    "returned": "spawned",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 57,
+      "serverMs": 117.6035
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "open",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "4872d9aaeb6e4fccac04ef693cd2237c",
+    "receipt": "r3c1fd4dea5b640e99538e8887e5b9ffa",
+    "returnType": "string",
+    "returned": "opened",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 8,
+      "serverMs": 116.2889
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "select",
+    "value": "/NoRHSFinal.et",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "97b54ee8b4604e84898b049af5d4eaf9",
+    "receipt": "r9ecf794809184512870ba0a6c1559132",
+    "returnType": "string",
+    "returned": "selected",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 8,
+      "serverMs": 101.0108
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "variant",
+    "value": "0",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "100eb31d2e3947478edf8e969c68a259",
+    "receipt": "r61ebe7f125484c7ebbaf10a1b58c1e41",
+    "returnType": "string",
+    "returned": "variant selected",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 8,
+      "serverMs": 351.2332
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "a3aae72a0cc940b0aad24230742b92fd",
+    "receipt": "r9a4de2f234b24703a4730cdb5e160e83",
+    "returnType": "string",
+    "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status= mods=ACE Medical Breathing Dev\nGC Splints\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 232.3022
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "variantPrefab",
+    "value": "/RHSFinal.et",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "a76ccad4ef904be79e1341b3fdc26313",
+    "receipt": "r114a66f159e646ae9ecfef98ae65bf78",
+    "returnType": "string",
+    "returned": "variant changed",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 19,
+      "serverMs": 99.2155
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "value": "",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "a3e1e58fd7d949cb899f6e4fc0a34e1c",
+    "receipt": "r212daed9f5df45c2983c0abd56356f91",
+    "returnType": "string",
+    "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status=Unsaved changes. Save, or close to discard. mods=Unsaved variants",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 89.8214
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "VariantSave",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "2968c71640764a12940d59c949aeea0c",
+    "receipt": "rfcc231c5c9734f18939d6b2ba56b9def",
+    "returnType": "string",
+    "returned": "dispatched",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 605,
+      "serverMs": 686.7947
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "state",
+    "state": "invoked",
+    "processId": 49496,
+    "operationId": "50c90f1dd3104afab892c64979b0aeb5",
+    "receipt": "ra3ec1a2814b6410c86a50585068d94aa",
+    "returnType": "string",
+    "returned": "selected={6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et current=false status=Variants saved. mods=RHS: Status Quo\nGC Splints\nGlobal Conflicts Units Dev\nACE Facepaint Dev\nACE Overheating Dev\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 88.0995
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  }
+]

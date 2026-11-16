@@ -14,22 +14,26 @@ FrameWidgetClass { Name "LoadoutFiles" Slot FrameWidgetSlot { Anchor 0 0 1 1 Off
  TextWidgetClass { Name "PreviewStatus" Text "" Slot FrameWidgetSlot { Anchor 0.32 0.45 0.65 0.55 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 22 Wrap 1 "Ignore Cursor" 1 }
  PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.69 0.15 0.69 0.79 OffsetLeft 0 OffsetTop 0 OffsetRight -1 OffsetBottom 0 } Color 0.6 0.6 0.6 0.25 style full "Ignore Cursor" 1 }
  FrameWidgetClass { Name "PrefabFields" Slot FrameWidgetSlot { Anchor 0 0 1 1 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } {
- TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.15 0.97 0.19 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Faction" }
- PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.2 0.97 0.27 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
- SizeLayoutWidgetClass : "{DC391DA320AE5020}UI/layouts/Inventory/GC_LoadoutScopeSelector.layout" { Name "Faction" Slot FrameWidgetSlot { Anchor 0.72 0.2 0.97 0.27 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
- TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.31 0.97 0.35 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Group" }
- PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.36 0.97 0.43 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
- SizeLayoutWidgetClass : "{DC391DA320AE5020}UI/layouts/Inventory/GC_LoadoutScopeSelector.layout" { Name "Group" Slot FrameWidgetSlot { Anchor 0.72 0.36 0.97 0.43 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
- TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.47 0.97 0.51 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Name" }
- PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.52 0.97 0.59 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
- EditBoxWidgetClass : "{E341A258BC700001}UI/layouts/Admin/Lobby_AdminEditBox.layout" { Name "Name" Slot FrameWidgetSlot { Anchor 0.735 0.52 0.955 0.59 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 }
- TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.62 0.97 0.66 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Icon" }
- SizeLayoutWidgetClass : "{DC391DA320AE5010}UI/layouts/Inventory/GC_LoadoutIconSelector.layout" { Name "RoleSelector" Slot FrameWidgetSlot { Anchor 0.72 0.67 0.97 0.74 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
- TextWidgetClass { Name "Parent" Text "" Slot FrameWidgetSlot { Anchor 0.72 0.76 0.97 0.82 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 20 Wrap 1 Color 0.75 0.75 0.75 1 "Ignore Cursor" 1 }
+ TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.15 0.97 0.18 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Faction" }
+ PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.185 0.97 0.24 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
+ SizeLayoutWidgetClass : "{DC391DA320AE5020}UI/layouts/Inventory/GC_LoadoutScopeSelector.layout" { Name "Faction" Slot FrameWidgetSlot { Anchor 0.72 0.185 0.97 0.24 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
+ TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.255 0.97 0.285 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Group" }
+ PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.29 0.97 0.345 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
+ SizeLayoutWidgetClass : "{DC391DA320AE5020}UI/layouts/Inventory/GC_LoadoutScopeSelector.layout" { Name "Group" Slot FrameWidgetSlot { Anchor 0.72 0.29 0.97 0.345 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
+ TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.36 0.97 0.39 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Name" }
+ PanelWidgetClass { Slot FrameWidgetSlot { Anchor 0.72 0.395 0.97 0.45 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } Color 0.35 0.35 0.35 0.8 style pixel_outline "Ignore Cursor" 1 }
+ EditBoxWidgetClass : "{E341A258BC700001}UI/layouts/Admin/Lobby_AdminEditBox.layout" { Name "Name" Slot FrameWidgetSlot { Anchor 0.735 0.395 0.955 0.45 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 }
+ TextWidgetClass : "{E341A258BC700003}UI/layouts/Admin/Lobby_AdminFieldLabel.layout" { Slot FrameWidgetSlot { Anchor 0.72 0.465 0.97 0.495 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Text "#GC-Loadout_Icon" }
+ SizeLayoutWidgetClass : "{DC391DA320AE5010}UI/layouts/Inventory/GC_LoadoutIconSelector.layout" { Name "RoleSelector" Slot FrameWidgetSlot { Anchor 0.72 0.5 0.97 0.555 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } }
+ TextWidgetClass { Name "Parent" Text "" Slot FrameWidgetSlot { Anchor 0.72 0.565 0.97 0.605 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 20 Wrap 1 Color 0.75 0.75 0.75 1 "Ignore Cursor" 1 }
  } }
  FrameWidgetClass { Name "VariantFields" Slot FrameWidgetSlot { Anchor 0 0 1 1 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Is Visible" 0 {
  TextWidgetClass { Name "VariantParent" Slot FrameWidgetSlot { Anchor 0.72 0.15 0.97 0.22 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 24 Color 1 1 1 1 Wrap 1 "Ignore Cursor" 1 }
  SizeLayoutWidgetClass : "{DC391DA320AE4001}UI/layouts/Inventory/GC_CatalogueSelector.layout" { Name "VariantPrefab" Slot FrameWidgetSlot { Anchor 0.72 0.25 0.97 0.32 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } AllowHeightOverride 0 }
+ } }
+ TextWidgetClass { Name "DependencyHeading" Text "#GC-Loadout_RequiredMods" Slot FrameWidgetSlot { Anchor 0.72 0.625 0.97 0.66 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 22 Color 0.75 0.75 0.75 1 "Ignore Cursor" 1 }
+ ScrollLayoutWidgetClass { Name "DependencyScroll" Slot FrameWidgetSlot { Anchor 0.72 0.67 0.97 0.815 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Scrollbar Always Visible" 0 {
+ TextWidgetClass { Name "Dependencies" Slot AlignableSlot { HorizontalAlign 3 VerticalAlign 0 } Text "" "Font Size" 20 Wrap 1 "Ignore Cursor" 1 }
  } }
  TextWidgetClass { Name "Status" Text "" Slot FrameWidgetSlot { Anchor 0.03 0.83 0.97 0.89 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } "Font Size" 20 Wrap 1 "Ignore Cursor" 1 }
  FrameWidgetClass { Name "FileActions" Slot FrameWidgetSlot { Anchor 0 0 1 1 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom 0 } {
