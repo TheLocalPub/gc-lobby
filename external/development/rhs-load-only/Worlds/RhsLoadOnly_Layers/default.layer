@@ -1,0 +1,12 @@
+GC_LobbyGameMode GC_RhsTestMode : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
+ components {
+  GC_RhsLoadProbeComponent "{7E161126A01D0010}" {}
+ }
+ coords 0 0 0
+ {
+  SCR_AIWorld GC_RhsTestAI : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {}
+ }
+}
+GenericEntity GC_RhsPlacedRifle : "{5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et" {
+ coords 1282.58 10 2380.75
+}

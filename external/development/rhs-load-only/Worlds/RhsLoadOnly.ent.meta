@@ -1,0 +1,7 @@
+MetaFileClass {
+ Name "{7E161126A01D0002}Worlds/RhsLoadOnly.ent"
+ Configurations {
+  ENTResourceClass PC {}
+  ENTResourceClass HEADLESS : PC {}
+ }
+}

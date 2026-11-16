@@ -1,0 +1,28 @@
+Source: rhs-server-profile/logs/logs_2026-11-16_10-09-50/console.log
+345: 10:09:58.549      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=5614BBCCBB55ED1C id=core
+346: 10:09:58.549      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=58D0FB3206B6F859 id=ArmaReforger
+347: 10:09:58.549      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=6A115D5DFF7ED870 id=GlobalConflictsLobbyDev
+348: 10:09:58.549      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=7E161126A01D0001 id=GCRhsLoadOnlyTest
+349: 10:09:58.550      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=1337C0DE5DABBEEF id=RHS_Content_01
+350: 10:09:58.550      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=BADC0DEDABBEDA5E id=RHS_Content_02
+351: 10:09:58.550      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=595F2BF2F44836FB id=RHS_Core
+352: 10:09:58.550      SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 rhsResource=1
+445: 10:10:05.457 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=1 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+448: 10:10:05.493   SCRIPT       : GC | OnPlayerAuditSuccess: 1, connected!
+451: 10:10:05.493   NETWORK      : Players connected: 2 / 2
+464: 10:10:05.533   SCRIPT       : GC | OnPlayerAuditSuccess: 2, connected!
+467: 10:10:05.533   NETWORK      : Players connected: 2 / 2
+478: 10:10:10.457 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=2 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+479: 10:10:15.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=3 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+486: 10:10:20.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=4 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+490: 10:10:25.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=5 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+491: 10:10:30.490 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=6 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+492: 10:10:35.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=7 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+493: 10:10:40.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=8 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+494: 10:10:45.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=9 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+498: 10:10:50.490 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=10 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+502: 10:10:55.490 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=11 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+503: 10:11:00.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=12 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+504: 10:11:05.491 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=13 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+505: 10:11:10.524 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=14 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et
+506: 10:11:15.557 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=1 sample=15 rhsEntity=1 players=2 prefab={5961913EE3FF9467}Prefabs/Weapons/Rifles/M4A1/Rifle_M4A1_BLOCK_0.et

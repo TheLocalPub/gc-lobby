@@ -1,0 +1,26 @@
+Source: rhs-peer2/logs/logs_2026-11-16_10-09-52/console.log
+299: 10:09:53.272   GUI       (E): Unknown class 'SCR_WidgetExportRuleRoot' at offset 282(0x11a)
+386: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=5614BBCCBB55ED1C id=core
+387: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=58D0FB3206B6F859 id=ArmaReforger
+388: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=6A115D5DFF7ED870 id=GlobalConflictsLobbyDev
+389: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=7E161126A01D0001 id=GCRhsLoadOnlyTest
+390: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=1337C0DE5DABBEEF id=RHS_Content_01
+391: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=BADC0DEDABBEDA5E id=RHS_Content_02
+392: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 addon=595F2BF2F44836FB id=RHS_Core
+393: 10:10:04.309      SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 rhsResource=1
+481: 10:10:06.760   SCRIPT       : GC | Phase UI Trace | player controller ownership: this=GC_LobbyPlayerController<0x000002D2F06C40D0> @"ENTITY:4611686018427387953" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et" player=2 changing=0 becameOwner=1 server=0 publishedController=GC_LobbyPlayerController<0x000002D2F06C40D0> @"ENTITY:4611686018427387953" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et"
+505: 10:10:07.321   GUI       (E): ImageWidget 'm_Outline': Can't load mask from ImageSet 'UI/Textures/Icons/icons_mouse/icons_mouse.imageset'
+506: 10:10:11.716 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=1 rhsEntity=0 players=2 prefab=
+514: 10:10:16.714 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=2 rhsEntity=0 players=2 prefab=
+515: 10:10:21.731 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=3 rhsEntity=0 players=2 prefab=
+538: 10:10:26.749 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=4 rhsEntity=0 players=2 prefab=
+542: 10:10:31.748 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=5 rhsEntity=0 players=2 prefab=
+543: 10:10:36.931 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=6 rhsEntity=0 players=2 prefab=
+544: 10:10:42.031 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=7 rhsEntity=0 players=2 prefab=
+548: 10:10:47.031 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=8 rhsEntity=0 players=2 prefab=
+552: 10:10:52.031 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=9 rhsEntity=0 players=2 prefab=
+553: 10:10:57.048 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=10 rhsEntity=0 players=2 prefab=
+554: 10:11:02.047 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=11 rhsEntity=0 players=2 prefab=
+555: 10:11:07.230 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=12 rhsEntity=0 players=2 prefab=
+556: 10:11:12.230 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=13 rhsEntity=0 players=2 prefab=
+557: 10:11:17.231 SCRIPT       : GC_RHS_TEST run=rhs-local-02 server=0 sample=14 rhsEntity=0 players=2 prefab=

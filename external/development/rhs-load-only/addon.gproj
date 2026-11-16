@@ -1,0 +1,8 @@
+GameProject {
+ ID "GCRhsLoadOnlyTest"
+ GUID "7E161126A01D0001"
+ TITLE "GC RHS Load Only Experiment"
+ Dependencies {
+  "6A115D5DFF7ED870"
+ }
+}

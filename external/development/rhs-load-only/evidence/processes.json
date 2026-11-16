@@ -1,0 +1,133 @@
+{
+  "run": "rhs-local-02",
+  "observedOperation": "aa4d252f3aee49d385b9218e48fc9f91",
+  "processId": 37180,
+  "server": {
+    "state": "running",
+    "processId": 43780,
+    "startedUtc": "2026-11-16T15:09:50.0783587Z",
+    "running": true,
+    "exitCode": null,
+    "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger Server\\ArmaReforgerServerDiag.exe",
+    "arguments": [
+      "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger Server\\ArmaReforgerServerDiag.exe",
+      "-gproj=C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+      "-server",
+      "Worlds/RhsLoadOnly.ent",
+      "-adminPassword",
+      "[redacted]",
+      "-addonsDir",
+      "C:\\Program",
+      "Files",
+      "(x86)\\Steam\\steamapps\\common\\Arma",
+      "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+      "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+      "Games\\ArmaReforgerWorkbench\\addons",
+      "-addons",
+      "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core",
+      "-profile",
+      "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-server-profile",
+      "-maxFPS",
+      "30",
+      "-addonsDir",
+      "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only",
+      "-gcRhsProbe",
+      "rhs-local-02"
+    ],
+    "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-server-profile\\logs",
+    "candidateSessions": [
+      "logs_2026-11-16_10-09-50"
+    ],
+    "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+  },
+  "peers": [
+    {
+      "index": 0,
+      "process": {
+        "state": "running",
+        "processId": 50964,
+        "startedUtc": "2026-11-16T15:09:50.0869977Z",
+        "running": true,
+        "exitCode": null,
+        "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+        "arguments": [
+          "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+          "-gproj",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+          "-addonsDir",
+          "C:\\Program",
+          "Files",
+          "(x86)\\Steam\\steamapps\\common\\Arma",
+          "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons",
+          "-addons",
+          "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core",
+          "-window",
+          "-maxFPS",
+          "60",
+          "-forceupdate",
+          "-nofocus",
+          "-client",
+          "-rpl-reconnect",
+          "-rpl-timeout-disable",
+          "-profile",
+          "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer1",
+          "-addonsDir",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only",
+          "-gcRhsProbe",
+          "rhs-local-02"
+        ],
+        "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer1\\logs",
+        "candidateSessions": [
+          "logs_2026-11-16_10-09-52"
+        ],
+        "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+      }
+    },
+    {
+      "index": 1,
+      "process": {
+        "state": "running",
+        "processId": 32124,
+        "startedUtc": "2026-11-16T15:09:50.0957308Z",
+        "running": true,
+        "exitCode": null,
+        "executable": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+        "arguments": [
+          "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma Reforger\\ArmaReforgerSteamDiag.exe",
+          "-gproj",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons/data/ArmaReforger.gproj",
+          "-addonsDir",
+          "C:\\Program",
+          "Files",
+          "(x86)\\Steam\\steamapps\\common\\Arma",
+          "Reforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforger\\addons,C:\\Users\\Gray\\Documents\\My",
+          "Games\\ArmaReforgerWorkbench\\addons",
+          "-addons",
+          "GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,RHS_Content_01,RHS_Content_02,RHS_Core",
+          "-window",
+          "-maxFPS",
+          "60",
+          "-forceupdate",
+          "-nofocus",
+          "-client",
+          "-rpl-reconnect",
+          "-rpl-timeout-disable",
+          "-profile",
+          "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer2",
+          "-addonsDir",
+          "C:/Program Files (x86)/Steam/steamapps/common/Arma Reforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforger/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons,C:/Users/Gray/Documents/My Games/ArmaReforgerWorkbench/addons/gc-lobby/external/development/rhs-load-only",
+          "-gcRhsProbe",
+          "rhs-local-02"
+        ],
+        "logDirectory": "C:/Users/Gray/Documents/VS/reforger-script-tools/work/rhs-peer2\\logs",
+        "candidateSessions": [
+          "logs_2026-11-16_10-09-52"
+        ],
+        "detail": "Log directory inferred from this process's command line; candidate sessions were created within 15 seconds of process creation. Confirm their startup header and connection events; they are not proven process-to-log bindings."
+      }
+    }
+  ]
+}
