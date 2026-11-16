@@ -27,7 +27,7 @@ maps events, conditions, actions, flags, areas, interactions and runtime executi
 Save mission-specific settings and compositions as inherited prefabs under
 `Prefabs/Templates` (or in the mission's own addon), rather than adding another
 game mode. `GC_MissionSettings_US_USSR.et` supplies faction-specific parameters;
-`GC_MissionTemplate_Coop.et` supplies the supporting mission managers. Both
+`GC_LobbyGameMode.et` supplies the supporting mission managers. Both
 inherit the same game mode. Their resource GUIDs are preserved.
 
 The game-mode entity exposes **GC Lobby Gameplay > Keep Weapon When Unconscious**
@@ -46,7 +46,7 @@ Outside GC Lobby, the recovery observer only invalidates an existing GC Lobby
 last-mission record so an intervening mission cannot restore an old map plan.
 
 Open `addon.gproj` to work on the production addon. Create a mission in its own
-addon, inherit a supported terrain, and use **Plugins > GC > Spawn Mission Template**.
+addon, open a terrain or inherited mission, and use **Plugins > GC > Spawn GC Lobby Game Mode**.
 Configure playable groups, briefing, mission events and a mission header before publishing.
 Groups have an optional **GC Lobby > GC Description** field (`m_sGC_Description`)
 for labels such as "Weapons team". Slotting cards show it below the callsign in

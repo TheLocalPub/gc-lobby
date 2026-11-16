@@ -1,4 +1,4 @@
-GC_LobbyGameMode GC_RhsTestMode : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
+GC_LobbyGameMode GC_RhsTestMode : "{A79C4E0A43DEB821}Prefabs/MP/Modes/GC_LobbyGameMode.et" {
  components {
   GC_RhsLoadProbeComponent "{7E161126A01D0010}" {}
  }

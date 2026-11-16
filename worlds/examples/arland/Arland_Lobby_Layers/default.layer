@@ -1,4 +1,4 @@
-GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_MissionTemplate.et" {
+GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/MP/Modes/GC_LobbyGameMode.et" {
  components {
   GC_LobbyManager "{6A137A39106A4973}" {
    m_aMissionEvents {

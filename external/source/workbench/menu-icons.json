@@ -7,9 +7,9 @@
         "Create Mission Data",
         "GC Tools",
         "Open Wiki",
-        "Spawn Mission Template"
+        "Spawn GC Lobby Game Mode"
       ],
-      "iconCommand": "Spawn Mission Template",
+      "iconCommand": "Spawn GC Lobby Game Mode",
       "bottomCommand": "Create Mission Data"
     },
     {
@@ -18,9 +18,9 @@
         "Create Mission Data",
         "GC Tools",
         "Open Wiki",
-        "Spawn Mission Template"
+        "Spawn GC Lobby Game Mode"
       ],
-      "iconCommand": "Spawn Mission Template",
+      "iconCommand": "Spawn GC Lobby Game Mode",
       "bottomCommand": "Open Wiki"
     },
     {
@@ -29,9 +29,9 @@
         "Create Mission Data",
         "GC Tools",
         "Open Wiki",
-        "Spawn Mission Template"
+        "Spawn GC Lobby Game Mode"
       ],
-      "iconCommand": "Spawn Mission Template",
+      "iconCommand": "Spawn GC Lobby Game Mode",
       "bottomCommand": "GC Tools"
     }
   ]
