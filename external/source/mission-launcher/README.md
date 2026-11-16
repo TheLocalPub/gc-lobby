@@ -122,7 +122,8 @@ GlobalConflictsWorkbench and new GlobalConflictsWorkshop identities as server
 requirements, because a full authoring collection is not a minimal mission list.
 
 The 2026-11-16 ownership migration moved equipment changes to Units and mission
-content to Missions, leaving Core with six required third-party systems. See
+content to Missions, leaving system integrations in Core. Core now selects ACE All in One Dev and
+CSI instead of individual ACE entries. See
 `../../development/dependency-migration` for preserved file hashes and validation,
 and the collection README for native download/update behavior and release limits.
 

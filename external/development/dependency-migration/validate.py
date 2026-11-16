@@ -47,7 +47,10 @@ def main():
         return result
 
     closures = {name: closure(guid) for name, guid in ids.items()}
-    assert set(graph[ids["core"]]) == set("58D0FB3206B6F859 65AD7D0D9941A380 65AD7C249E4ECDFB 65AD7D2E9866FA6E 6586079789278413 65B8EA178A3E94E3 5B0D1E4380971EBD".split())
+    assert set(graph[ids["core"]]) == set("58D0FB3206B6F859 65AD7BE594439A52 5B0D1E4380971EBD".split())
+    assert {"65AD7D0D9941A380", "6586079789278413"} <= closures["core"], "ACE Core/Medical Core Dev missing"
+    ace_modules = set(graph["65AD7BE594439A52"]) - vanilla
+    assert not (ace_modules & set(graph[ids["units"]])), "Individual ACE dependencies duplicated in Units"
     assert graph[ids["lobby"]] == ["58D0FB3206B6F859"]
     for name in ("core", "units", "missions", "lobby"):
         assert ids["workshop"] not in closures[name], f"Collection leaked into {name}"

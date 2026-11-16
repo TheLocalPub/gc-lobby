@@ -129,7 +129,7 @@ GlobalConflictsMissionsDev); release addons have different identities.
   and data. Save GC mission worlds there. Create Mission Data intentionally follows
   the selected world's owning addon, so other addons' worlds keep their own headers.
 
-Core Dev retains only its required system integrations. Units Dev owns equipment
+Core Dev owns system integrations and selects ACE through All in One Dev. Units Dev owns equipment
 overrides and the shared gameplay baseline; Missions Dev owns mission/terrain data.
 Units Dev depends on Core and Lobby Dev; Missions Dev depends on all three. The
 GC Lobby framework stays separate. Its example worlds remain development examples,

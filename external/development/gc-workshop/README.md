@@ -13,8 +13,9 @@ publish it as a release collection until those matching packages are available.
 
 ## Dependency ownership
 
-- **Core:** shared systems and mod-pack behavior, plus dependencies directly
-  needed by those changes (ACE settings/pointing/captives and CSI integration).
+- **Core:** shared systems and mod-pack behavior. ACE is selected once through
+  **ACE All in One Dev**,
+  including ACE Core Dev and ACE Medical Core Dev; CSI supports the compass.
 - **Units:** units, loadouts, weapons, ammunition, vehicles and their overrides.
   It also selects the shared gameplay baseline, including suppression and mortars,
   so those systems do not depend on whether a mission places a particular object.
