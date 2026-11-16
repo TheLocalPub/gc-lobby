@@ -271,7 +271,17 @@ class GC_BriefingMarkerLayer
 			FrameSlot.SetSize(markerGlow, displayWidth, displayHeight);
 			FrameSlot.SetPos(markerImage, iconOffsetX, 0);
 			FrameSlot.SetSize(markerImage, displayWidth, displayHeight);
-			FrameSlot.SetPos(markerLabel, 0, displayHeight);
+			float textRotation;
+			if (marker.IsTextAlignedWithMarkerRotation())
+				textRotation = marker.GetRotation();
+			float textAngle = textRotation * Math.DEG2RAD;
+			// Rotate the label's top-center around the icon center, then rotate
+			// its text around that same attachment point (including upside down).
+			float labelX = -Math.Sin(textAngle) * displayHeight * 0.5;
+			float labelY = (1 + Math.Cos(textAngle)) * displayHeight * 0.5;
+			markerDescription.SetPivot(0.5, 0);
+			markerDescription.SetRotation(textRotation);
+			FrameSlot.SetPos(markerLabel, labelX, labelY);
 			FrameSlot.SetSize(markerLabel, labelWidth, labelHeight);
 			FrameSlot.SetPos(markerDescription, 0, 0);
 			FrameSlot.SetSize(markerDescription, labelWidth, labelHeight);

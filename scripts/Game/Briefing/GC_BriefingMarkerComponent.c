@@ -35,6 +35,9 @@ class GC_BriefingMarkerComponent : ScriptComponent
 	[Attribute("", UIWidgets.EditBox, "Text displayed underneath the marker")]
 	protected string m_sDescription;
 
+	[Attribute("0", UIWidgets.CheckBox, "Align text with marker rotation")]
+	protected bool m_bAlignTextWithMarkerRotation;
+
 	[Attribute("", UIWidgets.Auto, "Authoritative base-game faction keys. Empty shows the marker to everyone")]
 	protected ref array<FactionKey> m_aFactionKeys;
 
@@ -116,7 +119,7 @@ class GC_BriefingMarkerComponent : ScriptComponent
 			markerColor = m_Color.PackToInt();
 		marker.Set(m_sMarkerName, m_sImageSetOrImage, m_sHighlightImageSet, m_sQuadName, owner.GetOrigin(), owner.GetYawPitchRoll()[0] - 90,
 			m_bWorldScale, m_fSize, m_fMinSize, m_sDescription, GC_FactionKeys.ToStrings(m_aFactionKeys),
-			m_eShowAtGameModeState, m_bInvertGameModeState, true, markerColor);
+			m_eShowAtGameModeState, m_bInvertGameModeState, true, markerColor, m_bAlignTextWithMarkerRotation);
 		return marker;
 	}
 

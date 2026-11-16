@@ -11,6 +11,7 @@ class GC_BriefingMarker
 	protected string m_sQuadName;
 	protected vector m_vWorldPosition;
 	protected float m_fRotation;
+	protected bool m_bAlignTextWithMarkerRotation;
 	protected bool m_bWorldScale;
 	protected float m_fSize;
 	protected float m_fMinSize;
@@ -32,6 +33,7 @@ class GC_BriefingMarker
 	string GetQuadName() { return m_sQuadName; }
 	vector GetWorldPosition() { return m_vWorldPosition; }
 	float GetRotation() { return m_fRotation; }
+	bool IsTextAlignedWithMarkerRotation() { return m_bAlignTextWithMarkerRotation; }
 	bool IsWorldScale() { return m_bWorldScale; }
 	float GetSize() { return m_fSize; }
 	float GetMinSize() { return m_fMinSize; }
@@ -47,7 +49,7 @@ class GC_BriefingMarker
 	void Set(string name, ResourceName image, ResourceName highlightImage, string quadName, vector worldPosition, float rotation, bool worldScale,
 		float size, float minSize, string description, array<string> factionKeys = null,
 		SCR_EGameModeState showAtGameModeState = SCR_EGameModeState.GAME,
-		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE)
+		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE, bool alignTextWithMarkerRotation = false)
 	{
 		m_bExplicitAudience = false;
 		m_bExcludeFactionKeys = false;
@@ -58,6 +60,7 @@ class GC_BriefingMarker
 		m_sQuadName = quadName;
 		m_vWorldPosition = worldPosition;
 		m_fRotation = rotation;
+		m_bAlignTextWithMarkerRotation = alignTextWithMarkerRotation;
 		m_bWorldScale = worldScale;
 		m_fSize = size;
 		m_fMinSize = minSize;
@@ -142,7 +145,7 @@ class GC_BriefingMarker
 		Set(source.m_sName, source.m_sImage, source.m_sHighlightImage, source.m_sQuadName, source.m_vWorldPosition,
 			source.m_fRotation, source.m_bWorldScale, source.m_fSize, source.m_fMinSize, source.m_sDescription,
 			source.m_aFactionKeys, source.m_eShowAtGameModeState,
-			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor);
+			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor, source.m_bAlignTextWithMarkerRotation);
 		m_iRevision = source.m_iRevision;
 		m_bExplicitAudience = source.m_bExplicitAudience;
 		m_bExcludeFactionKeys = source.m_bExcludeFactionKeys;
@@ -157,6 +160,7 @@ class GC_BriefingMarker
 		writer.WriteString(m_sQuadName);
 		writer.WriteVector(m_vWorldPosition);
 		writer.WriteFloat(m_fRotation);
+		writer.WriteBool(m_bAlignTextWithMarkerRotation);
 		writer.WriteBool(m_bWorldScale);
 		writer.WriteFloat(m_fSize);
 		writer.WriteFloat(m_fMinSize);
@@ -181,7 +185,8 @@ class GC_BriefingMarker
 		if (!reader.ReadString(m_sName) || !reader.ReadString(m_sImage)
 			|| !reader.ReadString(m_sHighlightImage) || !reader.ReadString(m_sQuadName))
 			return false;
-		if (!reader.ReadVector(m_vWorldPosition) || !reader.ReadFloat(m_fRotation))
+		if (!reader.ReadVector(m_vWorldPosition) || !reader.ReadFloat(m_fRotation)
+			|| !reader.ReadBool(m_bAlignTextWithMarkerRotation))
 			return false;
 		if (!reader.ReadBool(m_bWorldScale) || !reader.ReadFloat(m_fSize) || !reader.ReadFloat(m_fMinSize) || !reader.ReadInt(m_iColor)
 			|| !reader.ReadString(m_sDescription))
@@ -225,6 +230,7 @@ class GC_BriefingMarker
 		snapshot.SerializeFloat(positionY);
 		snapshot.SerializeFloat(positionZ);
 		snapshot.SerializeFloat(instance.m_fRotation);
+		snapshot.SerializeBool(instance.m_bAlignTextWithMarkerRotation);
 		snapshot.SerializeBool(instance.m_bWorldScale);
 		snapshot.SerializeFloat(instance.m_fSize);
 		snapshot.SerializeFloat(instance.m_fMinSize);
@@ -263,6 +269,7 @@ class GC_BriefingMarker
 		snapshot.SerializeFloat(positionZ);
 		instance.m_vWorldPosition = {positionX, positionY, positionZ};
 		snapshot.SerializeFloat(instance.m_fRotation);
+		snapshot.SerializeBool(instance.m_bAlignTextWithMarkerRotation);
 		snapshot.SerializeBool(instance.m_bWorldScale);
 		snapshot.SerializeFloat(instance.m_fSize);
 		snapshot.SerializeFloat(instance.m_fMinSize);
@@ -300,6 +307,7 @@ class GC_BriefingMarker
 		snapshot.EncodeString(packet);
 		for (int index; index < 4; index++) snapshot.EncodeFloat(packet);
 		snapshot.EncodeBool(packet);
+		snapshot.EncodeBool(packet);
 		snapshot.EncodeFloat(packet);
 		snapshot.EncodeFloat(packet);
 		snapshot.EncodeInt(packet);
@@ -323,6 +331,7 @@ class GC_BriefingMarker
 		snapshot.DecodeString(packet);
 		for (int index; index < 4; index++) snapshot.DecodeFloat(packet);
 		snapshot.DecodeBool(packet);
+		snapshot.DecodeBool(packet);
 		snapshot.DecodeFloat(packet);
 		snapshot.DecodeFloat(packet);
 		snapshot.DecodeInt(packet);
@@ -344,7 +353,7 @@ class GC_BriefingMarker
 		if (!lhs.CompareStringSnapshots(rhs) || !lhs.CompareStringSnapshots(rhs)
 			|| !lhs.CompareStringSnapshots(rhs) || !lhs.CompareStringSnapshots(rhs))
 			return false;
-		for (int index; index < 8; index++)
+		for (int index; index < 9; index++)
 		{
 			if (!lhs.CompareSnapshots(rhs, 4)) return false;
 		}
@@ -368,6 +377,7 @@ class GC_BriefingMarker
 			|| !snapshot.CompareFloat(instance.m_vWorldPosition[1])
 			|| !snapshot.CompareFloat(instance.m_vWorldPosition[2])
 			|| !snapshot.CompareFloat(instance.m_fRotation)
+			|| !snapshot.CompareBool(instance.m_bAlignTextWithMarkerRotation)
 			|| !snapshot.CompareBool(instance.m_bWorldScale)
 			|| !snapshot.CompareFloat(instance.m_fSize)
 			|| !snapshot.CompareFloat(instance.m_fMinSize)
