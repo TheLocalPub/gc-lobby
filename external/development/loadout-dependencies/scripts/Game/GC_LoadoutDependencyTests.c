@@ -5,6 +5,24 @@ modded class GC_LoadoutFilesMenu
 	{
 		if (action == "state")
 			return "selected=" + m_sSelected + " current=" + m_bCurrentGear + " status=" + m_Status.GetText() + " mods=" + TextWidget.Cast(GetRootWidget().FindAnyWidget("Dependencies")).GetText();
+		if (action == "scope")
+		{
+			m_Faction.SetText("US");
+			m_Group.SetText(value);
+			m_Group.m_OnFilterChanged.Invoke();
+			return "scope changed";
+		}
+		if (action == "tree")
+		{
+			string result = "expanded=" + m_sExpandedPrefab + " parent=" + m_sParentPrefab + "\n";
+			foreach (int row, SCR_ButtonBaseComponent rootRow : m_aRows)
+				if (rootRow.GetRootWidget().IsVisible())
+					result += "root " + m_aRowResources[row] + "\n";
+			foreach (int index, SCR_ButtonBaseComponent variant : m_aVariantRows)
+				if (variant.GetRootWidget().IsVisible())
+					result += "variant " + m_aVariantOwners[index] + " #" + m_aVariantIndices[index] + "\n";
+			return result;
+		}
 		if (action == "select")
 		{
 			foreach (int index, ResourceName prefab : m_aRowResources)

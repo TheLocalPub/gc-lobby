@@ -84,7 +84,7 @@ StringTable {
   }
   CustomStringTableItem "{DC391DA320AF0070}" {
    Id "GC-Loadout_Inherits"
-   Target_en_us "Inherits"
+   Target_en_us "Inherits from"
   }
   CustomStringTableItem "{DC391DA320AF0071}" {
    Id "GC-Loadout_PreviewUnavailable"
@@ -245,5 +245,9 @@ StringTable {
   CustomStringTableItem "{7E161126B1000008}" { Id "GC-Loadout_DependenciesFailed" Target_en_us "Requirements unavailable" }
   CustomStringTableItem "{7E161126B1000009}" { Id "GC-Loadout_DependenciesSaveFailed" Target_en_us "Loadout saved · requirements not saved" }
   CustomStringTableItem "{7E161126B100000A}" { Id "GC-Loadout_LoadoutSaved" Target_en_us "Loadout saved" }
+  CustomStringTableItem "{7E161126B2000001}" { Id "GC-Loadout_SaveGear" Target_en_us "Save gear" }
+  CustomStringTableItem "{7E161126B2000002}" { Id "GC-Loadout_SaveVariants" Target_en_us "Save variants" }
+  CustomStringTableItem "{7E161126B2000003}" { Id "GC-Loadout_CreateChild" Target_en_us "Create child" }
+  CustomStringTableItem "{7E161126B2000004}" { Id "GC-Loadout_RemoveVariant" Target_en_us "Remove variant" }
  }
 }

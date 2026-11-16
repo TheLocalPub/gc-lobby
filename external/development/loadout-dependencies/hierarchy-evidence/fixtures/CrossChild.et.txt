@@ -1,0 +1,3 @@
+SCR_ChimeraCharacter : "{6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et" {
+ ID "7E161126B2000302"
+}

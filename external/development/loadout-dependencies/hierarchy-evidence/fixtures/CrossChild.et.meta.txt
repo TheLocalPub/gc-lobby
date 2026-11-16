@@ -1,0 +1,11 @@
+MetaFileClass {
+ Name "{7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et"
+ Configurations {
+  EntityTemplateResourceClass PC {}
+  EntityTemplateResourceClass XBOX_ONE : PC {}
+  EntityTemplateResourceClass XBOX_SERIES : PC {}
+  EntityTemplateResourceClass PS4 : PC {}
+  EntityTemplateResourceClass PS5 : PC {}
+  EntityTemplateResourceClass HEADLESS : PC {}
+ }
+}

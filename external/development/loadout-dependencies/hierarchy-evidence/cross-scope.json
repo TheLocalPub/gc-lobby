@@ -1,0 +1,242 @@
+[
+  {
+    "action": "spawn",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "677182c741904e709257aa895e07bf04",
+    "receipt": "r132c25f94f644b1d98f9a74759f5f6c9",
+    "returnType": "string",
+    "returned": "spawned",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 63,
+      "serverMs": 130.1536
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "open",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "aaf24eeb2c444a84b523dbc099566851",
+    "receipt": "ra12e31b43d9a42d1b3632a7f1c36062f",
+    "returnType": "string",
+    "returned": "opened",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 15,
+      "serverMs": 176.5974
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "scope",
+    "value": "DependencyCrossTest",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "5aa634c0ef0e48a08234273d27fbde00",
+    "receipt": "r5d6499a75a4f46118a177b03078ded56",
+    "returnType": "string",
+    "returned": "scope changed",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 1,
+      "serverMs": 105.7922
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "tree",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "8ef24b0daa704dee9de84111d545dca2",
+    "receipt": "r605fa6a0b8e445a9aa0610cc0ef9b5df",
+    "returnType": "string",
+    "returned": "expanded= parent=\nroot {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 0,
+      "invokeMs": 1,
+      "serverMs": 110.1556
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "select",
+    "value": "/WithoutRHS.et",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "f234be87d386474e8347bc6d914bb194",
+    "receipt": "raa7468acd048468dad8d2dcea76160fe",
+    "returnType": "string",
+    "returned": "selected",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 8,
+      "serverMs": 131.8611
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "tree",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "577f99bb9ec84072b08fc7d32b9c3833",
+    "receipt": "r394fb892d41e411d93c961aba57239c3",
+    "returnType": "string",
+    "returned": "expanded={6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et parent={26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et\nroot {6AE12EF516F963A1}Prefabs/Loadouts/US/DependencyTest/HierarchySaved.et\nroot {6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et\nroot {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et\nroot {7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et\nroot {7E161126B1000201}Prefabs/Loadouts/US/DependencyTest/WithRHS.et\nvariant {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et #0\nvariant {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et #1\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 0,
+      "serverMs": 238.9444
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "select",
+    "value": "/CrossChild.et",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "f5bb5cdc6f474ba1bd17308a58660786",
+    "receipt": "r114531a940604b2cb961a216bf6a04ce",
+    "returnType": "string",
+    "returned": "selected",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 11,
+      "serverMs": 112.7182
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "tree",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "b3a3d92a46fd40ba92dfe7e6651c5413",
+    "receipt": "re6c86b17680f40abaff9960eed537106",
+    "returnType": "string",
+    "returned": "expanded={7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et parent={6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et\nroot {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et\nroot {7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et\nroot {7E161126B1000201}Prefabs/Loadouts/US/DependencyTest/WithRHS.et\nvariant {7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et #0\nvariant {7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et #1\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 1,
+      "serverMs": 254.7715
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "Parent",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "fefc4da827154ee6bfd912f6e7798fb9",
+    "receipt": "r0fe8a786f99e457786513013d204c1ad",
+    "returnType": "string",
+    "returned": "dispatched",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 1,
+      "compileMs": 1,
+      "invokeMs": 3,
+      "serverMs": 102.96
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  },
+  {
+    "action": "tree",
+    "value": "",
+    "state": "invoked",
+    "processId": 47504,
+    "operationId": "b75953206ccd4faaa4d63ba39c191509",
+    "receipt": "r857e420a1e2148679fbc4b588ec6d481",
+    "returnType": "string",
+    "returned": "expanded={6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et parent={26A9756790131354}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Rifleman.et\nroot {6AE12EF516F963A1}Prefabs/Loadouts/US/DependencyTest/HierarchySaved.et\nroot {6AE128348739CA2F}Prefabs/Loadouts/US/DependencyTest/NoRHSFinal.et\nroot {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et\nroot {7E161126B2000301}Prefabs/Loadouts/US/DependencyCrossTest/CrossChild.et\nroot {7E161126B1000201}Prefabs/Loadouts/US/DependencyTest/WithRHS.et\nvariant {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et #0\nvariant {6AE12837C7E9E600}Prefabs/Loadouts/US/DependencyTest/WithoutRHS.et #1\n",
+    "invocationAttempted": true,
+    "timings": {
+      "prepareMs": 0,
+      "compileMs": 0,
+      "invokeMs": 1,
+      "serverMs": 259.8151
+    },
+    "target": {
+      "world": "$GlobalConflictsLobbyDev:worlds/examples/arland/Arland_Lobby.ent",
+      "entityName": "GC_MissionTemplate",
+      "componentType": "SCR_GameModeHealthSettings",
+      "method": "GC_TestLoadout"
+    },
+    "completion": "synchronous_call_only"
+  }
+]

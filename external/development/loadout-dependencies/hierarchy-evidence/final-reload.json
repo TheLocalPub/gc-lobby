@@ -1,0 +1,239 @@
+{
+  "state": "reloaded",
+  "processId": 47504,
+  "runReload": true,
+  "plugin": null,
+  "pluginAction": null,
+  "uiAction": null,
+  "requestedWorld": null,
+  "loadedWorld": null,
+  "expectedThread": 52220,
+  "actualThread": 52220,
+  "completed": 2,
+  "nativeResult": 1,
+  "queued": 1,
+  "elapsedMs": 7888,
+  "foregroundBefore": 96666890,
+  "foregroundAfter": 96666890,
+  "foregrounds": {
+    "96666890": 18404
+  },
+  "allocationsReleased": true,
+  "play": {
+    "state": "stopped",
+    "processId": 47504,
+    "action": "stop",
+    "wasPlaying": true,
+    "isPlaying": false,
+    "expectedThread": 52220,
+    "actualThread": 52220,
+    "completed": 2,
+    "queued": 1,
+    "elapsedMs": 2805,
+    "foregroundBefore": 96666890,
+    "foregroundAfter": 96666890,
+    "foregrounds": {
+      "96666890": 18404
+    },
+    "allocationsReleased": true
+  },
+  "diagnostics": {
+    "state": "observed",
+    "errors": {
+      "source": "workbench",
+      "session": "logs_2026-11-16_13-59-53",
+      "path": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\logs\\logs_2026-11-16_13-59-53\\console.log",
+      "revision": "5043973:13D791D8F720BA7EFDA22B7E793EC4629323BF782A47669B601D080959A13AB9",
+      "header": "Log C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\logs\\logs_2026-11-16_13-59-53\\console.log started at 2026-11-16 13:59:53 (2026-11-16 18:59:53 UTC)",
+      "scope": "latest",
+      "fromLine": 33689,
+      "toLine": 34217,
+      "totalLines": 34221,
+      "cycle": {
+        "startLine": 33689,
+        "time": "14:07:52.043",
+        "kind": "reload",
+        "completionLine": 34217
+      },
+      "severityCounts": {
+        "error": 19,
+        "warning": 168,
+        "info": 342
+      },
+      "categoryCounts": {
+        "SCRIPT": 180,
+        "PROFILING": 15,
+        "RESOURCES": 118,
+        "ENGINE": 4,
+        "GUI": 2,
+        "INIT": 2,
+        "WORLD": 63,
+        "DEFAULT": 34,
+        "ENTITY": 92,
+        "WEAPON": 14,
+        "TERRAIN": 5
+      },
+      "matchedLines": 19,
+      "entries": [
+        {
+          "line": 33792,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:54.253  RESOURCES (E): Wrong GUID/name for resource @\"{CA75436A3C860FB9}Worlds/ArlandLobby/ArlandLobby.ent\" in property \"m_World\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33793,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:54.256  RESOURCES (E): Wrong GUID/name for resource @\"{CA75436A3C860FB9}Worlds/ArlandLobby/ArlandLobby.ent\" in property \"m_World\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33901,
+          "category": "WORLD",
+          "severity": "error",
+          "text": "14:07:56.069     WORLD     (E): Unknown class 'SCR_ChimeraCharacter' at offset 21(0x15)",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33903,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.070    RESOURCES (E): Failed to load",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33912,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.404   RESOURCES (E): Wrong GUID/name for resource @\"{CA75436A3C860FB9}Worlds/ArlandLobby/ArlandLobby.ent\" in property \"m_World\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33926,
+          "category": "WORLD",
+          "severity": "error",
+          "text": "14:07:56.590              WORLD     (E): Unknown class 'Pronto_AnimRadialMenuComponent' at offset 110(0x6e)",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33993,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.609                                                                        RESOURCES (E): Wrong GUID/name for resource @\"{42C594F658697B86}Prefabs/Items/Consumables/CamCream/Pronto_CamCream_01_US.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33996,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.610                                                                        RESOURCES (E): Wrong GUID/name for resource @\"{D77251E4861E4531}Prefabs/Characters/HeadGear/Helmets/Helmet_OpsCore/Helmet_Opscore_SF_MBS_MC_Cover_01.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 33999,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.611                                                      RESOURCES (E): Wrong GUID/name for resource @\"{54822DA3D895EEF7}Prefabs/Weapons/Attachments/Lights/PEQ_15/QM_PEQ15_FDE.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34000,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.611                                                      RESOURCES (E): Wrong GUID/name for resource @\"{46983DF4A02E26C9}Prefabs/Weapons/Attachments/Lights/PEQ_15/QM_PEQ15_BLK.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34001,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.611                                                      RESOURCES (E): Wrong GUID/name for resource @\"{FFB951B41C11DBD4}Prefabs/Weapons/Attachments/Lights/PEQ_2A/QM_PEQ2A_BLK.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34002,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.611                                                      RESOURCES (E): Wrong GUID/name for resource @\"{F189BC45A4C76D52}Prefabs/Weapons/Attachments/Lights/SF_M600/QM_SF_M600V_FDE.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34003,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.612                                                      RESOURCES (E): Wrong GUID/name for resource @\"{E393AC12DC7CA56C}Prefabs/Weapons/Attachments/Lights/SF_M600/QM_SF_M600V_BLK.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34004,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:56.612                                RESOURCES (E): Wrong GUID/name for resource @\"{75D7FB6B11C786F4}Prefabs/Characters/Eyewear/Goggles_Helmet.et\" in property \"m_sEntityPrefab\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34052,
+          "category": "WORLD",
+          "severity": "error",
+          "text": "14:07:59.065                                   WORLD     (E): Unknown class 'TF_CharacterWeaponRegisterComponent' at offset 119(0x77)",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34062,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:59.123              RESOURCES (E): Wrong GUID/name for resource @\"{7E134FED6221D9A8}Particles/Weapon/Suppressor_Carbine.ptc\" in property \"m_sContinuousParticleEffect\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34063,
+          "category": "RESOURCES",
+          "severity": "error",
+          "text": "14:07:59.123              RESOURCES (E): Wrong GUID/name for resource @\"{7E134FED6221D9A8}Particles/Weapon/Suppressor_Carbine.ptc\" in property \"m_sFadeoutParticleEffect\"",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34074,
+          "category": "WORLD",
+          "severity": "error",
+          "text": "14:07:59.127                  WORLD     (E): Unknown keyword/data 'm_sRequiredTypeName' at offset 268(0x10c)",
+          "textTruncated": false,
+          "continuation": false
+        },
+        {
+          "line": 34075,
+          "category": "WORLD",
+          "severity": "error",
+          "text": "14:07:59.127                  WORLD     (E): Unknown keyword/data 'm_sRequiredTypeName' at offset 544(0x220)",
+          "textTruncated": false,
+          "continuation": false
+        }
+      ],
+      "nextLine": null,
+      "truncated": false
+    },
+    "scope": "Error lines from the single completed reload cycle appended to this process-owned log after dispatch preparation. Raw messages retain file/line information where emitted. Not an independent success or root-cause diagnosis."
+  },
+  "operationId": "acba1f06f19144f59c11bba3e5e65089",
+  "operationCompleted": true,
+  "revision": "3ef9bdbee9ebecfa929486f6335286927ac84a67ac0b8b04516e3c4ab4f8cdf6"
+}
