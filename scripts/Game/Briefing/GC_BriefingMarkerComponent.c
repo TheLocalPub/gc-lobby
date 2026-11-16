@@ -125,7 +125,8 @@ class GC_BriefingMarkerComponent : ScriptComponent
 			textColor = m_TextColor.PackToInt();
 		marker.Set(m_sMarkerName, m_sImageSetOrImage, m_sHighlightImageSet, m_sQuadName, owner.GetOrigin(), owner.GetYawPitchRoll()[0] - 90,
 			m_bWorldScale, m_fSize, m_fMinSize, m_sDescription, GC_FactionKeys.ToStrings(m_aFactionKeys),
-			m_eShowAtGameModeState, m_bInvertGameModeState, true, markerColor, m_bAlignTextWithMarkerRotation, textColor);
+			m_eShowAtGameModeState, m_bInvertGameModeState, true, markerColor, m_bAlignTextWithMarkerRotation);
+		marker.SetTextColor(textColor);
 		return marker;
 	}
 

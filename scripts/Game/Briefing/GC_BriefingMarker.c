@@ -40,6 +40,7 @@ class GC_BriefingMarker
 	float GetMinSize() { return m_fMinSize; }
 	int GetColor() { return m_iColor; }
 	int GetTextColor() { return m_iTextColor; }
+	void SetTextColor(int textColor) { m_iTextColor = textColor; }
 	string GetDescription() { return m_sDescription; }
 	array<string> GetFactionKeys() { return m_aFactionKeys; }
 	SCR_EGameModeState GetShowAtGameModeState() { return m_eShowAtGameModeState; }
@@ -51,8 +52,7 @@ class GC_BriefingMarker
 	void Set(string name, ResourceName image, ResourceName highlightImage, string quadName, vector worldPosition, float rotation, bool worldScale,
 		float size, float minSize, string description, array<string> factionKeys = null,
 		SCR_EGameModeState showAtGameModeState = SCR_EGameModeState.GAME,
-		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE, bool alignTextWithMarkerRotation = false,
-		int textColor = Color.BLACK)
+		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE, bool alignTextWithMarkerRotation = false)
 	{
 		m_bExplicitAudience = false;
 		m_bExcludeFactionKeys = false;
@@ -68,7 +68,7 @@ class GC_BriefingMarker
 		m_fSize = size;
 		m_fMinSize = minSize;
 		m_iColor = color;
-		m_iTextColor = textColor;
+		m_iTextColor = Color.BLACK;
 		m_sDescription = description;
 		m_aFactionKeys.Clear();
 		if (factionKeys)
@@ -149,7 +149,8 @@ class GC_BriefingMarker
 		Set(source.m_sName, source.m_sImage, source.m_sHighlightImage, source.m_sQuadName, source.m_vWorldPosition,
 			source.m_fRotation, source.m_bWorldScale, source.m_fSize, source.m_fMinSize, source.m_sDescription,
 			source.m_aFactionKeys, source.m_eShowAtGameModeState,
-			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor, source.m_bAlignTextWithMarkerRotation, source.m_iTextColor);
+			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor, source.m_bAlignTextWithMarkerRotation);
+		SetTextColor(source.m_iTextColor);
 		m_iRevision = source.m_iRevision;
 		m_bExplicitAudience = source.m_bExplicitAudience;
 		m_bExcludeFactionKeys = source.m_bExcludeFactionKeys;
