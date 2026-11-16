@@ -119,7 +119,7 @@ class GC_BriefingMarkerLayer
 	}
 	protected void OnMapOpenComplete(MapConfiguration config) { RefreshMarkers(); }
 	protected void OnMapClose(MapConfiguration config) { ClearMarkers(); }
-	protected void OnMapPan(float x, float y, bool isPanStart) { UpdateMarkerTransforms(); }
+	protected void OnMapPan(float x, float y, bool isPanStart) { UpdateMarkerTransforms(false); }
 	protected void OnMapZoom(float zoom) { UpdateMarkerTransforms(); }
 
 	protected void RefreshMarkers()
@@ -212,7 +212,7 @@ class GC_BriefingMarkerLayer
 	}
 
 	//------------------------------------------------------------------------------------------------
-	protected void UpdateMarkerTransforms()
+	protected void UpdateMarkerTransforms(bool updateLayout = true)
 	{
 		if (!m_LobbyManager || GC_LobbyManager.GetManager() != m_LobbyManager || !m_MapEntity || !m_MapEntity.IsOpen())
 			return;
@@ -254,7 +254,6 @@ class GC_BriefingMarkerLayer
 			// Share the icon's final scale, including map zoom and its minimum-size clamp.
 			float labelScale = displayWidth / BASE_ICON_SIZE;
 			int fontSize = Math.Max(1, Math.Round(LABEL_FONT_SIZE * labelScale));
-			markerDescription.SetExactFontSize(fontSize);
 			float labelWidth = LABEL_WIDTH * labelScale;
 			float labelHeight = Math.Max(LABEL_HEIGHT * labelScale, fontSize);
 			float iconOffsetX = (labelWidth - displayWidth) * 0.5;
@@ -267,6 +266,11 @@ class GC_BriefingMarkerLayer
 			float localY = workspace.DPIUnscale(screenY) - displayHeight * 0.5;
 
 			FrameSlot.SetPos(markerRoot, localX, localY);
+			// Panning only translates the marker; do not rebuild rotated text geometry.
+			if (!updateLayout)
+				continue;
+
+			markerDescription.SetExactFontSize(fontSize);
 			FrameSlot.SetSize(markerRoot, labelWidth, displayHeight + labelHeight);
 			FrameSlot.SetPos(markerGlow, iconOffsetX, 0);
 			FrameSlot.SetSize(markerGlow, displayWidth, displayHeight);
@@ -289,19 +293,12 @@ class GC_BriefingMarkerLayer
 		}
 	}
 
-	//! Matches PS_ManualMarkerComponent.SetSlotWorld: project the authored
-	//! positive X/Z offset and retain each screen axis independently.
+	//! Project size directly from native pixels-per-meter zoom. Subtracting two
+	//! integer screen positions makes size depend on pan rounding.
 	protected vector GetProjectedWorldSize(GC_BriefingMarker marker, WorkspaceWidget workspace)
 	{
-		vector worldPosition = marker.GetWorldPosition();
-		int screenX;
-		int screenY;
-		int screenXEnd;
-		int screenYEnd;
-		m_MapEntity.WorldToScreen(worldPosition[0], worldPosition[2], screenX, screenY, true);
-		m_MapEntity.WorldToScreen(worldPosition[0] + marker.GetSize(), worldPosition[2] + marker.GetSize(), screenXEnd, screenYEnd, true);
-
-		return {workspace.DPIUnscale(screenXEnd - screenX), workspace.DPIUnscale(screenY - screenYEnd), 0};
+		float size = workspace.DPIUnscale(marker.GetSize() * m_MapEntity.GetCurrentZoom());
+		return {size, size, 0};
 	}
 
 	protected void ClearMarkers()
