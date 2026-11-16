@@ -115,7 +115,7 @@ not stop/restart an existing server, poll the website queue, or alter voting.
 ## GC Workshop
 
 The standalone metadata-only collection is at
-`../../development/gc-workshop/addon.gproj`, named **GC Workshop**. It retains
+[gc-reforger-workshop](https://github.com/burn0ut7/gc-reforger-workshop) on `dev`, named **GC Workshop**. It retains
 the prototype GUID `6B8E05204D634FA9`, uses GC Dev dependencies and is unpublished.
 It is not a GC Lobby dependency. The scanner rejects both the old
 GlobalConflictsWorkbench and new GlobalConflictsWorkshop identities as server

@@ -14,6 +14,7 @@ try {
     $env:GIT_CONFIG_GLOBAL = Join-Path $fixture 'gitconfig'
     $env:GIT_CONFIG_NOSYSTEM = '1'
     $addons = @(Get-GcAddons $Lobby2 '' '' '') | Where-Object Key -ne 'Lobby2'
+    Assert ($addons.Count -eq 4 -and $addons[3].Repo -eq 'burn0ut7/gc-reforger-workshop') 'Workshop missing from managed mods.'
     foreach ($addon in $addons) {
         $upstream = Join-Path $fixture ($addon.Key + '-upstream')
         $null = New-Item -ItemType Directory -Path $upstream
@@ -43,7 +44,7 @@ try {
     $null = Invoke-ModWorkflow
     $outcome = Get-Content -LiteralPath $env:GC_TOOLS_OUTCOME -Raw | ConvertFrom-Json
     Assert ($outcome.Status -eq 'Updated' -and $outcome.Detail -match 'Installed\.') 'Install was not reported complete.'
-    Assert ((Test-Path -LiteralPath $addons[0].Project) -and !(Test-Path -LiteralPath $addons[1].Project) -and !(Test-Path -LiteralPath $addons[2].Project)) 'Unselected mods were cloned.'
+    Assert ((Test-Path -LiteralPath $addons[0].Project) -and !(Test-Path -LiteralPath $addons[1].Project) -and !(Test-Path -LiteralPath $addons[2].Project) -and !(Test-Path -LiteralPath $addons[3].Project)) 'Unselected mods were cloned.'
     foreach ($addon in $addons) {
         $changed = $false; $pending = $false
         $result = Update-Mod $addon ([ref]$changed) ([ref]$pending)
@@ -53,6 +54,16 @@ try {
         Assert ((Git $root @('branch','--show-current')) -eq 'dev') 'Clone selected a release branch.'
         Assert (!(Get-GcModStatus $addon).UpdateNeeded) 'Installed mod remained actionable.'
         Assert ((Git $root @('config','--local','core.longpaths')) -eq 'true') 'Clone did not retain long-path support.'
+        if ($addon.Key -eq 'GlobalConflictsWorkshop') {
+            $upstream = Join-Path $fixture ($addon.Key + '-upstream')
+            $null = Git $upstream @('switch','-q','dev')
+            Set-Content -LiteralPath (Join-Path $upstream 'README.md') -Value 'Updated collection'
+            $null = Git $upstream @('add','README.md')
+            $null = Git $upstream @('commit','-qm','Collection update')
+            Assert ((Get-GcModStatus $addon).UpdateNeeded) 'Workshop update was not offered.'
+            Assert ((Update-Mod $addon ([ref]$changed) ([ref]$pending)) -eq 'Updated.') 'Workshop update failed.'
+            Assert ((Get-Content -LiteralPath (Join-Path $root 'README.md')) -eq 'Updated collection') 'Workshop update was not applied.'
+        }
         if ($addon.Key -eq 'GlobalConflictsMissions') {
             Assert ((Join-Path $root $longPath).Length -gt 260) 'Fixture did not exceed Windows path limit.'
             Assert ((Git $root @('hash-object','--',$longPath)) -eq $blob) 'Long file was not checked out.'

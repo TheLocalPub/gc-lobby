@@ -317,10 +317,10 @@ static class Checks {
   var workflow=Path.Combine(workflowDirectory,"GC-ModWorkflow.ps1");
   if(File.Exists(workflow))throw new Exception("Dispatch fixture would overwrite a workflow");
   Directory.CreateDirectory(workflowDirectory);
-  File.WriteAllText(workflow,"param([switch]$SubmitMission,[string]$SelectedMods,[string]$Lobby2,[string]$GlobalConflictsCore,[string]$GlobalConflictsUnits,[string]$GlobalConflictsMissions)\n. '"+reviewPath+"'\nif(!$SubmitMission -and $SelectedMods -ne 'GlobalConflictsCore'){throw 'Wrong dispatch'}\nSet-GcOutcome 'Confirmed' 'Git-only dispatch'\n");
+  File.WriteAllText(workflow,"param([switch]$SubmitMission,[string]$SelectedMods,[string]$Lobby2,[string]$GlobalConflictsCore,[string]$GlobalConflictsUnits,[string]$GlobalConflictsMissions,[string]$GlobalConflictsWorkshop)\n. '"+reviewPath+"'\nif(!$SubmitMission -and $SelectedMods -ne 'GlobalConflictsWorkshop'){throw 'Wrong dispatch'}\nSet-GcOutcome 'Confirmed' 'Git-only dispatch'\n");
   try {
    foreach(var action in new[]{"submit","update"}) {
-    var dispatchedOperation=ToolOperations.RunAsync(action,new(){["core"]=true},_=>throw new Exception("Unexpected editor preparation"));
+    var dispatchedOperation=ToolOperations.RunAsync(action,new(){["workshop"]=true},_=>throw new Exception("Unexpected editor preparation"));
     Pump(()=>dispatchedOperation.IsCompleted);
     if(dispatchedOperation.GetAwaiter().GetResult().Status!="Confirmed")throw new Exception("Git-only dispatch failed");
    }

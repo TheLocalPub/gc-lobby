@@ -1,6 +1,6 @@
-param([string]$Lobby2,[string]$GlobalConflictsCore,[string]$GlobalConflictsUnits,[string]$GlobalConflictsMissions,
-    [ValidateSet('Lobby2','GlobalConflictsCore','GlobalConflictsUnits','GlobalConflictsMissions')][string]$Mod)
-$projects=@{Lobby2=$Lobby2;GlobalConflictsCore=$GlobalConflictsCore;GlobalConflictsUnits=$GlobalConflictsUnits;GlobalConflictsMissions=$GlobalConflictsMissions}
+param([string]$Lobby2,[string]$GlobalConflictsCore,[string]$GlobalConflictsUnits,[string]$GlobalConflictsMissions,[string]$GlobalConflictsWorkshop,
+    [ValidateSet('Lobby2','GlobalConflictsCore','GlobalConflictsUnits','GlobalConflictsMissions','GlobalConflictsWorkshop')][string]$Mod)
+$projects=@{Lobby2=$Lobby2;GlobalConflictsCore=$GlobalConflictsCore;GlobalConflictsUnits=$GlobalConflictsUnits;GlobalConflictsMissions=$GlobalConflictsMissions;GlobalConflictsWorkshop=$GlobalConflictsWorkshop}
 . (Join-Path $PSScriptRoot 'GC-ModWorkflow.ps1')
 
 function Get-GcModStatus($addon) {

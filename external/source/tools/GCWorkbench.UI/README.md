@@ -155,3 +155,16 @@ Existing installations with updates available retain the normal starting page.
 Startup presence checks do not query the network or hash the package. An uncertain
 Credential Manager timeout does not falsely report a missing dependency. The
 notice is shown once per window opening while dependencies remain missing.
+
+GC Workshop Dev is managed through `burn0ut7/gc-reforger-workshop` on `dev`.
+Update mods can install its missing sibling checkout or update an existing verified
+checkout, with the same saved-file protection as Core, Units and Missions. This
+updates GC source repositories; third-party Workshop dependencies still use the
+game's native dependency update actions.
+
+Workshop integration validation (2026-11-16): ModInstall, DevBranches, ModStatus,
+ModSelection and Status checks pass. The installed helper reports the real Workshop
+checkout as up to date. The rebuilt package was installed, and Workbench Reload
+completed without compiler errors; existing collection resource errors remain.
+The five-row WPF layout was rendered and reviewed. A fresh Workbench launch after
+installation remains required; no new full launch is claimed by these checks.

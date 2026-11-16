@@ -60,7 +60,7 @@ internal static class ToolPages
         _ => throw new ArgumentException("Unknown tool page.")
     };
 
-    // Contract with GC_ToolsPlugin: 100 + the selected mod bits (1, 2, 4, 8).
+    // Contract with GC_ToolsPlugin: 100 + the selected mod bits (1, 2, 4, 8, 16).
     internal static int ModMask(Dictionary<string, object> values) =>
-        new[] { "lobby", "core", "units", "missions" }.Select((id, index) => values.TryGetValue(id, out var selected) && selected is true ? 1 << index : 0).Sum();
+        new[] { "lobby", "core", "units", "missions", "workshop" }.Select((id, index) => values.TryGetValue(id, out var selected) && selected is true ? 1 << index : 0).Sum();
 }

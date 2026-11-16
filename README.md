@@ -92,7 +92,8 @@ The [mission dependency prototype](external/source/mission-launcher/README.md)
 experiments with recursive mission-resource metadata and isolated Windows server
 launches. It blocks incomplete scans and is not a production restart worker.
 The separate GC Workshop collection lives under
-`external/development/gc-workshop` and is excluded from GC Lobby releases. It has
+[its own repository](https://github.com/burn0ut7/gc-reforger-workshop) on `dev`,
+installed beside Lobby as `gc-reforger-workshop` by GC Tools. It has
 its own addon identity and contains only dependency metadata.
 The standalone Workbench DLL installer and tools live in `external/source`:
 

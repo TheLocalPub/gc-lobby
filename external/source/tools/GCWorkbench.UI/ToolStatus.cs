@@ -38,7 +38,7 @@ internal static class ToolStatus
     {
         var script = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "lobby2-tools", "GC-ModStatus.ps1"));
         if (!File.Exists(script)) return ToolPages.Updates("Install the current GC Tools package");
-        var keys = new[] { "Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions" };
+        var keys = new[] { "Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions", "GlobalConflictsWorkshop" };
         var arguments = new List<string> { "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", script };
         foreach (var key in keys)
         {

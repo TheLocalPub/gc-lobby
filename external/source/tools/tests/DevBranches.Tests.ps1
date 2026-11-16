@@ -13,12 +13,11 @@ $null=Git $fixture @('switch','-qc','dev')
 $null=Git $fixture @('add','.');$null=Git $fixture @('commit','-qm','Development')
 $dev=Git $fixture @('rev-parse','HEAD')
 $null=Git $fixture @('switch','-q','main')
-foreach($name in @('core','units','missions')) {
-    $repo="Global-Conflicts-ArmA/gc-reforger-$name"
+foreach($repo in @('Global-Conflicts-ArmA/gc-reforger-core','Global-Conflicts-ArmA/gc-reforger-units','Global-Conflicts-ArmA/gc-reforger-missions','burn0ut7/gc-reforger-workshop')) {
     $null=Git $fixture @('config','--add',"url.$fixture.insteadOf","https://github.com/$repo.git")
     $base=Get-ModBase $fixture $repo
-    Assert ($base.Name -eq 'dev' -and $base.Commit -eq $dev -and $base.Commit -ne $release) "$name did not target dev"
+    Assert ($base.Name -eq 'dev' -and $base.Commit -eq $dev -and $base.Commit -ne $release) "$repo did not target dev"
 }
 $null=Git $fixture @('branch','-D','dev')
 try {$null=Get-ModBase $fixture 'Global-Conflicts-ArmA/gc-reforger-units';throw 'Release fallback accepted'} catch {Assert ($_.Exception.Message -like 'The required dev branch*') $_.Exception.Message}
-Write-Output 'PASS: Core, Units, Missions target dev despite default main; missing dev refuses release fallback.'
+Write-Output 'PASS: Core, Units, Missions, Workshop target dev despite default main; missing dev refuses release fallback.'

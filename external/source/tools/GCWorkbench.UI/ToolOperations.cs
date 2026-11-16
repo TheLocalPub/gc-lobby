@@ -39,7 +39,7 @@ internal static class ToolOperations
             if (action == "uninstall") start.ArgumentList.Add("-Uninstall");
             if (action is not ("install" or "uninstall"))
             {
-                foreach (var key in new[] { "Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions" })
+                foreach (var key in new[] { "Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions", "GlobalConflictsWorkshop" })
                 {
                     var project = Environment.GetEnvironmentVariable("GC_WORKBENCH_MOD_" + key);
                     if (string.IsNullOrEmpty(project) && key == "Lobby2" && Environment.GetEnvironmentVariable("GC_WORKBENCH_PACKAGE") is { } package)
@@ -51,7 +51,7 @@ internal static class ToolOperations
                 { start.ArgumentList.Add("-SubmitMission"); }
                 else
                 {
-                    var keys = new[] { ("lobby", "Lobby2"), ("core", "GlobalConflictsCore"), ("units", "GlobalConflictsUnits"), ("missions", "GlobalConflictsMissions") };
+                    var keys = new[] { ("lobby", "Lobby2"), ("core", "GlobalConflictsCore"), ("units", "GlobalConflictsUnits"), ("missions", "GlobalConflictsMissions"), ("workshop", "GlobalConflictsWorkshop") };
                     var selected = keys.Where(k => values.TryGetValue(k.Item1, out var v) && v is true).Select(k => k.Item2).ToArray();
                     if (selected.Length == 0) throw new InvalidOperationException("Select a mod to update.");
                     start.ArgumentList.Add("-SelectedMods"); start.ArgumentList.Add(string.Join(",", selected));

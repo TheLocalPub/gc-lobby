@@ -24,7 +24,7 @@ def main():
     root = args.addons_dir.resolve()
     local = {name: root / f"gc-reforger-{name}" / "addon.gproj" for name in ("core", "units", "missions")}
     local["lobby"] = root / "gc-lobby/addon.gproj"
-    local["workshop"] = here.parent / "gc-workshop/addon.gproj"
+    local["workshop"] = root / "gc-reforger-workshop/addon.gproj"
     graph = {}
     for path in args.installed_addons.glob("*/*.gproj"):
         guid, requirements = project(path)

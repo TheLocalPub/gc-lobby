@@ -10,7 +10,7 @@ class GC_ModWorkflow
 	static string ProjectArguments()
 	{
 		string arguments;
-		array<string> mounts = {"Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions"};
+		array<string> mounts = {"Lobby2", "GlobalConflictsCore", "GlobalConflictsUnits", "GlobalConflictsMissions", "GlobalConflictsWorkshop"};
 		foreach (string mount : mounts)
 		{
 			string project;
