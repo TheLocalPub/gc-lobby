@@ -20,6 +20,11 @@ the `manifest` returned by `/api/v1/catalog/launch-worker/claim`. A deployment h
 - `missionAddonId`: GUID of the deployed addon containing the scenario.
 - `headerSha256`: SHA-256 of the deployed scenario header's bytes.
 - `supplementalAddonIds`: optional known dynamic/script dependencies.
+- `worldFile`: required only when the world's `.meta` is unavailable in the
+  selected source projects. The trusted deployment records its addon-qualified
+  path, such as `$MissionAddon:Worlds/Mission.ent`. Available world metadata
+  instead establishes this path by its GUID. The worker checks the engine's
+  actual loaded world against it, in addition to checking the scenario header.
 
 Deployment records must be created by the trusted deployment process, not copied
 from an incoming request at execution time. These checks bind the header and
@@ -42,15 +47,14 @@ private template and may contain passwords; do not publish production plans.
 `workshop` mode requires installed `ServerData.json` version metadata for every
 selected addon and emits those exact versions in `game.mods`. `.gproj`, not
 ServerData, remains dependency authority. `local` mode emits an empty
-`game.mods` and records exact project paths/identities/hashes in `mods`; the
-worker must explicitly mount those projects and revalidate their hashes before
-launch. A local plan is not a Workshop download test. Both modes retain the
-requested `game.scenarioId`.
+`game.mods` and records exact project paths/identities/hashes in `mods`.
+`server_worker.py` mounts only these projects through a fresh junction directory
+and revalidates their project hashes before launch. A local plan is not a
+Workshop download test. Both modes retain the requested scenario.
 
-This module creates a plan only. The queue-consuming worker, owned-process
-restart/recovery, local mount enforcement and engine readiness verification
-remain required before this is an operational server launcher. Do not report a
-queue request as completed on plan generation or process creation alone.
+This module creates a plan only. The [worker](server-worker.md) consumes the
+queue, starts the server and verifies its acknowledgement. Do not report a queue
+request as completed on plan generation or process creation alone.
 
 Validation: `python -m unittest -v test_server_plan test_mission_launch`.
 The real RHS fixture resolved 32 selected addons from 165 installed candidates,

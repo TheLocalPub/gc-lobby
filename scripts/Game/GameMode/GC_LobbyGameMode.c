@@ -109,6 +109,19 @@ class GC_LobbyGameMode : SCR_BaseGameMode
 		}
 
 		PrintFormat("GC | Phase UI Trace | game mode initialized: this=%1 state=%2 server=%3 rplMode=%4 playerController=%5 menuManager=%6", this, GC_LobbyManager.GetPhaseName(GetState()), Replication.IsServer(), RplSession.Mode(), GetGame().GetPlayerController(), GetGame().GetMenuManager());
+		string launchId;
+		if (RplSession.Mode() == RplMode.Dedicated && System.GetCLIParam("gcLaunchId", launchId))
+		{
+			PrintFormat("GC | Launch | awaiting acknowledgement id=%1", launchId);
+			GetGame().GetCallqueue().CallLater(GC_WriteLaunchReceipt, 5000, false);
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void GC_WriteLaunchReceipt()
+	{
+		if (GetGameMode() == this && RplSession.Mode() == RplMode.Dedicated && Replication.IsServer())
+			GC_ServerLaunchReceipt.Write();
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -346,7 +359,10 @@ class GC_LobbyGameMode : SCR_BaseGameMode
 		if (m_MapPlans && GetGame())
 			m_MapPlans.Stop();
 		if (GetGame())
+		{
 			GetGame().GetCallqueue().Remove(DispatchPlayerRoleChange);
+			GetGame().GetCallqueue().Remove(GC_WriteLaunchReceipt);
+		}
 	}
 
 }

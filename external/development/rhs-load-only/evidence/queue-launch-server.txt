@@ -1,0 +1,51 @@
+8: 11:42:30.897 ENGINE       : CLI Params: -profile C:\Users\Gray\Documents\VS\reforger-script-tools\work\launch-api-01\worker\73bb01b4-670b-4ffd-bc18-dcb1bb95dd5f\profile -gcLaunchId c263f265-7a86-484e-b41c-ae6f8e4e40e5 -noSplash -maxFPS 60 -gproj C:\Program Files (x86)\Steam\steamapps\common\Arma Reforger\addons\data\ArmaReforger.gproj -addonsDir C:\Users\Gray\Documents\VS\reforger-script-tools\work\launch-api-01\worker\73bb01b4-670b-4ffd-bc18-dcb1bb95dd5f\addons -addons RHS_Content_01,RHS_Core,CoalitionSquadInterface,GlobalConflictsCoreDev,ACE_Medical_Core_Dev,ACE_Chopping_Dev,ACE_AllInOne_Dev,ACE_Backblast_Dev,ACE_Captives_Dev,ACE_Carrying_Dev,ACE_Radio_Dev,ACE_TacticalLadder_Dev,ACE_TacticalPeriscope_Dev,ACE_Trenches_Dev,ACE_Compass_Dev,ACE_Core_Dev,ACE_Explosives_Dev,ACE_Finger_Dev,ACE_MagRepack_Dev,ACE_Medical_Circulation_Dev,ACE_Medical_Hitzones_Dev,ACE_Overheating_Dev,ACE_CookOff_Dev,ACE_Weather_Dev,ACE_Medical_Breathing_Dev,ACE_Facepaint_Dev,ACE_Ballistics_Dev,ACE_Scopes_Dev,GlobalConflictsLobbyDev,GCRhsLoadOnlyTest,GCAttributeContentTest,RHS_Content_02 -server {7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf
+165: 11:42:31.231   RESOURCES (E): Wrong GUID/name for resource @"{0AFDD005CD669892}Language/rhs_localization.st" in property "StringTableSource"
+167: 11:42:31.232   RESOURCES (E): Wrong GUID/name for resource @"{DE0B68C7B4B0E89C}Language/ACE_localization.st" in property "StringTableSource"
+169: 11:42:31.232   RESOURCES (E): Wrong GUID/name for resource @"{2E272B1D21C4446A}Language/ACE_Carrying_localization.st" in property "StringTableSource"
+171: 11:42:31.232   RESOURCES (E): Wrong GUID/name for resource @"{449B115472C3DAC9}Language/ACE_Chopping_localization.st" in property "StringTableSource"
+173: 11:42:31.233   RESOURCES (E): Wrong GUID/name for resource @"{4345D373EA2906AA}Language/ACE_Finger_localization.st" in property "StringTableSource"
+175: 11:42:31.233   RESOURCES (E): Wrong GUID/name for resource @"{D393C26C894B1404}Language/ACE_Medical_Core_localization.st" in property "StringTableSource"
+177: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{0780D43A82968920}Language/ACE_Medical_Circulation_localization.st" in property "StringTableSource"
+179: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{959D5DBC2DA78E19}Language/ACE_Trenches_localization.st" in property "StringTableSource"
+181: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{AB4674C708AC6E13}Language/ACE_Explosives_Localization.st" in property "StringTableSource"
+183: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{7DD20CE9F835645B}Language/ACE_Captives_localization.st" in property "StringTableSource"
+185: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{82EA2E3394DB4584}Language/ACE_TacticalLadder_localization.st" in property "StringTableSource"
+187: 11:42:31.234   RESOURCES (E): Wrong GUID/name for resource @"{C4D719716B02B0B1}Language/ACE_Radio_language.st" in property "StringTableSource"
+189: 11:42:31.235   RESOURCES (E): Wrong GUID/name for resource @"{FD20CF2F69D7033E}Language/ACE_TacticalPeriscope_localization.st" in property "StringTableSource"
+191: 11:42:31.235   RESOURCES (E): Wrong GUID/name for resource @"{BE8A6751C19A49EC}Language/ACE_Overheating_localization.st" in property "StringTableSource"
+193: 11:42:31.236   RESOURCES (E): Wrong GUID/name for resource @"{95AF98816BFC4873}Language/ACE_Weather_localization.st" in property "StringTableSource"
+195: 11:42:31.236   RESOURCES (E): Wrong GUID/name for resource @"{6B0176644119893B}Languages/ACE_Facepaint_Localisation_01.st" in property "StringTableSource"
+197: 11:42:31.236   RESOURCES (E): Wrong GUID/name for resource @"{DA71C3C62240FAC9}Language/ACE_Ballistics_localization.st" in property "StringTableSource"
+199: 11:42:31.237   RESOURCES (E): Wrong GUID/name for resource @"{5A243CDE720B08D7}Language/ACE_Medical_Breathing_localization.st" in property "StringTableSource"
+201: 11:42:31.237   RESOURCES (E): Wrong GUID/name for resource @"{B8CB0ED6EE7E75B6}Language/ACE_Scopes_localization.st" in property "StringTableSource"
+260: 11:42:32.952    WORLD     (E): Unknown class 'SCR_ChimeraCharacter' at offset 21(0x15)
+262: 11:42:32.952   RESOURCES (E): Failed to load
+268: 11:42:33.098   DEFAULT   (E): Unknown class 'ACE_Medical_Settings' at offset 166(0xa6)
+283: 11:42:34.197       RESOURCES (E): Wrong GUID/name for resource @"{7E134FED6221D9A8}Particles/Weapon/Suppressor_Carbine.ptc" in property "m_sContinuousParticleEffect"
+284: 11:42:34.197       RESOURCES (E): Wrong GUID/name for resource @"{7E134FED6221D9A8}Particles/Weapon/Suppressor_Carbine.ptc" in property "m_sFadeoutParticleEffect"
+295: 11:42:34.204             WORLD     (E): Unknown keyword/data 'm_sRequiredTypeName' at offset 268(0x10c)
+296: 11:42:34.204             WORLD     (E): Unknown keyword/data 'm_sRequiredTypeName' at offset 544(0x220)
+299: 11:42:34.269   RESOURCES (E): Wrong GUID/name for resource @"{FF35BE9795BA3797}system/wbdata/Gizmo3D/sphere.xob" in property "Object"
+313: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{F54981E40A49B531}worlds/Rally_Arland_AirportRun.ent" in property "World"
+314: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+317: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{1A128D63484B1F5A}worlds/Rally_Cain_CoastToCoast.ent" in property "World"
+318: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+321: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{8D7E7DB9E63DE59C}worlds/Rally_Cain_MineralyDescent.ent" in property "World"
+322: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+325: 11:42:34.424       RESOURCES (E): Wrong GUID/name for resource @"{DD52D70DCA9A5E82}worlds/Rally_Arland_ArlandLighthouse.ent" in property "World"
+326: 11:42:34.425       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+329: 11:42:34.425       RESOURCES (E): Wrong GUID/name for resource @"{DC896591E44FBC92}worlds/Rally_Everon_Montfront.ent" in property "World"
+330: 11:42:34.425       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+333: 11:42:34.426       RESOURCES (E): Wrong GUID/name for resource @"{75033D4FB2FE793E}worlds/Rally_Everon_NorthernForest.ent" in property "World"
+334: 11:42:34.426       RESOURCES (E): Wrong GUID/name for resource @"{6A58ADD30913F600}Configs/Systems/RallySystems.conf" in property "SystemsConfig"
+485: 11:42:41.843      SCRIPT       : GC | Launch | awaiting acknowledgement id=c263f265-7a86-484e-b41c-ae6f8e4e40e5
+499: 11:42:41.926 NETWORK      : Starting RPL server, listening on address 0.0.0.0:2001, fastValidation=false
+509: 11:42:48.162 SCRIPT       : GC | Launch | acknowledged id=c263f265-7a86-484e-b41c-ae6f8e4e40e5 scenario={7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf addons=34
+521: 11:43:56.896  NETWORK   (E): Trying to register connection of possibly unauthorized client.
+522: 11:43:56.896  NETWORK   (E): Trying to register connection of possibly unauthorized client.
+545: 11:44:01.449   SCRIPT       : GC | Phase UI Trace | player controller ownership: this=GC_LobbyPlayerController<0x000002294D8EBA80> @"ENTITY:4611686018427388039" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et" player=0 changing=1 becameOwner=1 server=1 publishedController=NULL
+550: 11:44:01.703   SCRIPT       : GC | OnPlayerAuditSuccess: 1, connected!
+553: 11:44:01.703   NETWORK      : Players connected: 1 / 1
+583: 11:44:02.830   SCRIPT       : GC | Phase UI Trace | player controller ownership: this=GC_LobbyPlayerController<0x000002294D8EC410> @"ENTITY:4611686018427388056" ('GC_LobbyPlayerController') at <0.000000 0.000000 0.000000> @"{FE3C731AAB2FB003}Prefabs/Characters/Core/LobbyPlayerController.et" player=0 changing=1 becameOwner=1 server=1 publishedController=NULL
+588: 11:44:03.063   SCRIPT       : GC | OnPlayerAuditSuccess: 2, connected!
+591: 11:44:03.063   NETWORK      : Players connected: 2 / 2

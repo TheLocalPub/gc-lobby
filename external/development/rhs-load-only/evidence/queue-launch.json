@@ -1,0 +1,40 @@
+{
+  "result": "passed",
+  "scope": "installed local addons, release dedicated server and two release clients launched by the dedicated tool",
+  "requestId": "8d06a9e5-ec56-4033-8444-bab788137325",
+  "claimId": "dbe73090-0528-4ab2-924c-f98f6e10c35e",
+  "processId": 15500,
+  "planSha256": "9004bc2af91286648d7b1c29162f1f64922930617ff40ab7679e533f2fe06124",
+  "scenario": "7E161126A01D0003",
+  "actualWorld": "$GCRhsLoadOnlyTest:Worlds/RhsLoadOnly.ent",
+  "selectedNonVanillaAddons": 32,
+  "loadedNonVanillaAddons": 32,
+  "declaredMissionDependencies": [
+    "6A115D5DFF7ED870"
+  ],
+  "consecutiveTwoPlayerSamplesPerClient": 36,
+  "configuredSampleCadenceSeconds": 5,
+  "logs": [
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\launch-api-01\\worker\\73bb01b4-670b-4ffd-bc18-dcb1bb95dd5f\\profile\\logs\\logs_2026-11-16_11-42-30\\console.log",
+      "sha256": "77ab909f9f815762adb13fe07b044aed2695c1ebcd21912af6fd54da93cecde1",
+      "bytes": 93141
+    },
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\launch-api-01\\peer1\\logs\\logs_2026-11-16_11-43-50\\console.log",
+      "sha256": "a37d543d76f6461bb7bed5886821923a3966259b46a99dc24f3f57777c48f616",
+      "bytes": 82157
+    },
+    {
+      "path": "C:\\Users\\Gray\\Documents\\VS\\reforger-script-tools\\work\\launch-api-01\\peer2\\logs\\logs_2026-11-16_11-43-50\\console.log",
+      "sha256": "8c60443d2b633c98eefd5886d071b76c4ce60031f5d0bb846d904d49ad54efa1",
+      "bytes": 82258
+    }
+  ],
+  "limits": [
+    "Workshop downloads and remote joining not tested",
+    "Dedicated tool clients retained native timeout-disable and reconnect flags; network timeout handling not tested",
+    "Client-side named weapon/character lookup is outside streaming range; this test proves connection, not client equipment visibility",
+    "Diagnostic client/server builds with Core failed script-checksum validation; release pair passed"
+  ]
+}

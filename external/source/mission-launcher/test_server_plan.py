@@ -27,6 +27,8 @@ class ServerPlanTests(unittest.TestCase):
         header.write_text('GC_MissionHeader { World "{1111111111111111}Worlds/Test.ent" }')
         self.scenario = "{2222222222222222}Mission.conf"
         header.with_suffix(".conf.meta").write_text(f'MetaFileClass {{ Name "{self.scenario}" }}')
+        (header.parent / "Worlds").mkdir()
+        (header.parent / "Worlds/Test.ent.meta").write_text('MetaFileClass { Name "{1111111111111111}Worlds/Test.ent" }')
         self.assignment = {"requestId": "00000000-0000-0000-0000-000000000001",
                            "missionId": "00000000-0000-0000-0000-000000000002",
                            "manifest": {"scenario": self.scenario,

@@ -88,3 +88,39 @@ Coverage is explicitly `authored_container_graph_partial`: script-selected asset
 The world adds `AttributeInstanceCompass.et` only through an instance inventory override. `verify_nested_metadata.py` reads the saved header and requires its exact origin, inherited compass/bandage/head references, provider GUID, nested-owner union, preserved placed-prefab flags and unique rows. **GC Tests → Test nested references** exercises a two-config cycle, duplicates, a missing config, exclusion of generated evidence and an expired deadline. Helpers remain external. The earlier independent scanner was removed; the explicit attribute probe uses the production collector too.
 
 Production validation passed: [native header checks](evidence/nested-metadata.json) and [Workbench test output](evidence/nested-workbench.txt). The saved fixture header contains 680 addon-related rows instead of 4,591 full graph rows (about 301 KB instead of 1.9 MB), with 1,107 expanded vanilla-only and 2,804 unexpanded resources counted separately. After script/resource reload, the engine read schema 2 and all four target references from the saved header. The direct automation world-open call crashed during setup; opening the world through stock editor menus succeeded. This editor-only metadata change does not repeat the earlier dedicated-server/client gameplay run.
+# Metadata-driven dedicated launch
+
+The 2026-11-16 queue experiment passed using the release server and two separate
+release clients on this PC. The website's real importer accepted this saved
+schema-2 header into a disposable database. An authenticated HTTP mission
+request was claimed by the standalone GC worker, which selected GC Core plus
+the mission's required addons and native dependency closure: **32 non-vanilla
+addons**, including RHS and the independent attribute provider. This fixture's
+`.gproj` still declares only GC Lobby, not RHS or the attribute provider.
+
+The server acknowledged the requested scenario GUID, header world GUID, actual
+loaded world and exact addon GUID set. The website recorded completion with the
+same request/claim and computed plan hash. The stock dedicated tool's **Start
+only clients** button launched both clients; both received player controllers
+and passed audit. Each produced 36 consecutive two-player observations at its
+configured five-second cadence without a checksum error or disconnect during
+the captured interval.
+
+See [verification](evidence/queue-launch.json), [database outcomes](evidence/queue-launch-outcomes.json),
+[plan](evidence/queue-launch-plan.json), [receipt](evidence/queue-launch-receipt.json),
+[process observations](evidence/queue-launch-processes.json), and the
+[server](evidence/queue-launch-server.txt), [client 1](evidence/queue-launch-client1.txt)
+and [client 2](evidence/queue-launch-client2.txt) log excerpts. Log hashes/byte
+counts describe the observed prefix before deliberate test shutdown.
+`verify_queue_launch.py` recomputes the plan hash and verifies these connections
+against the live-run logs; its input paths are recorded in the evidence.
+
+Limits: these are installed local addons, not Workshop download/remote-join
+coverage. Client named-entity checks were outside streaming range and returned
+no weapon/character; this run does not certify equipment visibility there.
+Earlier dedicated attribute tests remain separate evidence. Diagnostic server
+and client builds with Core produced a [script-checksum rejection](evidence/queue-launch-diagnostic-rejection.txt);
+the successful pair used `ArmaReforgerServer.exe` and `ArmaReforgerSteam.exe`.
+Script-checksum validation was not disabled to obtain the release result. The
+dedicated tool retained its existing `-rpl-timeout-disable` and `-rpl-reconnect`
+client settings; the observations do not test normal network-timeout handling.

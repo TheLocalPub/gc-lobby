@@ -118,6 +118,20 @@ def make_plan(assignment, deployment, installed, core_ids, template, mode):
         add(identity, "mission metadata")
     for identity in supplemental:
         add(identity, "deployment supplemental requirement")
+    world_guid, world_path = reference(world)
+    world_files = []
+    for mod in selected.values():
+        meta_path = Path(mod["project"]).parent / (world_path + ".meta")
+        if meta_path.is_file():
+            _, world_meta = root(meta_path)
+            if reference(field(world_meta, "Name"))[0] == world_guid:
+                world_files.append(f"${mod['id']}:{world_path}")
+    if len(world_files) > 1:
+        raise ValueError("Ambiguous world ownership")
+    world_file = world_files[0] if world_files else deployment.get("worldFile", "")
+    allowed_world_files = {f"${m['id']}:{world_path}" for m in selected.values()} | {f"$ArmaReforger:{world_path}", f"$core:{world_path}"}
+    if world_file not in allowed_world_files:
+        raise ValueError("Deployment must identify the packed world's addon-qualified worldFile")
     config = copy.deepcopy(template)
     config.setdefault("game", {})["scenarioId"] = scenario
     if mode == "workshop" and any(not mod["version"] for mod in selected.values()):
@@ -125,7 +139,7 @@ def make_plan(assignment, deployment, installed, core_ids, template, mode):
     config["game"]["mods"] = ([{"modId": identity, "version": selected[identity]["version"], "required": True}
                                for identity in sorted(selected)] if mode == "workshop" else [])
     plan = {"version": 1, "mode": mode, "requestId": request_id, "missionId": mission_id,
-            "source": manifest["source"], "scenario": scenario, "world": world,
+            "source": manifest["source"], "scenario": scenario, "world": world, "worldFile": world_file,
             "dependencyResolution": coverage, "headerSha256": deployment["headerSha256"],
             "mods": [selected[x] for x in sorted(selected)], "config": config}
     plan["planSha256"] = hashlib.sha256(canonical(plan)).hexdigest()

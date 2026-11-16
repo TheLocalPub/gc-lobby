@@ -1,0 +1,142 @@
+[
+  {
+    "request_id": "d6b08354-beee-4177-a189-7bd20dae4fb8",
+    "claim_id": "cc42a053-a8e2-460b-9ea0-5826d662d4c4",
+    "status": "failed",
+    "outcome": {
+      "summary": "Server exited during startup (0)",
+      "processId": 40252,
+      "planSha256": "10c446ac461d97caa1a5d522fbb119ca8adebef2fa297cac6523d9635bff078d"
+    },
+    "requested_at": "2026-11-16T11:25:19.877493-05:00",
+    "claimed_at": "2026-11-16T11:25:44.718828-05:00",
+    "finished_at": "2026-11-16T11:25:51.929709-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "3ab70511-c837-4aa8-bf17-409acbefe0c1",
+    "claim_id": "f0c11caf-719c-4b45-9854-00fdbf9c463f",
+    "status": "failed",
+    "outcome": {
+      "summary": "Server did not acknowledge the requested mission before startup timeout",
+      "processId": 42556,
+      "planSha256": "92764aaea6ef7416905f23e3c81e928ba328970c268fe54b8ced99af13cc6a5c"
+    },
+    "requested_at": "2026-11-16T11:26:50.9012-05:00",
+    "claimed_at": "2026-11-16T11:26:51.083936-05:00",
+    "finished_at": "2026-11-16T11:28:54.473909-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "1ce3c255-afcd-4dc4-b9fe-4fe691e60ad0",
+    "claim_id": "6541c477-9c2e-45e7-a004-f0445d537b59",
+    "status": "failed",
+    "outcome": {
+      "summary": "Server did not acknowledge the requested mission before startup timeout",
+      "processId": 35152,
+      "planSha256": "4ba9e1d814d3c98a337a56531ba911c6410be3d4b346c6a76cf344d4af8e4153"
+    },
+    "requested_at": "2026-11-16T11:29:21.47464-05:00",
+    "claimed_at": "2026-11-16T11:29:21.778702-05:00",
+    "finished_at": "2026-11-16T11:31:42.457211-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "0744dd06-7f75-4fd1-bb82-35f01fc7d069",
+    "claim_id": "d54655bd-8dde-4f96-b36a-b0f99b3c3132",
+    "status": "completed",
+    "outcome": {
+      "summary": "Dedicated server confirmed scenario, world and exact addon set",
+      "processId": 51452,
+      "planSha256": "09d70c9596fcb926c1a263c0d3862c900eb7cf0c94d58740b3ca619bfe49113b"
+    },
+    "requested_at": "2026-11-16T11:31:42.278079-05:00",
+    "claimed_at": "2026-11-16T11:31:45.493554-05:00",
+    "finished_at": "2026-11-16T11:32:03.198334-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "55fdbab4-6652-4a51-90c0-225d45d2d3e9",
+    "claim_id": "670ee56c-990b-4535-b71b-b2d19809c865",
+    "status": "failed",
+    "outcome": {
+      "summary": "Actual loaded world does not match the requested world",
+      "processId": 41672,
+      "planSha256": "58b5695702884ba6fdc684a2f90225d14c74ea13bbb663f5d076737bfbe54994"
+    },
+    "requested_at": "2026-11-16T11:33:12.233431-05:00",
+    "claimed_at": "2026-11-16T11:33:12.416157-05:00",
+    "finished_at": "2026-11-16T11:33:36.220193-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "b6425eb0-4bd5-4630-9a2f-b380c563a7c9",
+    "claim_id": "296a801a-8606-4efa-b10c-054e7249d21f",
+    "status": "failed",
+    "outcome": {
+      "summary": "Actual loaded world does not match the requested world",
+      "processId": 10060,
+      "planSha256": "197d331937ea3094fc5bec2f13c1630a5eb68edfb89178f66a928f6493553e46"
+    },
+    "requested_at": "2026-11-16T11:34:21.163825-05:00",
+    "claimed_at": "2026-11-16T11:34:21.34641-05:00",
+    "finished_at": "2026-11-16T11:34:39.664378-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "8d6d1d7a-f7df-4522-9707-82506ab87121",
+    "claim_id": "88eca6c7-7b7c-44eb-bbac-80b7b27e8581",
+    "status": "failed",
+    "outcome": {
+      "summary": "Worker shutdown requested during startup",
+      "processId": 2932,
+      "planSha256": "d79b1849ff675c1de2d84f30ede0d0e845bcd827e3037c0687ed4b2ecf54a4b8"
+    },
+    "requested_at": "2026-11-16T11:35:53.805769-05:00",
+    "claimed_at": "2026-11-16T11:35:53.988767-05:00",
+    "finished_at": "2026-11-16T11:37:35.016151-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "ea39ba3e-2e88-41e1-8cc4-f0a224ad83cb",
+    "claim_id": "d56d7828-bdec-4e6a-a715-931580833eeb",
+    "status": "failed",
+    "outcome": {
+      "summary": "Worker shutdown requested during startup",
+      "processId": 7724,
+      "planSha256": "ab922e2e030d807c3c6c4f3252e2163ba578aeda60220124c9d094d141ed2c70"
+    },
+    "requested_at": "2026-11-16T11:37:34.84332-05:00",
+    "claimed_at": "2026-11-16T11:37:38.056034-05:00",
+    "finished_at": "2026-11-16T11:39:45.859967-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "ea4a3a4e-6b3c-4ebe-9864-86bb0d0f435e",
+    "claim_id": "4bcf35f9-cd48-4716-941a-9ad8bb619edf",
+    "status": "completed",
+    "outcome": {
+      "summary": "Dedicated server confirmed scenario, world and exact addon set",
+      "processId": 38208,
+      "planSha256": "4c90e41666ef78d343c8bff2d5dc63112ee154c6754db3eebbe59b748712d840"
+    },
+    "requested_at": "2026-11-16T11:39:45.684889-05:00",
+    "claimed_at": "2026-11-16T11:39:48.896167-05:00",
+    "finished_at": "2026-11-16T11:40:07.098387-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  },
+  {
+    "request_id": "8d06a9e5-ec56-4033-8444-bab788137325",
+    "claim_id": "dbe73090-0528-4ab2-924c-f98f6e10c35e",
+    "status": "completed",
+    "outcome": {
+      "summary": "Dedicated server confirmed scenario, world and exact addon set",
+      "processId": 15500,
+      "planSha256": "9004bc2af91286648d7b1c29162f1f64922930617ff40ab7679e533f2fe06124"
+    },
+    "requested_at": "2026-11-16T11:42:30.479072-05:00",
+    "claimed_at": "2026-11-16T11:42:30.671134-05:00",
+    "finished_at": "2026-11-16T11:42:51.426614-05:00",
+    "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf"
+  }
+]
