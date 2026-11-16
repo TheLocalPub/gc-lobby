@@ -1,7 +1,7 @@
 GameProject {
  ID "GlobalConflictsWorkshopDev"
  GUID "6B8E05204D634FA9"
- TITLE "GC Workshop - Dev"
+ TITLE "GC Workshop"
  Dependencies {
   "58D0FB3206B6F859"
   "623555110E2B2CA1"

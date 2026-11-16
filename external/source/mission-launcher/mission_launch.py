@@ -352,7 +352,7 @@ def write_collection(projects, addon_guid, output):
     if addon_guid in dependencies or addon_guid in VANILLA:
         raise ValueError("Collection must have its own new addon identity")
     lines = ['GameProject {', ' ID "GlobalConflictsWorkshopDev"',
-             f' GUID "{addon_guid}"', ' TITLE "GC Workshop - Dev"',
+             f' GUID "{addon_guid}"', ' TITLE "GC Workshop"',
              ' Dependencies {']
     lines.extend(f'  "{value}"' for value in sorted(dependencies))
     lines.extend([' }', ' Configurations {', '  GameProjectConfig PC {', '  }', ' }', '}'])
