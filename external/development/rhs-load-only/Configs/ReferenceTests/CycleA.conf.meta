@@ -1,0 +1,7 @@
+MetaFileClass {
+ Name "{7E161126A01D0031}Configs/ReferenceTests/CycleA.conf"
+ Configurations {
+  CONFResourceClass PC {}
+  CONFResourceClass HEADLESS : PC {}
+ }
+}

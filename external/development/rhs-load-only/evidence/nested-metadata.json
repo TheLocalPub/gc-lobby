@@ -1,0 +1,62 @@
+{
+  "result": "passed",
+  "schema": 2,
+  "header_sha256": "d20e50fe658e453b4e4dcc1eeb59e3f231c97fb30652990fe6f77af058a43b71",
+  "references": 680,
+  "status_counts": {
+    "container": 680
+  },
+  "unexpanded_resources": 2804,
+  "omitted_vanilla_resources": 1107,
+  "referenced_addons": [
+    "ArmaReforger",
+    "GCAttributeContentTest",
+    "GCRhsLoadOnlyTest",
+    "GlobalConflictsLobbyDev",
+    "RHS_Core",
+    "core"
+  ],
+  "provider_guid": "7E161126A01D1001",
+  "target_references": [
+    {
+      "resource": "{7E161126A01D1002}Prefabs/AttributeCompass.et",
+      "origin": "entity:GC_AttributeCharacter/SCR_ChimeraCharacter.components[48]/SCR_InventoryStorageManagerComponent.InitialInventoryItems[0]/ItemsInitConfigurationItem.PrefabsToSpawn[0]",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "resource": "{7E161126A01D1003}Prefabs/AttributeBandage.et",
+      "origin": "entity:GC_AttributeCharacter/SCR_ChimeraCharacter.components[48]/SCR_InventoryStorageManagerComponent.InitialInventoryItems[0]/ItemsInitConfigurationItem.PrefabsToSpawn[1]",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "resource": "{7E161126A01D1005}Prefabs/AttributeInstanceCompass.et",
+      "origin": "entity:GC_AttributeCharacter/SCR_ChimeraCharacter.components[48]/SCR_InventoryStorageManagerComponent.InitialInventoryItems[0]/ItemsInitConfigurationItem.PrefabsToSpawn[2]",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    },
+    {
+      "resource": "{7E161126A01D1004}Prefabs/AttributeHead.et",
+      "origin": "entity:GC_AttributeCharacter/SCR_ChimeraCharacter.components[45]/SCR_CharacterIdentityComponent.Identity/Identity.VisualIdentity/VisualIdentity.Head",
+      "status": "container",
+      "addons": [
+        "ArmaReforger",
+        "GCAttributeContentTest",
+        "GlobalConflictsLobbyDev"
+      ]
+    }
+  ]
+}

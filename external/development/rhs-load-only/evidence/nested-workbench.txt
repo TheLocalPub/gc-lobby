@@ -1,0 +1,6 @@
+Source: C:\Users\Gray\Documents\My Games\ArmaReforgerWorkbench\logs\logs_2026-11-16_10-45-42\console.log
+Production schema-2 validation; original line numbers.
+
+23794: 10:49:17.887 SCRIPT       : GC_NESTED_TEST cycles_dedup_missing_exclusion=1 timeout_rejected=1
+24193: 10:53:27.315 SCRIPT       : GC_NESTED_TEST cycles_dedup_missing_exclusion=1 timeout_rejected=1
+24194: 10:53:27.318 SCRIPT       : GC_NESTED_TEST native_header_reload=1 schema=2 targets=4

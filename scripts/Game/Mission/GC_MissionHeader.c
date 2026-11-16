@@ -45,6 +45,28 @@ class GC_GeneratedMissionMetadata
 	ref array<ref GC_MissionMetadataPrefab> m_aPrefabs;
 	[Attribute()]
 	ref array<ref GC_MissionMetadataAddon> m_aLoadedAddons;
+	[Attribute()]
+	string m_sResourceCoverage;
+	[Attribute()]
+	ref array<ref GC_MissionMetadataResource> m_aResourceReferences;
+	[Attribute()]
+	int m_iUnexpandedResourceCount;
+	[Attribute()]
+	int m_iOmittedVanillaResourceCount;
+}
+
+//! Distinct authored resource reference; origin is its first observed field, not every use.
+[BaseContainerProps()]
+class GC_MissionMetadataResource
+{
+	[Attribute()]
+	ResourceName m_sResource;
+	[Attribute()]
+	string m_sOrigin;
+	[Attribute()]
+	string m_sStatus;
+	[Attribute()]
+	ref array<string> m_aAddonIds = {};
 }
 
 [BaseContainerProps()]
@@ -69,6 +91,8 @@ class GC_MissionMetadataAddon
 	bool m_bVanilla;
 	[Attribute()]
 	bool m_bReferencedByPlacedPrefab;
+	[Attribute()]
+	bool m_bReferencedByResource;
 }
 
 //! Placed prefab evidence; presence does not imply player availability.

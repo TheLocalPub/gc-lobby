@@ -8,6 +8,8 @@ class GC_MissionMetadataExport
 	protected ref array<string> m_aFactions = {};
 	protected ref array<string> m_aConfiguredFactions = {};
 	protected ref array<string> m_aReferencedAddons = {};
+	protected ref array<string> m_aPlacedAddonIds = {};
+	protected ref GC_MissionResourceReferences m_ResourceReferences;
 	protected ref array<ref GC_MissionMetadataSlot> m_aPlayerSlots = {};
 	protected ref map<ResourceName, ref GC_LoadoutMetadata> m_mLoadouts = new map<ResourceName, ref GC_LoadoutMetadata>();
 	protected int m_iEntityCount;
@@ -28,6 +30,7 @@ class GC_MissionMetadataExport
 		m_bComplete = false;
 		m_sError = string.Empty;
 		m_iStarted = System.GetTickCount();
+		m_ResourceReferences = new GC_MissionResourceReferences(m_iStarted);
 		m_Progress = progress;
 		m_mPrefabs.Clear();
 		m_mPrefabAddons.Clear();
@@ -35,6 +38,7 @@ class GC_MissionMetadataExport
 		m_aFactions.Clear();
 		m_aConfiguredFactions.Clear();
 		m_aReferencedAddons.Clear();
+		m_aPlacedAddonIds.Clear();
 		m_aPlayerSlots.Clear();
 		m_mLoadouts.Clear();
 		m_iEntityCount = 0;
@@ -71,6 +75,14 @@ class GC_MissionMetadataExport
 		m_Progress = null;
 		if (!m_sError.IsEmpty())
 			return false;
+		if (!m_ResourceReferences.Expand())
+		{
+			m_sError = m_ResourceReferences.GetError();
+			return false;
+		}
+		m_aPlacedAddonIds.Copy(m_aReferencedAddons);
+		foreach (string resourceAddon : m_ResourceReferences.GetAddonIds())
+			AddUnique(m_aReferencedAddons, resourceAddon);
 		CollectStartTime(api);
 		m_aFactions.Sort();
 		m_aConfiguredFactions.Sort();
@@ -102,6 +114,11 @@ class GC_MissionMetadataExport
 			return;
 		}
 		m_iEntityCount++;
+		// Read the effective instance, including overrides not present in its prefab file.
+		m_ResourceReferences.AddEntity(source);
+		m_sError = m_ResourceReferences.GetError();
+		if (!m_sError.IsEmpty())
+			return;
 		if (m_Progress && m_iEntityCount % 32 == 0)
 			m_Progress.SetActionTitle(string.Format("%1 mission entities checked", m_iEntityCount));
 		typename type = source.GetClassName().ToType();
@@ -433,7 +450,9 @@ class GC_MissionMetadataExport
 		if (!m_bComplete)
 			return null;
 		GC_GeneratedMissionMetadata snapshot = new GC_GeneratedMissionMetadata();
-		snapshot.m_iSchemaVersion = 1;
+		snapshot.m_iSchemaVersion = 2;
+		snapshot.m_sResourceCoverage = "authored_container_graph_partial";
+		m_ResourceReferences.WriteSnapshot(snapshot);
 		snapshot.m_aFactions = {};
 		snapshot.m_aConfiguredFactions = {};
 		snapshot.m_aReferencedAddonIds = {};
@@ -442,7 +461,7 @@ class GC_MissionMetadataExport
 		snapshot.m_aLoadedAddons = {};
 		snapshot.m_sWorld = world;
 		snapshot.m_sCaptureScope = "world_subscene";
-		snapshot.m_aLimitations = {"Captured mission subscene and prefab children only; other subscenes and runtime spawns excluded.", "Editor snapshot; refresh explicitly after saving mission changes.", "Player slots describe authored playable groups and loadout prefabs; random variants and inventory contents are not expanded.", "Prefab source addons are content evidence, not a complete dependency list.", "Asset presence does not imply player availability; mod configuration may be inaccurate."};
+		snapshot.m_aLimitations = {"Captured mission subscene and prefab children only; other subscenes and runtime spawns excluded.", "Editor snapshot; refresh explicitly after saving mission changes.", "Effective nested resource fields and linked .et/.conf containers are expanded, including authored inventory and identity references.", "Resource rows retain their first origin for non-vanilla or unresolved containers. Expanded vanilla-only containers and unexpanded non-container resources are counted separately. Specialized texture fields and script-selected assets are not fully resolved.", "Broad authored references can include unused editor/catalogue alternatives; source addons are evidence, not a minimal or complete dependency manifest.", "Asset presence does not imply player availability; mod configuration may be inaccurate."};
 		snapshot.m_aPlayerSlots = {};
 		foreach (GC_MissionMetadataSlot slot : m_aPlayerSlots)
 			snapshot.m_aPlayerSlots.Insert(slot);
@@ -481,7 +500,8 @@ class GC_MissionMetadataExport
 			addon.m_sGuid = guid;
 			addon.m_sTitle = GameProject.GetAddonTitle(guid);
 			addon.m_bVanilla = GameProject.IsVanillaAddon(guid);
-			addon.m_bReferencedByPlacedPrefab = m_aReferencedAddons.Contains(addon.m_sId);
+			addon.m_bReferencedByPlacedPrefab = m_aPlacedAddonIds.Contains(addon.m_sId);
+			addon.m_bReferencedByResource = m_ResourceReferences.GetAddonIds().Contains(addon.m_sId);
 			snapshot.m_aLoadedAddons.Insert(addon);
 		}
 		return snapshot;
