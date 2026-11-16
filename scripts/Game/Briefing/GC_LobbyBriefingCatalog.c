@@ -28,7 +28,7 @@ class GC_LobbyBriefingCatalog
 
 	GC_Briefing GetBriefing(int order)
 	{
-		if (order <= 0)
+		if (order < 0)
 			return null;
 
 		EnsureBriefings();

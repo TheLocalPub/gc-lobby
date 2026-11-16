@@ -4,7 +4,7 @@ class GC_BriefingTitleRowComponent : SCR_ButtonBaseComponent
     protected static const string DEFAULT_ICON = "scenarios";
     protected static const string SCENARIO_ICON = "vegetation";
 
-    [Attribute("0", UIWidgets.EditBox, "One-based order displayed with a leading zero; zero is blank until assigned")]
+    [Attribute("0", UIWidgets.EditBox, "Briefing index displayed with a leading zero")]
     protected int m_iOrder;
 
     [Attribute("", UIWidgets.EditBox, "Title displayed by this briefing row")]
@@ -17,7 +17,7 @@ class GC_BriefingTitleRowComponent : SCR_ButtonBaseComponent
     protected string m_sIconName;
 
     protected bool m_bHovered;
-    protected int m_iBriefingOrder;
+    protected int m_iBriefingOrder = -1;
     protected TextWidget m_wOrder;
     protected TextWidget m_wTitle;
     protected ImageWidget m_wIcon;
@@ -38,7 +38,7 @@ class GC_BriefingTitleRowComponent : SCR_ButtonBaseComponent
 
         SetIcon(m_sIconName);
 
-        if (m_wOrder && m_iOrder > 0)
+        if (m_wOrder && m_iOrder >= 0)
             m_wOrder.SetText(m_iOrder.ToString(2));
 
         if (m_wTitle)
@@ -148,7 +148,7 @@ class GC_BriefingTitleRowComponent : SCR_ButtonBaseComponent
 
     void ClearBriefingData()
     {
-        m_iBriefingOrder = 0;
+        m_iBriefingOrder = -1;
         m_bSelected = false;
 
         if (m_wRoot)

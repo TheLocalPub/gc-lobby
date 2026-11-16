@@ -4193,7 +4193,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 		m_VoiceState.Remove(playerId);
 	}
 
-    //! Returns one briefing by its one-based authored order/index.
+    //! Returns one briefing by its authored index, including zero.
 	GC_Briefing GetBriefing(int briefingOrder)
 	{
 		return GetBriefingCatalog().GetBriefing(briefingOrder);
@@ -4435,7 +4435,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 
     bool RemoveBriefing(int briefingOrder)
     {
-        if (!Replication.IsServer() || briefingOrder <= 0)
+        if (!Replication.IsServer() || briefingOrder < 0)
             return false;
 
         int revision;
@@ -4449,7 +4449,7 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 
     protected bool ValidateBriefing(GC_Briefing briefing)
     {
-        if (!briefing || briefing.GetOrder() <= 0 || briefing.GetOrder() > GC_LobbyBriefingCatalog.MAX_BRIEFINGS)
+        if (!briefing || briefing.GetOrder() < 0 || briefing.GetOrder() > GC_LobbyBriefingCatalog.MAX_BRIEFINGS)
             return false;
 
         if (briefing.GetTitle().Length() > GC_LobbyBriefingCatalog.MAX_BRIEFING_TITLE_LENGTH

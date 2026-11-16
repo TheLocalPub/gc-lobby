@@ -6,7 +6,7 @@ class GC_Briefing
 {
 	static const int MAX_FACTION_KEYS = 16;
 
-	[Attribute("0", UIWidgets.SpinBox, "One-based briefing index used for display, updates, and selection")]
+	[Attribute("0", UIWidgets.SpinBox, "Unique briefing index used for display, updates and selection. Index 0 displays as 00.", "0 32 1")]
 	protected int m_iOrder;
 
 	[Attribute("BRIEFING", UIWidgets.EditBox, "Player-facing briefing title")]

@@ -8,7 +8,7 @@ class GC_BriefingTitlesComponent : SCR_ScriptedWidgetComponent
     ref ScriptInvoker<GC_BriefingTitleRowComponent> m_OnTitleSelected = new ScriptInvoker<GC_BriefingTitleRowComponent>();
 
     protected ref array<GC_BriefingTitleRowComponent> m_aRows = {};
-    protected int m_iSelectedBriefingOrder;
+    protected int m_iSelectedBriefingOrder = -1;
     protected SizeLayoutWidget m_wViewportSize;
     protected ScrollLayoutWidget m_wScroll;
     protected GC_BriefingScrollComponent m_ScrollComponent;
@@ -174,7 +174,7 @@ class GC_BriefingTitlesComponent : SCR_ScriptedWidgetComponent
 
         bool clearSelection = selectedRow.IsSelected();
         if (clearSelection)
-            m_iSelectedBriefingOrder = 0;
+            m_iSelectedBriefingOrder = -1;
         else
             m_iSelectedBriefingOrder = selectedRow.GetBriefingOrder();
 
@@ -186,7 +186,7 @@ class GC_BriefingTitlesComponent : SCR_ScriptedWidgetComponent
 
     void ClearSelection()
     {
-        m_iSelectedBriefingOrder = 0;
+        m_iSelectedBriefingOrder = -1;
         for (int i = 0; i < m_aRows.Count(); i++)
         {
             if (m_aRows[i])
@@ -216,8 +216,7 @@ class GC_BriefingTitlesComponent : SCR_ScriptedWidgetComponent
             if (briefings && index < briefings.Count())
             {
                 row.SetBriefingData(briefings[index]);
-                row.SetDisplayOrder(index + 1);
-                if (m_iSelectedBriefingOrder > 0 && row.GetBriefingOrder() == m_iSelectedBriefingOrder)
+                if (m_iSelectedBriefingOrder >= 0 && row.GetBriefingOrder() == m_iSelectedBriefingOrder)
                     selectedRow = row;
             }
             else
@@ -226,11 +225,11 @@ class GC_BriefingTitlesComponent : SCR_ScriptedWidgetComponent
             }
         }
 
-        if (!selectedRow && m_iSelectedBriefingOrder > 0)
+        if (!selectedRow && m_iSelectedBriefingOrder >= 0)
         {
             // The selected briefing was hidden, removed, or became unavailable
             // to this faction. Keep the document closed until the player chooses.
-            m_iSelectedBriefingOrder = 0;
+            m_iSelectedBriefingOrder = -1;
         }
 
         for (int rowIndex = 0; rowIndex < m_aRows.Count(); rowIndex++)

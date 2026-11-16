@@ -316,11 +316,14 @@ class GC_BriefingViewComponent : SCR_ScriptedWidgetComponent
         array<ref GC_Briefing> briefings = OrderBriefingsForIndex(
             m_LobbyManager.GetBriefingsForPlayer(playerController.GetPlayerId()));
         GC_BriefingTitleRowComponent selectedRow = m_Titles.ConfigureBriefings(briefings);
+        int nextOrder;
+        foreach (GC_Briefing briefing : briefings)
+            nextOrder = Math.Max(nextOrder, briefing.GetOrder() + 1);
         if (m_ParametersTab)
-            m_ParametersTab.SetDisplayOrder(briefings.Count() + 1);
+            m_ParametersTab.SetDisplayOrder(nextOrder);
 		if (m_ScenarioTab)
 		{
-			int scenarioOrder = briefings.Count() + 1;
+			int scenarioOrder = nextOrder;
 			if (m_wParametersTabRoot && m_wParametersTabRoot.IsVisible())
 				scenarioOrder++;
 			m_ScenarioTab.SetDisplayOrder(scenarioOrder);
