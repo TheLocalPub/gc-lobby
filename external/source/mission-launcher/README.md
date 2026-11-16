@@ -112,33 +112,23 @@ ports for an experiment. The process is hidden on Windows and output goes to
 scenario readiness. Process creation alone is not success. This command does
 not stop/restart an existing server, poll the website queue, or alter voting.
 
-## Global Conflicts Workbench
+## GC Workshop
 
-The separate prototype addon is at
-`../../development/global-conflicts-workbench/addon.gproj`. It has only project
-metadata, with its own experimental identity and the requested **Global
-Conflicts Workbench** name. It is not a GC Lobby dependency and is not published
-or installed automatically. The scanner blocks it if it enters a server's
-required dependency closure.
+The standalone metadata-only collection is at
+`../../development/gc-workshop/addon.gproj`, named **GC Workshop - Dev**. It retains
+the prototype GUID `6B8E05204D634FA9`, uses GC Dev dependencies and is unpublished.
+It is not a GC Lobby dependency. The scanner rejects both the old
+GlobalConflictsWorkbench and new GlobalConflictsWorkshop identities as server
+requirements, because a full authoring collection is not a minimal mission list.
 
-Regenerate a collection snapshot into a new file with:
+The 2026-11-16 ownership migration moved equipment changes to Units and mission
+content to Missions, leaving Core with six required third-party systems. See
+`../../development/dependency-migration` for preserved file hashes and validation,
+and the collection README for native download/update behavior and release limits.
 
-```powershell
-python .\mission_launch.py collection `
-  --project 'C:\Mods\Core\addon.gproj' `
-  --project 'C:\Mods\Units\addon.gproj' `
-  --project 'C:\Mods\Missions\addon.gproj' `
-  --project 'C:\Mods\Lobby\addon.gproj' `
-  --guid 6B8E05204D634FA9 --output 'C:\NewCollection\addon.gproj'
-```
-
-This copies the selected addon identities plus their direct native requirements
-into a standalone authoring/download collection. It does **not** strip Core's
-requirements. Core currently contains actual third-party script extensions and
-vehicle overrides, so blindly deleting its dependency list would break features.
-The migration must move optional integrations/content to appropriate packages
-and validate the retained Core functionality. Units and Missions must likewise
-avoid a broad shared dependency list, or every mission still inherits it.
+The experimental `collection` command can still generate a snapshot into a new
+file from explicitly supplied projects; it does not modify the checked-in collection
+or automatically choose which optional addons GC wants.
 
 ## Tests and experiment results
 
@@ -158,11 +148,11 @@ resources and produced 15 blocking checks: 13 references into packed base-game
 data, one unsupported string-table format and one runtime-script coverage check.
 Its candidate addon list contained
 GC Lobby alone, but was **not certified complete**. No launch config was made.
-The generated Workbench collection now contains 101 direct addon requirements (including the base game),
+The earlier generated Workbench collection contained 101 direct addon requirements (including the base game),
 including the four GC Dev projects. The obsolete Server Admin Tools, Scenario
 Reload Menu, Bacon Loadout Editor and Everything Arsenal dependencies have been
-removed from Core Dev and the collection. Units/Missions declarations are unchanged.
-The current GC Missions Dev native dependency closure now contains 136 non-vanilla
+removed from Core Dev and the collection. Units/Missions declarations were unchanged at that time.
+That historical GC Missions Dev native dependency closure contained 136 non-vanilla
 addons, with all declarations found in local source/installed projects. That
 confirms why launcher selection alone cannot yet shrink the current package.
 

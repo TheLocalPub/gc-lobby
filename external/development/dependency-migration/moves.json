@@ -1,0 +1,874 @@
+[
+  {
+    "from": "gc-reforger-core/Missions/0_LobbyHeader_Base.conf",
+    "to": "gc-reforger-missions/Missions/0_LobbyHeader_Base.conf",
+    "sha256": "fd75f74ad8ba8690f3dcafb3991e68283ea6dcd6e5ca18024205eb59cbfd3a8d"
+  },
+  {
+    "from": "gc-reforger-core/Missions/0_LobbyHeader_Base.conf.meta",
+    "to": "gc-reforger-missions/Missions/0_LobbyHeader_Base.conf.meta",
+    "sha256": "f6679edc6a9c4f51df97216769657746ae9e26c1000179496d084cffb38da78e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIworld_AL_Hadra.et",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIworld_AL_Hadra.et",
+    "sha256": "70fc74cf3d38fb6f900b3cbb6b7011621e1059fbb8b9958da0c93abb0b4b006e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIworld_AL_Hadra.et.meta",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIworld_AL_Hadra.et.meta",
+    "sha256": "d46c58ad44cd5cffcb1c1fccb442eb04ad60cb2ee8124d375a9ae846d9ebdfe2"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_BadOrb_GC.et",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_BadOrb_GC.et",
+    "sha256": "cda38218f815feba20096d27422eaef2239daf61a8e42fd57ca1f1c9439096d6"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_BadOrb_GC.et.meta",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_BadOrb_GC.et.meta",
+    "sha256": "fc1967c32ec68f54b3e54d37ea22b4626bf69d49025a94dc7c8b21fffb9a159b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Sounds/SoundWorld/Zarichne/SoundWorld_Zarichne.et",
+    "to": "gc-reforger-missions/Prefabs/Sounds/SoundWorld/Zarichne/SoundWorld_Zarichne.et",
+    "sha256": "10523f9b3ecc181da9a888a5de5545968c1054e695c358c6c42486417337ce26"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Sounds/SoundWorld/Zarichne/SoundWorld_Zarichne.et.meta",
+    "to": "gc-reforger-missions/Prefabs/Sounds/SoundWorld/Zarichne/SoundWorld_Zarichne.et.meta",
+    "sha256": "da16443a964def2ddfc65fbc8eaabad965fc97d220133af2d8316786978fa842"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/MP/TILW_MissionFramework.et",
+    "to": "gc-reforger-missions/Prefabs/MP/TILW_MissionFramework.et",
+    "sha256": "20f154c840a2e2894644e12e6dbbc9b3cd37c7a4d025e6e6911b2852477aca87"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/MP/TILW_MissionFramework.et.meta",
+    "to": "gc-reforger-missions/Prefabs/MP/TILW_MissionFramework.et.meta",
+    "sha256": "7d9ef1c67124640f878856d4606a148359deb0626942f957c19357b4c09084dc"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et",
+    "to": "gc-reforger-missions/Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et",
+    "sha256": "ab1233503b48b8012cd62433d65846af529259a27d5ca3f9636e67b4605926a9"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et.meta",
+    "to": "gc-reforger-missions/Prefabs/Characters/Core/DefaultPlayerControllerMP_Coop.et.meta",
+    "sha256": "1b2178a47e52ff446d61dd3afa05e105efa64ff19c4445db52e5c83d662d37a6"
+  },
+  {
+    "from": "gc-reforger-core/worlds/Bystrany/GC_Bystrany.ent",
+    "to": "gc-reforger-missions/worlds/Bystrany/GC_Bystrany.ent",
+    "sha256": "67c879e88c66d52b21f30c685f763cf840be5500058d40f4c96140a83b6deaf5"
+  },
+  {
+    "from": "gc-reforger-core/worlds/Bystrany/GC_Bystrany.ent.meta",
+    "to": "gc-reforger-missions/worlds/Bystrany/GC_Bystrany.ent.meta",
+    "sha256": "59f504a7b707b0b84b1a61de1543df591eec8b1be54df9b5e6cafc975c7c4864"
+  },
+  {
+    "from": "gc-reforger-core/worlds/Bystrany/GC_Bystrany_Layers/default.layer",
+    "to": "gc-reforger-missions/worlds/Bystrany/GC_Bystrany_Layers/default.layer",
+    "sha256": "78da2c2fb458e07629a4655866687fdf3d46b6e858701911fc4b3a9b1cc62ef2"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/SB300.et",
+    "to": "gc-reforger-units/Prefabs/SB300.et",
+    "sha256": "6179c4294694b0ad4cdc95c94a76d82a8bba45a75d0968395d957e49db28b445"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/SB300.et.meta",
+    "to": "gc-reforger-units/Prefabs/SB300.et.meta",
+    "sha256": "8ed6c2d109c7372af7572b3dc28894a9d09779e27a45542fb84b66c21b499f38"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/SB600.et",
+    "to": "gc-reforger-units/Prefabs/SB600.et",
+    "sha256": "437449a59be7a48c6faaadf8e8090894ddc16c76157c73a42d769f1aeaa973d5"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/SB600.et.meta",
+    "to": "gc-reforger-units/Prefabs/SB600.et.meta",
+    "sha256": "9648c352d5303efcb6b14dc8fe485b20d2a0e57ffbe08a749081c43b08052021"
+  },
+  {
+    "from": "gc-reforger-core/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.edds",
+    "to": "gc-reforger-units/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.edds",
+    "sha256": "653c45d8552a01d9bcf7d88275f27a931dfe8fe47723d2b0ba072494a4b0c487"
+  },
+  {
+    "from": "gc-reforger-core/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.edds.meta",
+    "to": "gc-reforger-units/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.edds.meta",
+    "sha256": "c69a31b4c7d697a8eedb5d602786fc2c3a9196070cc36344753821e1bc03b7b0"
+  },
+  {
+    "from": "gc-reforger-core/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.png",
+    "to": "gc-reforger-units/Assets/Vehicles/Tracked/BMP2/BPK242_SB_2048px.png",
+    "sha256": "ddf88450e1c0d3c2cac6aa193cb2125f05691244b08107c379a679520c4c1e83"
+  },
+  {
+    "from": "gc-reforger-core/Configs/Editor/PlaceableEntities/Systems/Systems.conf",
+    "to": "gc-reforger-units/Configs/Editor/PlaceableEntities/Systems/Systems.conf",
+    "sha256": "355a2958cf49cb89addbefcd17f0162ebfb13378a15e7120d6a083ddb5e7b03b"
+  },
+  {
+    "from": "gc-reforger-core/Configs/Editor/PlaceableEntities/Systems/Systems.conf.meta",
+    "to": "gc-reforger-units/Configs/Editor/PlaceableEntities/Systems/Systems.conf.meta",
+    "sha256": "86973f25946f096f54339456417cc8916a2ddbfccbfc003cd214a6c669d8cb05"
+  },
+  {
+    "from": "gc-reforger-core/Configs/Weapons/Ammo/Ammo_2A28_73mm.conf",
+    "to": "gc-reforger-units/Configs/Weapons/Ammo/Ammo_2A28_73mm.conf",
+    "sha256": "9f0e9c9f7e70a2abbb96536fc8597dde968bd987dc8bce84cc4c25969d0791a9"
+  },
+  {
+    "from": "gc-reforger-core/Configs/Weapons/Ammo/Ammo_2A28_73mm.conf.meta",
+    "to": "gc-reforger-units/Configs/Weapons/Ammo/Ammo_2A28_73mm.conf.meta",
+    "sha256": "8d57e1de68a5edd384094480fb739438ae522fb39662edb96d2ad67fd23bcd7e"
+  },
+  {
+    "from": "gc-reforger-core/IFV/BMP2/BMPturret_Olive.et",
+    "to": "gc-reforger-units/IFV/BMP2/BMPturret_Olive.et",
+    "sha256": "4526f186aa9dbe23648c4681431445d69039f568b210ae3fc7f21cecfe4c56c2"
+  },
+  {
+    "from": "gc-reforger-core/IFV/BMP2/BMPturret_Olive.et.meta",
+    "to": "gc-reforger-units/IFV/BMP2/BMPturret_Olive.et.meta",
+    "sha256": "bb4ff2d72c9775f88a17944c8a1ce2cfde05eb39926306626b0cc612b6250705"
+  },
+  {
+    "from": "gc-reforger-core/Particles/Weapon/Smoke_Generator_Particle.ptc",
+    "to": "gc-reforger-units/Particles/Weapon/Smoke_Generator_Particle.ptc",
+    "sha256": "8664bd4f0497cfed261679a5f2c7fd93a3bf5e429d1d4e887c4385ce7568fbb7"
+  },
+  {
+    "from": "gc-reforger-core/Particles/Weapon/Smoke_Generator_Particle.ptc.meta",
+    "to": "gc-reforger-units/Particles/Weapon/Smoke_Generator_Particle.ptc.meta",
+    "sha256": "2fb14c3354674587e81c44225d07a0f5d6c6c2dd2630572b92c5d024e0da1201"
+  },
+  {
+    "from": "gc-reforger-core/Particles/Weapon/Trail_PG15V.ptc",
+    "to": "gc-reforger-units/Particles/Weapon/Trail_PG15V.ptc",
+    "sha256": "16b3afd4837d616ea190d53f43901ac60e0547158870218b0de7c3028cca27e1"
+  },
+  {
+    "from": "gc-reforger-core/Particles/Weapon/Trail_PG15V.ptc.meta",
+    "to": "gc-reforger-units/Particles/Weapon/Trail_PG15V.ptc.meta",
+    "sha256": "9e616bdc8fae9aa99f7bbae90534b2558a23247f74826b3168933448df805db0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/BLUFOR/RHS_USAF/Character_RHS_USAF_Base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/BLUFOR/RHS_USAF/Character_RHS_USAF_Base.et",
+    "sha256": "96d114f46b5b9947a5935c76c1dc9ab799693ec7f372c5dd9d6f65a1937edb73"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/BLUFOR/RHS_USAF/Character_RHS_USAF_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/BLUFOR/RHS_USAF/Character_RHS_USAF_Base.et.meta",
+    "sha256": "afd26c19641607432595bbd441a6b0a965a4fe271ceb3b957cfe2452db6910ec"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Base.et",
+    "sha256": "7b2a75efe641a39fc2ef1b49208772d34f0f326259559929c57af6fa952f0eca"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Base.et.meta",
+    "sha256": "1d10240eba4405a48dd3210b44d14d989e49b5e31489a7edf5711d2043a665fb"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/CIV/Character_CIV_base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/CIV/Character_CIV_base.et",
+    "sha256": "64e2ef49972ad51cb5e54b9f634f75190ce3c4053fa764c369b7e29a98ce10c8"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/CIV/Character_CIV_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/CIV/Character_CIV_base.et.meta",
+    "sha256": "767c22de966f2433309083f405f68a25189aba082f707e5115a871cf7d7edd5f"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_base.et",
+    "sha256": "64e2ef49972ad51cb5e54b9f634f75190ce3c4053fa764c369b7e29a98ce10c8"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/INDFOR/FIA/Character_FIA_base.et.meta",
+    "sha256": "d751947c7b1783614aa9716e7367076f05473a14d465bdb28517a7b98ba4e329"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/OPFOR/RHS_AFRF/Character_RHS_AFRF_Base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/OPFOR/RHS_AFRF/Character_RHS_AFRF_Base.et",
+    "sha256": "64e2ef49972ad51cb5e54b9f634f75190ce3c4053fa764c369b7e29a98ce10c8"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/OPFOR/RHS_AFRF/Character_RHS_AFRF_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/OPFOR/RHS_AFRF/Character_RHS_AFRF_Base.et.meta",
+    "sha256": "67ccc1ecbffe63bbb7059331245fe83c9fff3a60e9024d325e10320e0156198b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et",
+    "sha256": "e8a175f74b9d55532c4c10e5f01ee45992ef3c3281da0b81eb3e2327a5deb116"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Base.et.meta",
+    "sha256": "7e3e2d52f46f6fcf120d0c8fc0806e1ce0b8267834ed0dc721bfee041910979f"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Helicopters/AUS_MH60/AUS_UH60_unarmed.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Helicopters/AUS_MH60/AUS_UH60_unarmed.et",
+    "sha256": "91b356fe44b91a0a42495b710b4ad78e2d9b95c49e18adfefe0f998f95864a90"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Helicopters/AUS_MH60/AUS_UH60_unarmed.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Helicopters/AUS_MH60/AUS_UH60_unarmed.et.meta",
+    "sha256": "2eb8b616c47c3d57adc37c3c00edde306525928bdd928d3ab3a261090ead6976"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/BFV/VehParts/ERA/BUSK_Block_BASE.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/BFV/VehParts/ERA/BUSK_Block_BASE.et",
+    "sha256": "bec70362ccf12dff8cae4d0d90b80c7fe6fa71efd746560636c5f51ea86fdc09"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/BFV/VehParts/ERA/BUSK_Block_BASE.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/BFV/VehParts/ERA/BUSK_Block_BASE.et.meta",
+    "sha256": "b26706c5e164c909f907ce1892078004e17a734555f0d97ea6504028d5b97419"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/M1A1/M1A1.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/M1A1/M1A1.et",
+    "sha256": "4ff940f1d54c163f9070cf8af9387b0e9b30de96697daf4a72de1d03c68d0937"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/M1A1/M1A1.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/M1A1/M1A1.et.meta",
+    "sha256": "fe82f740d528a9be2f019edff832f96d6b4234f417eb1b790199ad0a166bf0a4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/M1A2/M1A2.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/M1A2/M1A2.et",
+    "sha256": "6bcb2f0398e20302b5eb33536d8a12c355f27c2062cb12c9891b7faea979de18"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/M1A2/M1A2.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/M1A2/M1A2.et.meta",
+    "sha256": "8a95335b3ea0f19b7690539eb014aaa1f850ac74c8ce83b9c867b81b0759277d"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/T-72A/T72A_base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/T-72A/T72A_base.et",
+    "sha256": "f7096bd91f1ab4e224d1dcd05b36d435f2f6461a6ef488bb6c1c27dd3265dd3a",
+    "destinationBeforeSha256": "de126391f794a5af4bf045a216f537f7853b3ead1b1c0b416124ba3bc05e9fd4",
+    "mergedSha256": "657f220b6793cd377dbd45d0400cfed677a46fc107d2942adc8ce16ee4cec410"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/T-72A/T72A_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/T-72A/T72A_base.et.meta",
+    "sha256": "e66545b075af4de9d348f3a9dcce656577b1ad11c4e00455d4b34354d93e5f92",
+    "destinationBeforeSha256": "f9b8169a8f635335886463030b6df0949a28b2abbcbbb80ef340f286baceafc5",
+    "mergedSha256": "e66545b075af4de9d348f3a9dcce656577b1ad11c4e00455d4b34354d93e5f92"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/T-72B/T72B_base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/T-72B/T72B_base.et",
+    "sha256": "c0181c039c7e77f75628fd2b8f555bbccae1f07afea452d5bb8b028f0991215f"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Tracked/T-72B/T72B_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Tracked/T-72B/T72B_base.et.meta",
+    "sha256": "60d38b7588a798d92b1c908f0a1b35f5569c3f339ae920b51f0fe4101438378e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/BRDM2/BRDM2_base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/BRDM2/BRDM2_base.et",
+    "sha256": "b68ff5b34519ff2675e1789ab5f2d522c00e209f8be8477caf60181da3f2217a"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/BRDM2/BRDM2_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/BRDM2/BRDM2_base.et.meta",
+    "sha256": "5820c6cba80a40dde9065c96134d5a48201469a0e42b75d1305558c040dd62a3"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/BTR70/BTR70_Base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/BTR70/BTR70_Base.et",
+    "sha256": "72d0cda09be459aeaf4d59a5905a0ce275dcab7b3513ff94c3de16f7a9b9cae2"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/BTR70/BTR70_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/BTR70/BTR70_Base.et.meta",
+    "sha256": "4612b8832d3c0b17812e02e01a2e2f18cda5f807deeea4c7e027b64c8a2e32dc"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/JLTV/JLTV_Base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/JLTV/JLTV_Base.et",
+    "sha256": "943e4842507000f1f176bcb256c5ab86a4e33b155494c5ef8204b3e83c94e90d"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/JLTV/JLTV_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/JLTV/JLTV_Base.et.meta",
+    "sha256": "3133da6f1ca51ef6fcef385164c1365bf27e23e64487e3d4dfd79b2629414944"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K17/APC_K17_Epoch_HTM1_AIGunner.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K17/APC_K17_Epoch_HTM1_AIGunner.et",
+    "sha256": "3c8fb8e448ec8febfb446e121278fa552c4399083f5ca7cd3f8f8edb305d7f81"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K17/APC_K17_Epoch_HTM1_AIGunner.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K17/APC_K17_Epoch_HTM1_AIGunner.et.meta",
+    "sha256": "a672f0520f1b801c445639bd3a49c4666d1e166ba83471060a3782d7a5c9c290"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K17/VehParts/Turret_K17_Epoch_HTM_AIGunner.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K17/VehParts/Turret_K17_Epoch_HTM_AIGunner.et",
+    "sha256": "39c2ef76626afda55644df65033c8b70b343645c2a4088be40b3800d73105b78"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K17/VehParts/Turret_K17_Epoch_HTM_AIGunner.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K17/VehParts/Turret_K17_Epoch_HTM_AIGunner.et.meta",
+    "sha256": "babb2ba0f6b50ec281428a0cc8d0ca57e8c6df5c57a534d9f1fe188b67f33c9b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K4386/K4386_Armed1_HTM_AIGunner.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K4386/K4386_Armed1_HTM_AIGunner.et",
+    "sha256": "7ad8c95eb47560c8b39b8acfeee3c14b64b2c3926f3c76cc5e934d9d31bb6376"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K4386/K4386_Armed1_HTM_AIGunner.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K4386/K4386_Armed1_HTM_AIGunner.et.meta",
+    "sha256": "3411c3614b6cf1e5440b609fa522b3e1de1fda607db05a7a4ff028527340d0dd"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K4386/VehParts/K4386_Turret_HTM_AIGunner.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K4386/VehParts/K4386_Turret_HTM_AIGunner.et",
+    "sha256": "8c8be0098b8eb8efe15f3ef25af1e3b23b973d51e7a84212280db8f78db77b5a"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/K4386/VehParts/K4386_Turret_HTM_AIGunner.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/K4386/VehParts/K4386_Turret_HTM_AIGunner.et.meta",
+    "sha256": "5ae35945f51b025f6346b4c8ff84d76bb4ceccfe58c53a6e5a11675efa2194dc"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/LAV25/VehParts/Turret/LAV25_turret_base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/LAV25/VehParts/Turret/LAV25_turret_base.et",
+    "sha256": "5ac819a9aa90e3fa0dced8865ce35fd0b2f5817f95a5d1550ca923d5d29b1c73"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/LAV25/VehParts/Turret/LAV25_turret_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/LAV25/VehParts/Turret/LAV25_turret_base.et.meta",
+    "sha256": "10720ec935ee6f8f1a691e3a7763c6d4349638839948a99e258c7f8d36342309"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/M998/Humr_base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/M998/Humr_base.et",
+    "sha256": "f22c07eb1a2d00c18924e0f5b26a1bdac429f44668ece5e6c7f0a938457449e3"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/M998/Humr_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/M998/Humr_base.et.meta",
+    "sha256": "6aa57404ad1b9593b9ba7b0687a835b49b445c1513208bf6d5d05150a7780005"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/TIGR/AGS/GAZ_TIGR_v2_AGS17.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/TIGR/AGS/GAZ_TIGR_v2_AGS17.et",
+    "sha256": "954de7524f80cc75be7c9d9ff157b1d7c26a9a9c7bb0d5ec15ab613575f7bd98"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/TIGR/AGS/GAZ_TIGR_v2_AGS17.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/TIGR/AGS/GAZ_TIGR_v2_AGS17.et.meta",
+    "sha256": "30b5e5661377f2636f910a6d40e689ddee9f395bbacadc355469170633558ab7"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/TIGR/GAZ_TIGR_v2_Mounted_Turret_Base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/TIGR/GAZ_TIGR_v2_Mounted_Turret_Base.et",
+    "sha256": "3983d454f6b0ddd2c611e443693d1f2c391d6a2b30aac59e3aaacdad20fecfc7"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Wheeled/TIGR/GAZ_TIGR_v2_Mounted_Turret_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Wheeled/TIGR/GAZ_TIGR_v2_Mounted_Turret_Base.et.meta",
+    "sha256": "92703da21cd049a8eb88b91cddf5c561cc704116bd3b6d80e4d693690c0675bf"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HEAT_PG9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HEAT_PG9.et",
+    "sha256": "09087ee1a39c5da51de934e9af0a08b2ed90dab2b2d186faa5234181bcb99f5c",
+    "destinationBeforeSha256": "a36f2c1560ee4dc61ef701bd210561ff9f880b1c8403e50a8719ef56eebbabd2",
+    "mergedSha256": "e9910bde3b2ae61b7c835ea611446c16fb81152167824d6fa73d8644348fe77b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HEAT_PG9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HEAT_PG9.et.meta",
+    "sha256": "df9429907e1d5d5b73d667a27b326d150f121b0dbf4ce731a594ed2bdea99063",
+    "destinationBeforeSha256": "df9429907e1d5d5b73d667a27b326d150f121b0dbf4ce731a594ed2bdea99063",
+    "mergedSha256": "df9429907e1d5d5b73d667a27b326d150f121b0dbf4ce731a594ed2bdea99063"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HE_OG9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HE_OG9.et",
+    "sha256": "4b5b4d6ed652ecb21054360ae3468cc11d8e22753a0af29afa90e81ea0f0ab46",
+    "destinationBeforeSha256": "f84185de450a9bd08877a773ef6d5060a12ff784620d2a5323caf41cb39a79b8",
+    "mergedSha256": "bc937e753b2758a2ebf833bcf88420058627734da90c04ca1be83f55d3b68cc1"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HE_OG9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/Ammo_73mm_HE_OG9.et.meta",
+    "sha256": "b97fdd968d201db05af188bcfaadbb3829313f4d0473f05dce7a976f6eb68b11",
+    "destinationBeforeSha256": "b97fdd968d201db05af188bcfaadbb3829313f4d0473f05dce7a976f6eb68b11",
+    "mergedSha256": "b97fdd968d201db05af188bcfaadbb3829313f4d0473f05dce7a976f6eb68b11"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HEAT_PG9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HEAT_PG9.et",
+    "sha256": "e57d204efb41d843c87ab9d10ee9cb090743fff32d66556383423052b6fbc1f5"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HEAT_PG9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HEAT_PG9.et.meta",
+    "sha256": "b75bc4343245847fa489a7cc9612ebcd5584ca21b0efa8a626f633d44548b9fd"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HE_OG9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HE_OG9.et",
+    "sha256": "070bab6ea3bd04ee5fdbda194f62b1fcdd07b72ed0d5934ee4db7d83e7c33b2e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HE_OG9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Ammo/Ammo_73x385/GC_Ammo_73mm_HE_OG9.et.meta",
+    "sha256": "83f57b60361b847b9d3b95cabb9ce708675ae479606375a7fc31774a7d24d1ca"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_HE.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_HE.et",
+    "sha256": "af51a8dde690d6b0b45bff1b17cda70027f31592a908b98f298c892f457b7d71"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_HE.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_HE.et.meta",
+    "sha256": "7ee013c1c08cdeee27e620cdf4fe5811249f7be5a02180f40e7e10f8e68e035a"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_base.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_base.et",
+    "sha256": "e5fe3bd0f2e46f52384f3b28d8f57a12a03cdb7a1b1c48c8384e2487ac2496f7"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Cannons/Cannon_2A46/Cannon_2A28_base.et.meta",
+    "sha256": "64eeaf5b1776448e8bffdaa406d3ea26be3f6600065dde339c8feb8195045227"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/BlastDamageEffect.conf",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/BlastDamageEffect.conf",
+    "sha256": "6b264e89ff64935195570cbd3e06b91f378719819a4aeed737132cdd480697a8"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/BlastDamageEffect.conf.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/BlastDamageEffect.conf.meta",
+    "sha256": "3e10cd234235ef3643e57c45b1554722328ed2d74a786d648dd6dc83e3c57ed4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HE.conf",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HE.conf",
+    "sha256": "a36cb6fd0015fe82218a5876cc64efcbe18258cd628c47550be39761c923f9e4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HE.conf.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HE.conf.meta",
+    "sha256": "423b724a6447ead2e75178b1e28b40b0ed85342f060f6d9e9164f19e72e9fb17"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEAT.conf",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEAT.conf",
+    "sha256": "2ea0e826064aa62c90d63d97cbea6e827b7d64e0d19b7cf1e34f7452ef94a0f4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEAT.conf.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEAT.conf.meta",
+    "sha256": "a4b13101e80f506a9d7e40081c2d8d46d327644554f422aca6c20df9353ce4b0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEF.conf",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEF.conf",
+    "sha256": "5630affe7e684b4b4bd608bb73e3bada5d1265ff469d4ef7d5a03a0ecb8db0ff"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEF.conf.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/ExplosionContainer_HEF.conf.meta",
+    "sha256": "02d5b65b18f061872c1ba3a31ff957689437de0ece7f529db91a761bd63c9c21"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/FragmentationDamageEffect.conf",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/FragmentationDamageEffect.conf",
+    "sha256": "c546028fa55be98731d936ccb6ecee68446c0791b8f65c3237d71e912287f825"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Damage/FragmentationDamageEffect.conf.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Damage/FragmentationDamageEffect.conf.meta",
+    "sha256": "bcd7a8a208be3448c1f215eed6500b5a71fa501055d63393cbfa557ac78a9828"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Grenade_Base.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Grenade_Base.et",
+    "sha256": "9c930b898b977c0512757c1558ed379a40bcce441ceaa02aec614767f9fc0a6f"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Core/Grenade_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Core/Grenade_Base.et.meta",
+    "sha256": "b5e53e74796326609d1c6718f2045fcc2c659f47c777ec6007534668b1e48552"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch.et",
+    "sha256": "19e401cc7328d8b5c5f420ac3863f2d1ab679b28f5f343de8cbf6d9863babac0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch.et.meta",
+    "sha256": "aea5459dc532d2cdf75692431be4c6882bf563ad320efe77805a76c73267ebbe"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch_HE.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch_HE.et",
+    "sha256": "75371e55679678fcdd1c54895f7a4db569cdf61bd110c6f3107f1d57ad8de380"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch_HE.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_Epoch_HE.et.meta",
+    "sha256": "e63bedaf9dc8de979e5bb8c749ee89df6214d12010f2a67c180dbf6016f8bec9"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_HE_k4386.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_HE_k4386.et",
+    "sha256": "b84f23ed88dbed5b9eb8145e37fae050de3cfdeea696c6327c4211c1c3168bb6"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_HE_k4386.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_HE_k4386.et.meta",
+    "sha256": "26f97f7a08e9573732581a6aec589f82266d966aace759fc4576744feb42f4e1"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_k4386.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_k4386.et",
+    "sha256": "19e401cc7328d8b5c5f420ac3863f2d1ab679b28f5f343de8cbf6d9863babac0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_k4386.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/2A42/Weapon_2A42_k4386.et.meta",
+    "sha256": "4b95937274b5295a3412b4fc6a0620b3dc8176b7a2db1e009fbc425467cc853a"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9M133/Weapon_9M133_Epoch.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9M133/Weapon_9M133_Epoch.et",
+    "sha256": "1f281d6247283959bbe00e1eafd59b19195d9e5c7c03d112e987f3b4c5299080"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9M133/Weapon_9M133_Epoch.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9M133/Weapon_9M133_Epoch.et.meta",
+    "sha256": "2a5ad35cdabc4ff5e3decfc22f859fa161359b6dec0f57f65ca650f15f01eee4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9K11_TF.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9K11_TF.et",
+    "sha256": "31f93c9fe162ccd99fe2b0015e8f52af815b5ccd03e22c1f27255e729484f550"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9K11_TF.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9K11_TF.et.meta",
+    "sha256": "09674a7711ed64415c168677f128a88cd6df570622f1d334f516a934bb0dce1b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9M113_TF.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9M113_TF.et",
+    "sha256": "4fa6146a304d44ff85f7179ce8ff23f49600cb748eeedbbbce3e528aa67261e4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9M113_TF.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Ammo_Rocket_9M113_TF.et.meta",
+    "sha256": "c6e9ed1879ff5083d92c816e2969e124b002d1820ce851f22ff40fcda001c30a"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9K11.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9K11.et",
+    "sha256": "c4c7555a5aa94df73eeaba504736972c66b0cbcfa641ba38a08a559777146f0b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9K11.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9K11.et.meta",
+    "sha256": "c6412374606ff2693e070bcc021784124dc12072a079f9612f066ab5f254d0a0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9P135.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9P135.et",
+    "sha256": "4c4a6b7b753dc79ff4af635ade5eb8cd10ad03b90cb2e732e6950b437febd2e0"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9P135.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/HeavyWeapons/9P135/Vehicle_Launcher_9P135.et.meta",
+    "sha256": "10a06392bb49ec9aea1c2022ea8ab26a483a632b1416afda3bd2c88ab6cf9a46"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Magazines/MK_19/Magazine_40mm_MK19_48rnd_Base.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Magazines/MK_19/Magazine_40mm_MK19_48rnd_Base.et",
+    "sha256": "c3baf05a9cdeb94b8beb77d1efdc8d78aac6b85edd2fcae6be21503a464d02f3"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Magazines/MK_19/Magazine_40mm_MK19_48rnd_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Magazines/MK_19/Magazine_40mm_MK19_48rnd_Base.et.meta",
+    "sha256": "e7eb98bc48e13f6a11f94c645e1f1bc03f94af91bf0381f24f9408de6722ad67"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Tripods/9P135/Part_9K11_Launcher.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Tripods/9P135/Part_9K11_Launcher.et",
+    "sha256": "deab2bd6fdb40d69737a4bd19198262c64acbf0df37dfccbe7b79ec2345008eb"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Tripods/9P135/Part_9K11_Launcher.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Tripods/9P135/Part_9K11_Launcher.et.meta",
+    "sha256": "4fd1eb5a0ec15b683bef1c96fa1e39766e6638d06a832f2116db8c1aedf36693"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Tripods/9P135/Part_9P135_Launcher.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Tripods/9P135/Part_9P135_Launcher.et",
+    "sha256": "954087c01c07d60a809b0fd62845f57bc833e90e92a450184d4504400fbb0535"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Tripods/9P135/Part_9P135_Launcher.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Tripods/9P135/Part_9P135_Launcher.et.meta",
+    "sha256": "e3443836d7ad898c8913669e2447eca501d99902ade8870f4b6ee617be28fd1d"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_HEAT_PG-9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_HEAT_PG-9.et",
+    "sha256": "162e1982b108a5da87124b63dc58929c8f3f4bed25d271b0c8b4c02235593913"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_HEAT_PG-9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_HEAT_PG-9.et.meta",
+    "sha256": "dd6b9e8bc19ac1a8c1b5671002c8ab2718d22eceec464a4329f90e9bd0e77b11"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_M821.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_M821.et",
+    "sha256": "06d6322ec0ca2cdf26fb492c299a71c25793956472689ac3cf3efff0ef688c90"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_M821.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_M821.et.meta",
+    "sha256": "efcaba404ce23fad65d9836c0fc8404f50124d22ec7cb98251f34e7cd913150e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et",
+    "sha256": "8f520a6a7b844013005b3cd4da10b20107c72f45dde0ad4b90704d011918c70b"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et.meta",
+    "sha256": "7eef2f9b9cda4ea035f7c55ed918cecb219aa226a072dbca05163e1c2e04ccac"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_OG9.et",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_OG9.et",
+    "sha256": "656edec696afc93533dcc8310e5569857cb2465c2a434184c70c0bafca9356d8"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Weapons/Warheads/Warhead_Shell_HE_OG9.et.meta",
+    "to": "gc-reforger-units/Prefabs/Weapons/Warheads/Warhead_Shell_HE_OG9.et.meta",
+    "sha256": "f585cb04d424c987f09eccf7faf539eded79b7e1b3c4c627dd250dc7fc2bba73"
+  },
+  {
+    "from": "gc-reforger-core/PrefabsEditable/Auto/Props/Military/Arsenal/AmmoBoxes/US/E_AmmoBoxArsenal_Illumination.et",
+    "to": "gc-reforger-units/PrefabsEditable/Auto/Props/Military/Arsenal/AmmoBoxes/US/E_AmmoBoxArsenal_Illumination.et",
+    "sha256": "45c01e95019e9cc2b68a28fb79bc5540d77f1527420d2375d7717199d03647e4"
+  },
+  {
+    "from": "gc-reforger-core/PrefabsEditable/Auto/Props/Military/Arsenal/AmmoBoxes/US/E_AmmoBoxArsenal_Illumination.et.meta",
+    "to": "gc-reforger-units/PrefabsEditable/Auto/Props/Military/Arsenal/AmmoBoxes/US/E_AmmoBoxArsenal_Illumination.et.meta",
+    "sha256": "ce67b310320d120ccf014d9e96342f76980533ae6c30bf1d7e1cd0f49306a91c"
+  },
+  {
+    "from": "gc-reforger-core/Sounds/Vehicles/Wheeled/BRDM2/Vehicles_BMP1_Engine.acp",
+    "to": "gc-reforger-units/Sounds/Vehicles/Wheeled/BRDM2/Vehicles_BMP1_Engine.acp",
+    "sha256": "e4f5be331a05819ec80d7d21b6fbab61d3d4ce718ef2b157f337d7c61cfa756f"
+  },
+  {
+    "from": "gc-reforger-core/Sounds/Vehicles/Wheeled/BRDM2/Vehicles_BMP1_Engine.acp.meta",
+    "to": "gc-reforger-units/Sounds/Vehicles/Wheeled/BRDM2/Vehicles_BMP1_Engine.acp.meta",
+    "sha256": "80741c17ae4e05f949983a31a388f48a28eee9580c19fe8137008bdab07aa717"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.edds",
+    "sha256": "047496511adb37afbdc5f2fafecf9e52a84171717558b0bf120ee02c156d0533"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.edds.meta",
+    "sha256": "36532145acef3e20acd4bac05bd17dc34f5c2d585577b6be64dd360d3f865aec"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-glow_UI.png",
+    "sha256": "b5700e3a383e2748f95c8973871b80b786b52d32d79c832b442386d86ef54b97"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_UI.edds",
+    "sha256": "e1793276042ced7765bddd9add8b3d5d3e213a9b66620d97f9f5438aea79bb36"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_UI.edds.meta",
+    "sha256": "2366df264ae48d8f2c98a8d851d0d95d4ef2ce3315b607d8a562d0a5fb1a37a7"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_UI.png",
+    "sha256": "542e894eb4af22b406ca09d33b25d4b6c36106f7338a6dadb70a90e72ba1787a"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.edds",
+    "sha256": "91981695439fa51e6604b586f6842d78b7ee89cff133903b5bec94e786f2ff63"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.edds.meta",
+    "sha256": "15a5143492e501d37004135471e0dfb8e91d11d3de26ad4af1769b65cd3dbd25"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M1-white_blur_UI.png",
+    "sha256": "666aca128af28dc89b6d1cd64c3cf49d75c29235a4ec713aa28388d3be1f3137"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.edds",
+    "sha256": "9189ee58d08d322c29f582d716fdc4f7b1fa03c5f9db63c07fc311355ddace4c"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.edds.meta",
+    "sha256": "4b813caa280a4111c00c49aaa9a07178f31251dbfc558e352e10af1450f440c6"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-glow_UI.png",
+    "sha256": "9cdad4b1c1fe7f3a41875ac76325b09f151c006046f71235f980fe76a4931c42"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.edds",
+    "sha256": "1aa8692e840140091dc5a2c6dbbd8e92d25edb26e064b67f2fcb746dc4d646c2"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.edds.meta",
+    "sha256": "86a6125adf5de46bc78ad0ded986097c92ea36ee4aadf61e4b3867da87367897"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_Blur_UI.png",
+    "sha256": "c7a4d9fb353c57bdb0dca137d9d30d63719a86a210697e6cf72f1608923dc3d8"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_UI.edds",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_UI.edds",
+    "sha256": "163684835b18e23bbf87ce8867ae686e394507cbf9b9ba9b9091438f32ea6971"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_UI.edds.meta",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_UI.edds.meta",
+    "sha256": "9acebc4520b8f14df205e9e1c4e4001047b614c837cee8e9407cd1e3139375b9"
+  },
+  {
+    "from": "gc-reforger-core/UI/Textures/Sights/1PN22/1PN22M2-white_UI.png",
+    "to": "gc-reforger-units/UI/Textures/Sights/1PN22/1PN22M2-white_UI.png",
+    "sha256": "d2df3cbdeb9a48546c15a3a1657a6211eb9f356ece79d5c0521ca676606103f2"
+  },
+  {
+    "from": "gc-reforger-core/UI/layouts/Editor/Overlays/Vignettes/GCC_Vignette_VeryHeavy.layout",
+    "to": "gc-reforger-units/UI/layouts/Editor/Overlays/Vignettes/GCC_Vignette_VeryHeavy.layout",
+    "sha256": "da837fea20d2f636cab7c542ff159f3f56e487f494c96c3fd64304b5e227f8ec"
+  },
+  {
+    "from": "gc-reforger-core/UI/layouts/Editor/Overlays/Vignettes/GCC_Vignette_VeryHeavy.layout.meta",
+    "to": "gc-reforger-units/UI/layouts/Editor/Overlays/Vignettes/GCC_Vignette_VeryHeavy.layout.meta",
+    "sha256": "9aba65c4f9b9daa0d7a17717e6bfb13da005a4efb908cbe71e327ee84f684b8e"
+  },
+  {
+    "from": "gc-reforger-core/worlds/ScenarioFramework/CustomPrefabs/Character_FIA_Custom.et",
+    "to": "gc-reforger-units/worlds/ScenarioFramework/CustomPrefabs/Character_FIA_Custom.et",
+    "sha256": "b70655cc4a736b78c008e5c0e93e03e53e82620eab7bd1010c6b50a5bfb1f108"
+  },
+  {
+    "from": "gc-reforger-core/worlds/ScenarioFramework/CustomPrefabs/Character_FIA_Custom.et.meta",
+    "to": "gc-reforger-units/worlds/ScenarioFramework/CustomPrefabs/Character_FIA_Custom.et.meta",
+    "sha256": "9f317f19d82026b7048ea27a6ddd8dbce8b0ab3fee23882984de35a7768c245a"
+  },
+  {
+    "from": "gc-reforger-core/worlds/ScenarioFramework/CustomPrefabs/Character_US_Custom.et",
+    "to": "gc-reforger-units/worlds/ScenarioFramework/CustomPrefabs/Character_US_Custom.et",
+    "sha256": "a63c15cfaa01f3882738c7ef282ecefb875578c3752ab25dd8a9bf2196ae1872"
+  },
+  {
+    "from": "gc-reforger-core/worlds/ScenarioFramework/CustomPrefabs/Character_US_Custom.et.meta",
+    "to": "gc-reforger-units/worlds/ScenarioFramework/CustomPrefabs/Character_US_Custom.et.meta",
+    "sha256": "fc90a0acac93e7c830b18c7bb43290d50d744ad051455fa260834fb50ae7588e"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Arland.et",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Arland.et",
+    "sha256": "1beec908a585c56bceac955d66909f43aa49d54392e1dfe52147138419bf8349"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Arland.et.meta",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Arland.et.meta",
+    "sha256": "0e01ce72be3b71db8ac0a4dc9d87962b17ac2b72fc6a0b1175df2e2e8d2440e4"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Cain.et",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Cain.et",
+    "sha256": "271dbd8f24c41bfe7300c5466237ea4dbcad140a39e13f7b95c5af3a5c040205"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Cain.et.meta",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Cain.et.meta",
+    "sha256": "a720d6bb2e9867fe4271d79d124e9a2ea8d8d267258e318f3d0e31adf90a76ca"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Eden.et",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Eden.et",
+    "sha256": "d1f78342090c850c206b568902e9b3078ae51fa2c4719cc0f1577b2da35c8dcc"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/AI/SCR_AIWorld_Eden.et.meta",
+    "to": "gc-reforger-missions/Prefabs/AI/SCR_AIWorld_Eden.et.meta",
+    "sha256": "434e8501b5703f1b1dfc0b43ddd82d744e1b3dd0b4866b6aea5836c0894af5ac"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et",
+    "to": "gc-reforger-units/Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et",
+    "sha256": "eae97445240abceabd275d7bc236858a07d8f138e981ad5fed28eba945987975"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et.meta",
+    "to": "gc-reforger-units/Prefabs/Items/Equipment/Maps/PaperMap_01_folded.et.meta",
+    "sha256": "65c54b48526b38e79433f8bb06498045598bec5cdf7bc3389bf25b2ed6107a22"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Core/Vehicle_Base.et",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Core/Vehicle_Base.et",
+    "sha256": "57c4ecc27b72a57ceda221b0648914fb739dbe41da66ff7fd9b0d90fe0ff8042"
+  },
+  {
+    "from": "gc-reforger-core/Prefabs/Vehicles/Core/Vehicle_Base.et.meta",
+    "to": "gc-reforger-units/Prefabs/Vehicles/Core/Vehicle_Base.et.meta",
+    "sha256": "90ae600ea7ffb337aa0a7d2aa9658bd998a1d542d658590a010e14856def702c"
+  }
+]

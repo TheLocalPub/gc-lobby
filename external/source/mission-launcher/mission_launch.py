@@ -178,7 +178,7 @@ class Scanner:
             if not project:
                 self.issues.add(f"Missing addon project: {current} (required by {why})")
                 continue
-            if project["id"].startswith("GlobalConflictsWorkbench"):
+            if project["id"].startswith(("GlobalConflictsWorkbench", "GlobalConflictsWorkshop")):
                 self.issues.add(f"Authoring collection cannot be a server dependency: {current}")
             self.track(project["path"])
             if current in self.expanded:
@@ -351,8 +351,8 @@ def write_collection(projects, addon_guid, output):
     addon_guid = guid(addon_guid)
     if addon_guid in dependencies or addon_guid in VANILLA:
         raise ValueError("Collection must have its own new addon identity")
-    lines = ['GameProject {', ' ID "GlobalConflictsWorkbenchDev"',
-             f' GUID "{addon_guid}"', ' TITLE "Global Conflicts Workbench - Dev"',
+    lines = ['GameProject {', ' ID "GlobalConflictsWorkshopDev"',
+             f' GUID "{addon_guid}"', ' TITLE "GC Workshop - Dev"',
              ' Dependencies {']
     lines.extend(f'  "{value}"' for value in sorted(dependencies))
     lines.extend([' }', ' Configurations {', '  GameProjectConfig PC {', '  }', ' }', '}'])
@@ -442,7 +442,7 @@ def main():
     args = parser.parse_args()
     if args.command == "collection":
         count = write_collection(args.project, args.guid, args.output)
-        print(f"Created Global Conflicts Workbench with {count} direct dependencies")
+        print(f"Created GC Workshop with {count} direct dependencies")
         return 0
     if args.command == "scan":
         scanner = Scanner(args.project)

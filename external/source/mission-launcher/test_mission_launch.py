@@ -175,14 +175,14 @@ class MissionDependencyTests(unittest.TestCase):
         output = self.folder / "collection.gproj"
         count = write_collection(self.projects, "FFFFFFFFFFFFFFFF", output)
         _, body = root(output)
-        self.assertEqual(field(body, "ID"), "GlobalConflictsWorkbenchDev")
+        self.assertEqual(field(body, "ID"), "GlobalConflictsWorkshopDev")
         self.assertEqual(count, 7)
         self.assertEqual(before, [p.read_bytes() for p in self.projects])
         with self.assertRaisesRegex(ValueError, "own new addon identity"):
             write_collection(self.projects, self.ids["Mission"], self.folder / "bad.gproj")
 
     def test_collection_and_duplicate_override_block(self):
-        self.projects[4].write_text(self.projects[4].read_text().replace('ID "Attachments"', 'ID "GlobalConflictsWorkbenchDev"'))
+        self.projects[4].write_text(self.projects[4].read_text().replace('ID "Attachments"', 'ID "GlobalConflictsWorkshopDev"'))
         self.assertTrue(any("Authoring collection" in s for s in self.scan()["issues"]))
         self.resource("Unused", "optic.et", 106, 'Optic {}')
         self.assertTrue(any("Ambiguous" in s for s in self.scan()["issues"]))

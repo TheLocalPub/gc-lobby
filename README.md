@@ -91,8 +91,9 @@ Companion sources live in `external/development/lobby2` in this repository.
 The [mission dependency prototype](external/source/mission-launcher/README.md)
 experiments with recursive mission-resource metadata and isolated Windows server
 launches. It blocks incomplete scans and is not a production restart worker.
-Its separate Global Conflicts Workbench collection prototype stays under
-`external/development/global-conflicts-workbench` and is excluded from releases.
+The separate GC Workshop collection lives under
+`external/development/gc-workshop` and is excluded from GC Lobby releases. It has
+its own addon identity and contains only dependency metadata.
 The standalone Workbench DLL installer and tools live in `external/source`:
 
 - `tools`: Windows Git updates, mission branches and submission. The installer
@@ -128,7 +129,9 @@ GlobalConflictsMissionsDev); release addons have different identities.
   and data. Save GC mission worlds there. Create Mission Data intentionally follows
   the selected world's owning addon, so other addons' worlds keep their own headers.
 
-The Units Dev project depends on Core Dev; Missions Dev depends on both. The
+Core Dev retains only its required system integrations. Units Dev owns equipment
+overrides and the shared gameplay baseline; Missions Dev owns mission/terrain data.
+Units Dev depends on Core and Lobby Dev; Missions Dev depends on all three. The
 GC Lobby framework stays separate. Its example worlds remain development examples,
 not automatically moved into GC Missions. Submission updates contributors' forks
 and requests approval into dev; it does not push directly to shared branches.

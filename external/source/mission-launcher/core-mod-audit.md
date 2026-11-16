@@ -1,5 +1,9 @@
 # GC core-system audit
 
+Historical inventory below. The 2026-11-16 ownership split is documented in
+`../../development/dependency-migration/README.md`; Core is no longer the full
+collection, and equipment/mission resources now belong to Units/Missions.
+
 Audit date: 2026-11-15. Scope: all **136 non-vanilla addons** in the current
 Global Conflicts Workbench collection's transitive dependency closure. This is
 an inventory and source-based classification, not a compatibility certification
