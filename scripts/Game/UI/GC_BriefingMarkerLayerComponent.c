@@ -199,6 +199,7 @@ class GC_BriefingMarkerLayer
 			markerGlow.SetRotation(marker.GetRotation());
 			markerGlow.SetColor(Color.FromSRGBA(226, 168, 79, 155));
 			markerDescription.SetText(marker.GetDescription());
+			markerDescription.SetColorInt(marker.GetTextColor());
 			m_aMarkerRoots.Insert(markerRoot);
 			m_aMarkerImages.Insert(markerImage);
 			m_aMarkerGlows.Insert(markerGlow);

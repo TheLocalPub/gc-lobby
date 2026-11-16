@@ -1,5 +1,6 @@
 FrameWidgetClass {
  Name "BriefingMarker"
+ Clipping False
  "Z Order" 2
  components {
   GC_BriefingMarkerWidgetComponent "{6A4E000000000006}" {
@@ -35,6 +36,7 @@ FrameWidgetClass {
   }
   FrameWidgetClass "{6A4E000000000009}" {
    Name "BriefingMarkerLabel"
+   Clipping False
    Slot FrameWidgetSlot "{6A4E000000000005}" {
     PositionY 48
     OffsetTop 48
@@ -48,6 +50,7 @@ FrameWidgetClass {
    {
     TextWidgetClass "{6A4E000000000004}" {
      Name "BriefingMarkerDescription"
+     Clipping False
      Slot FrameWidgetSlot "{6A4E00000000000A}" {
       SizeX 180
       OffsetRight -180

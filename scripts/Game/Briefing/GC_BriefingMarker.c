@@ -16,6 +16,7 @@ class GC_BriefingMarker
 	protected float m_fSize;
 	protected float m_fMinSize;
 	protected int m_iColor = Color.WHITE;
+	protected int m_iTextColor = Color.BLACK;
 	protected string m_sDescription;
 	protected ref array<string> m_aFactionKeys = {};
 	protected SCR_EGameModeState m_eShowAtGameModeState;
@@ -38,6 +39,7 @@ class GC_BriefingMarker
 	float GetSize() { return m_fSize; }
 	float GetMinSize() { return m_fMinSize; }
 	int GetColor() { return m_iColor; }
+	int GetTextColor() { return m_iTextColor; }
 	string GetDescription() { return m_sDescription; }
 	array<string> GetFactionKeys() { return m_aFactionKeys; }
 	SCR_EGameModeState GetShowAtGameModeState() { return m_eShowAtGameModeState; }
@@ -49,7 +51,8 @@ class GC_BriefingMarker
 	void Set(string name, ResourceName image, ResourceName highlightImage, string quadName, vector worldPosition, float rotation, bool worldScale,
 		float size, float minSize, string description, array<string> factionKeys = null,
 		SCR_EGameModeState showAtGameModeState = SCR_EGameModeState.GAME,
-		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE, bool alignTextWithMarkerRotation = false)
+		bool invertGameModeState = false, bool visible = true, int color = Color.WHITE, bool alignTextWithMarkerRotation = false,
+		int textColor = Color.BLACK)
 	{
 		m_bExplicitAudience = false;
 		m_bExcludeFactionKeys = false;
@@ -65,6 +68,7 @@ class GC_BriefingMarker
 		m_fSize = size;
 		m_fMinSize = minSize;
 		m_iColor = color;
+		m_iTextColor = textColor;
 		m_sDescription = description;
 		m_aFactionKeys.Clear();
 		if (factionKeys)
@@ -145,7 +149,7 @@ class GC_BriefingMarker
 		Set(source.m_sName, source.m_sImage, source.m_sHighlightImage, source.m_sQuadName, source.m_vWorldPosition,
 			source.m_fRotation, source.m_bWorldScale, source.m_fSize, source.m_fMinSize, source.m_sDescription,
 			source.m_aFactionKeys, source.m_eShowAtGameModeState,
-			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor, source.m_bAlignTextWithMarkerRotation);
+			source.m_bInvertGameModeState, source.m_bVisible, source.m_iColor, source.m_bAlignTextWithMarkerRotation, source.m_iTextColor);
 		m_iRevision = source.m_iRevision;
 		m_bExplicitAudience = source.m_bExplicitAudience;
 		m_bExcludeFactionKeys = source.m_bExcludeFactionKeys;
@@ -165,6 +169,7 @@ class GC_BriefingMarker
 		writer.WriteFloat(m_fSize);
 		writer.WriteFloat(m_fMinSize);
 		writer.WriteInt(m_iColor);
+		writer.WriteInt(m_iTextColor);
 		writer.WriteString(m_sDescription);
 		writer.WriteInt(m_aFactionKeys.Count());
 		foreach (string factionKey : m_aFactionKeys)
@@ -189,7 +194,7 @@ class GC_BriefingMarker
 			|| !reader.ReadBool(m_bAlignTextWithMarkerRotation))
 			return false;
 		if (!reader.ReadBool(m_bWorldScale) || !reader.ReadFloat(m_fSize) || !reader.ReadFloat(m_fMinSize) || !reader.ReadInt(m_iColor)
-			|| !reader.ReadString(m_sDescription))
+			|| !reader.ReadInt(m_iTextColor) || !reader.ReadString(m_sDescription))
 			return false;
 
 		int factionCount;
@@ -235,6 +240,7 @@ class GC_BriefingMarker
 		snapshot.SerializeFloat(instance.m_fSize);
 		snapshot.SerializeFloat(instance.m_fMinSize);
 		snapshot.SerializeInt(instance.m_iColor);
+		snapshot.SerializeInt(instance.m_iTextColor);
 		snapshot.SerializeString(instance.m_sDescription);
 		int factionCount = instance.m_aFactionKeys.Count();
 		snapshot.SerializeInt(factionCount);
@@ -274,6 +280,7 @@ class GC_BriefingMarker
 		snapshot.SerializeFloat(instance.m_fSize);
 		snapshot.SerializeFloat(instance.m_fMinSize);
 		snapshot.SerializeInt(instance.m_iColor);
+		snapshot.SerializeInt(instance.m_iTextColor);
 		snapshot.SerializeString(instance.m_sDescription);
 		int factionCount;
 		snapshot.SerializeInt(factionCount);
@@ -311,6 +318,7 @@ class GC_BriefingMarker
 		snapshot.EncodeFloat(packet);
 		snapshot.EncodeFloat(packet);
 		snapshot.EncodeInt(packet);
+		snapshot.EncodeInt(packet);
 		snapshot.EncodeString(packet);
 		snapshot.EncodeInt(packet);
 		for (int factionIndex; factionIndex < MAX_FACTION_KEYS; factionIndex++) snapshot.EncodeString(packet);
@@ -335,6 +343,7 @@ class GC_BriefingMarker
 		snapshot.DecodeFloat(packet);
 		snapshot.DecodeFloat(packet);
 		snapshot.DecodeInt(packet);
+		snapshot.DecodeInt(packet);
 		snapshot.DecodeString(packet);
 		snapshot.DecodeInt(packet);
 		for (int factionIndex; factionIndex < MAX_FACTION_KEYS; factionIndex++) snapshot.DecodeString(packet);
@@ -353,7 +362,7 @@ class GC_BriefingMarker
 		if (!lhs.CompareStringSnapshots(rhs) || !lhs.CompareStringSnapshots(rhs)
 			|| !lhs.CompareStringSnapshots(rhs) || !lhs.CompareStringSnapshots(rhs))
 			return false;
-		for (int index; index < 9; index++)
+		for (int index; index < 10; index++)
 		{
 			if (!lhs.CompareSnapshots(rhs, 4)) return false;
 		}
@@ -382,6 +391,7 @@ class GC_BriefingMarker
 			|| !snapshot.CompareFloat(instance.m_fSize)
 			|| !snapshot.CompareFloat(instance.m_fMinSize)
 			|| !snapshot.CompareInt(instance.m_iColor)
+			|| !snapshot.CompareInt(instance.m_iTextColor)
 			|| !snapshot.CompareString(instance.m_sDescription)
 			|| !snapshot.CompareInt(instance.m_aFactionKeys.Count()))
 			return false;
