@@ -186,7 +186,7 @@ class GC_MapShapeOverlay
 	}
 
 	//------------------------------------------------------------------------------------------------
-	//! Native open completion occurs after viewport sizing and initial module centering.
+	//! Called after native map-open setup and initial module centering finish.
 	void OnMapReady(MapConfiguration config)
 	{
 		GC_LobbyGameMode mode = GC_LobbyGameMode.GetGameMode();

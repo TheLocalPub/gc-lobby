@@ -16,7 +16,8 @@ modded class GC_BriefingMarkerLayer
 
 	string GC_TestRead()
 	{
-		string result = string.Format("widgets=%1", m_aMarkerRoots.Count());
+		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
+		string result = string.Format("widgets=%1 manager=%2 current=%3 map=%4 open=%5", m_aMarkerRoots.Count(), m_LobbyManager != null, m_LobbyManager == GC_LobbyManager.GetManager(), mapEntity != null, mapEntity && mapEntity.IsOpen());
 		for (int index; index < m_aMarkers.Count(); index++)
 		{
 			float width, height;
@@ -24,6 +25,11 @@ modded class GC_BriefingMarkerLayer
 			result += string.Format(" | %1 visible=%2 size=%3x%4", m_aMarkers[index].GetDescription(), m_aMarkerRoots[index].IsVisibleInHierarchy(), width, height);
 		}
 		return result;
+	}
+
+	void GC_TestRefresh()
+	{
+		RefreshMarkers();
 	}
 }
 
@@ -54,6 +60,15 @@ modded class GC_LobbyPlayerController
 
 modded class GC_LobbyManager
 {
+	string GC_TestRefreshMapMarkers()
+	{
+		GC_BriefingMarkerLayer layer = GC_BriefingMarkerLayer.s_GC_TestLayer;
+		if (!layer)
+			return "missing marker owner";
+		layer.GC_TestRefresh();
+		return layer.GC_TestRead();
+	}
+
 	void GC_TestFullscreenMarkers()
 	{
 		GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.MapMenu);

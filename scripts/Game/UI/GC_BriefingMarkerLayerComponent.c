@@ -82,7 +82,7 @@ class GC_BriefingMarkerLayer
 			m_LobbyManager.m_OnLobbyPhaseChanged.Insert(OnPhaseChanged);
 		}
 
-		SCR_MapEntity.GetOnMapOpenComplete().Insert(OnMapOpenComplete);
+		SCR_MapEntity.GetOnMapOpen().Insert(OnMapOpen);
 		SCR_MapEntity.GetOnMapClose().Insert(OnMapClose);
 		SCR_MapEntity.GetOnMapPan().Insert(OnMapPan);
 		SCR_MapEntity.GetOnMapZoom().Insert(OnMapZoom);
@@ -91,6 +91,7 @@ class GC_BriefingMarkerLayer
 
 	void Stop()
 	{
+		GetGame().GetCallqueue().Remove(RefreshMarkers);
 		if (m_LobbyManager)
 		{
 			m_LobbyManager.m_OnBriefingMarkersChanged.Remove(OnMarkersChanged);
@@ -99,7 +100,7 @@ class GC_BriefingMarkerLayer
 			m_LobbyManager.m_OnLobbyPhaseChanged.Remove(OnPhaseChanged);
 		}
 
-		SCR_MapEntity.GetOnMapOpenComplete().Remove(OnMapOpenComplete);
+		SCR_MapEntity.GetOnMapOpen().Remove(OnMapOpen);
 		SCR_MapEntity.GetOnMapClose().Remove(OnMapClose);
 		SCR_MapEntity.GetOnMapPan().Remove(OnMapPan);
 		SCR_MapEntity.GetOnMapZoom().Remove(OnMapZoom);
@@ -117,8 +118,17 @@ class GC_BriefingMarkerLayer
 		if (playerController && playerController.GetPlayerId() == playerId)
 			RefreshMarkers();
 	}
-	protected void OnMapOpenComplete(MapConfiguration config) { RefreshMarkers(); }
-	protected void OnMapClose(MapConfiguration config) { ClearMarkers(); }
+	protected void OnMapOpen(MapConfiguration config)
+	{
+		// Run after native map setup, including overrides without OpenComplete.
+		GetGame().GetCallqueue().Remove(RefreshMarkers);
+		GetGame().GetCallqueue().CallLater(RefreshMarkers, 0);
+	}
+	protected void OnMapClose(MapConfiguration config)
+	{
+		GetGame().GetCallqueue().Remove(RefreshMarkers);
+		ClearMarkers();
+	}
 	protected void OnMapPan(float x, float y, bool isPanStart) { UpdateMarkerTransforms(false); }
 	protected void OnMapZoom(float zoom) { UpdateMarkerTransforms(); }
 

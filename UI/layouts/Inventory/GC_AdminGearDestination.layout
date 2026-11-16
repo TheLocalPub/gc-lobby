@@ -23,7 +23,7 @@ FrameWidgetClass {
   }
   FrameWidgetClass {
    Name "GearCratePanel"
-   Visible 0
+   "Is Visible" 0
    Slot FrameWidgetSlot { Anchor 1 0 1 1 OffsetLeft -440 OffsetTop 100 OffsetRight 24 OffsetBottom 144 }
    {
     TextWidgetClass { Name "GearCrateHeading" Slot FrameWidgetSlot { Anchor 0 0 1 0 OffsetLeft 0 OffsetTop 0 OffsetRight 0 OffsetBottom -48 } Text "#GC-Gear_Vicinity" FontProperties FontProperties { Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt" } "Font Size" 24 "Vertical Alignment" Center "Ignore Cursor" 1 }

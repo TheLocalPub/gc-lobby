@@ -3,14 +3,44 @@ GC_LobbyGameMode GC_MissionTemplate : "{A79C4E0A43DEB821}Prefabs/Templates/GC_Mi
   GC_LobbyManager "{6A137A39106A4973}" {
    m_aMissionEvents {
     GC_Event "{6ADCEE025676459B}" {
-     m_aConditions {
-      GC_AreaCondition "{6ADCEE02388E09C2}" {
-      }
-     }
     }
    }
    m_aBriefings {
-    GC_Briefing "{6ADCEE026048B83C}" {
+    GC_Briefing "{6A16111600000001}" {
+     m_iOrder 1
+     m_sTitle "TYPOGRAPHY"
+     m_sContent "<h1>Briefing feature showcase</h1><p>Plain paragraphs wrap to the document width. Scroll down to see the complete formatting sample.</p><h2>Headings and emphasis</h2><h>Standard heading</h><p><b>Bold orders</b> and <i>italic context</i>, with <b><i>both together</i></b>.</p><h2>Text color</h2><p><color name=\"orange\">Named color</color> | <color rgba=\"100,190,255,255\">RGBA color</color></p><h2>Paragraph alignment</h2><p align=\"left\">Left aligned</p><p align=\"center\">Centered</p><p align=\"right\">Right aligned</p><h2>Line breaks</h2><p>First line<br/>Second line</p><h2>Outline and shadow</h2><p><outline color=\"255,128,0,255\" size=\"1\">Outlined text</outline></p><p><shadow color=\"0,0,0\" size=\"1\" offset=\"2\" opacity=\"0.8\">Shadowed text</shadow></p><h2>Packaged font</h2><p><font name=\"UI/fonts/Dosis\">Dosis font sample</font></p><h2>Native inline icon</h2><p><image set=\"{E23427CAC80DA8B7}UI/Textures/Icons/icons_mapMarkersUI.imageset\" name=\"flag-3\" scale=\"1.5\"/> Rally point</p><h2>Input hints</h2><p>Configured action: <action name=\"EditorToggle\"/><br/>Controller key: <key name=\"gamepad0:pad_right\"/></p><h2>Unicode</h2><p>Codepoint arrow: <ucs codepoints=\"\\u2192\"/></p>"
+    }
+    GC_Briefing "{6A16111600000002}" {
+     m_iOrder 2
+     m_sTitle "LINKS & ICONS"
+     m_sContent "<h1>Interactive briefing</h1><p>Map focus: <marker name=\"GC_ShowcaseMarker\"><color rgba=\"100,190,255,255\"><b>View showcase rally point</b></color></marker>. Web link: <link url=\"https://reforger.armaplatform.com/\">Arma Reforger website</link>. Registered action: <action id=\"debug_print\">Write a test message to the console</action>. Decorations: <u>underlined text</u>, <s>strikethrough</s>, <strike>alternate strike tag</strike>. Scale: <size scale=\"0.75\">small text</size>, <size scale=\"1.5\">large text</size>. Combined: <size scale=\"1.25\"><u><color name=\"orange\"><b>large, bold, colored and underlined</b></color></u></size>. Inline texture: <img resource=\"{2FBD8DA665FB8AF1}UI/Textures/VON/ANPRC68-100px_UI.edds\" inline=\"true\" width=\"32\"/> Radio. Inline imageset: <img resource=\"{E23427CAC80DA8B7}UI/Textures/Icons/icons_mapMarkersUI.imageset\" name=\"flag-3\" inline=\"true\" width=\"32\"/> Rally.</p><h2>Live environment</h2><p>The Scenario tab shows current weather, wind, date, time, sunrise, sunset and moon phase.</p>"
+    }
+    GC_Briefing "{6A16111600000003}" {
+     m_iOrder 3
+     m_sTitle "IMAGES"
+     m_sContent "<h1>Packaged images</h1><p>Texture, constrained by width with its aspect ratio preserved.</p><img resource=\"{2FBD8DA665FB8AF1}UI/Textures/VON/ANPRC68-100px_UI.edds\" width=\"128\"/><h2>Imageset icon</h2><p>A map-marker icon fitted inside a 128 by 96 box.</p><img resource=\"{E23427CAC80DA8B7}UI/Textures/Icons/icons_mapMarkersUI.imageset\" name=\"flag-3\" width=\"128\" height=\"96\"/><p><b>Rich text after images</b> remains available, including <color rgba=\"100,190,255,255\">colored captions</color>.</p>"
+    }
+    GC_Briefing "{6A16111600000004}" {
+     m_iOrder 4
+     m_sTitle "US ONLY"
+     m_sContent "Faction visibility example. This briefing is visible only to players assigned to US."
+     m_aFactionKeys {
+      "US"
+     }
+    }
+    GC_Briefing "{6A16111600000005}" {
+     m_iOrder 5
+     m_sTitle "MATCH ONWARD"
+     m_sContent "Phase visibility example. This briefing appears from Match onward."
+     m_eShowAtGameModeState GAME
+    }
+    GC_Briefing "{6A16111600000006}" {
+     m_iOrder 6
+     m_sTitle "BEFORE MATCH"
+     m_sContent "Inverted phase visibility example. This briefing is visible before Match and disappears when Match starts."
+     m_eShowAtGameModeState GAME
+     m_bInvertGameModeState 1
     }
    }
   }
@@ -74,6 +104,20 @@ GC_AOLimitEntity : "{8F470B543A20D944}Prefabs/Logic/Mission/AOLimit.et" {
  }
 }
 $grp GenericEntity : "{924D4B5FA0B24B22}Prefabs/Logic/Mission/MapMarker.et" {
+ GC_ShowcaseMarker {
+  components {
+   GC_BriefingMarkerComponent "{00C8292F836D4D6F}" {
+    m_sQuadName "flag-3"
+    m_bWorldScale 1
+    m_Color 0 1 0.472 1
+    m_sDescription "Showcase rally point"
+    m_TextColor 1 0.003 0.751 1
+    m_bAlignTextWithMarkerRotation 1
+   }
+  }
+  coords 1098.341 39 2688.354
+  angles 0 63.795 0
+ }
  {
   components {
    GC_BriefingMarkerComponent "{00C8292F836D4D6F}" {

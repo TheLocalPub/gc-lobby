@@ -32,7 +32,7 @@ modded class GC_LobbyPlayerController
 			if (m_GC_MapMarkers)
 				m_GC_MapMarkers.Stop();
 			m_GC_MapMarkers = null;
-			SCR_MapEntity.GetOnMapOpenComplete().Remove(GC_MapOpened);
+			SCR_MapEntity.GetOnMapOpen().Remove(GC_MapOpened);
 			SCR_MapEntity.GetOnMapClose().Remove(GC_MapClosed);
 			m_GC_MapShapes = null;
 		}
@@ -46,7 +46,7 @@ modded class GC_LobbyPlayerController
 		m_GC_MapShapes = new GC_MapShapeOverlay();
 		m_GC_MapMarkers = new GC_BriefingMarkerLayer();
 		m_GC_MapMarkers.Start();
-		SCR_MapEntity.GetOnMapOpenComplete().Insert(GC_MapOpened);
+		SCR_MapEntity.GetOnMapOpen().Insert(GC_MapOpened);
 		SCR_MapEntity.GetOnMapClose().Insert(GC_MapClosed);
 		GC_RequestMapShapes(0);
 		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
@@ -57,7 +57,19 @@ modded class GC_LobbyPlayerController
 	//------------------------------------------------------------------------------------------------
 	protected void GC_MapOpened(MapConfiguration config)
 	{
+		// Some map overrides omit OpenComplete. Defer the standard Open event
+		// so native modules finish their initial centering before our framing.
+		GetGame().GetCallqueue().Remove(GC_FinishMapOpen);
+		GetGame().GetCallqueue().CallLater(GC_FinishMapOpen, 0, false, config);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void GC_FinishMapOpen(MapConfiguration config)
+	{
 		if (!m_GC_MapShapes || GetGame().GetPlayerController() != this || !GC_LobbyGameMode.GetGameMode())
+			return;
+		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
+		if (!mapEntity || !mapEntity.IsOpen())
 			return;
 		GetGame().GetCallqueue().Remove(GC_UpdateMapShapes);
 		GetGame().GetCallqueue().CallLater(GC_UpdateMapShapes, 16, true);
@@ -69,6 +81,7 @@ modded class GC_LobbyPlayerController
 	//------------------------------------------------------------------------------------------------
 	protected void GC_MapClosed(MapConfiguration config)
 	{
+		GetGame().GetCallqueue().Remove(GC_FinishMapOpen);
 		GC_CloseMapBriefing();
 		GetGame().GetCallqueue().Remove(GC_UpdateMapShapes);
 		if (m_GC_MapShapes)
@@ -79,9 +92,10 @@ modded class GC_LobbyPlayerController
 	override void ShutdownLobbyPresentation()
 	{
 		GetGame().GetCallqueue().Remove(GC_InitMapShapes);
+		GetGame().GetCallqueue().Remove(GC_FinishMapOpen);
 		GetGame().GetCallqueue().Remove(GC_UpdateMapShapes);
 		GetGame().GetCallqueue().Remove(GC_PublishMapChanges);
-		SCR_MapEntity.GetOnMapOpenComplete().Remove(GC_MapOpened);
+		SCR_MapEntity.GetOnMapOpen().Remove(GC_MapOpened);
 		SCR_MapEntity.GetOnMapClose().Remove(GC_MapClosed);
 		if (m_GC_MapShapes)
 			m_GC_MapShapes.Close();
