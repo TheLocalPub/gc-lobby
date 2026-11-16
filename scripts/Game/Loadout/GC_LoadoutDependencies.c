@@ -22,6 +22,22 @@ class GC_LoadoutDependencies
 	protected ref map<ResourceName, ref array<ResourceName>> m_mParents = new map<ResourceName, ref array<ResourceName>>();
 
 	//------------------------------------------------------------------------------------------------
+	//! UI policy for the GC authoring baseline; Encode/Save retain all requirements.
+	bool IsImplied(GC_LoadoutDependencyMod mod)
+	{
+		array<string> authoring = {"GlobalConflictsCoreDev", "GlobalConflictsUnitsDev", "GlobalConflictsLobbyDev", "GlobalConflictsMissionsDev", "GlobalConflictsWorkshopDev"};
+		if (authoring.Contains(mod.m_sId))
+			return true;
+		if (!m_mGuids.Contains("GlobalConflictsCoreDev"))
+			return false;
+		if (mod.m_sId == "CoalitionSquadInterface")
+			return true;
+		// Core bundles the official ACE Dev suite. Other content packs remain visible,
+		// including packs that happen to be loaded through Units or Workshop.
+		return m_mGuids.Contains("ACE_AllInOne_Dev") && mod.m_sId.StartsWith("ACE_") && mod.m_sId.EndsWith("_Dev");
+	}
+
+	//------------------------------------------------------------------------------------------------
 	static GC_LoadoutDependencies Scan(ResourceName prefab, bool allVariants)
 	{
 		GC_LoadoutDependencies result = new GC_LoadoutDependencies();

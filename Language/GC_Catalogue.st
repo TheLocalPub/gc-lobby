@@ -240,7 +240,7 @@ StringTable {
   CustomStringTableItem "{7E161126B1000003}" { Id "GC-Loadout_DependenciesUnsaved" Target_en_us "Unsaved gear" }
   CustomStringTableItem "{7E161126B1000004}" { Id "GC-Loadout_DependenciesPending" Target_en_us "Unsaved variants" }
   CustomStringTableItem "{7E161126B1000005}" { Id "GC-Loadout_DependenciesScanning" Target_en_us "Checking…" }
-  CustomStringTableItem "{7E161126B1000006}" { Id "GC-Loadout_DependenciesNone" Target_en_us "Base game only" }
+  CustomStringTableItem "{7E161126B1000006}" { Id "GC-Loadout_DependenciesNone" Target_en_us "No additional mods" }
   CustomStringTableItem "{7E161126B1000007}" { Id "GC-Loadout_DependenciesPartial" Target_en_us "Partial scan" }
   CustomStringTableItem "{7E161126B1000008}" { Id "GC-Loadout_DependenciesFailed" Target_en_us "Requirements unavailable" }
   CustomStringTableItem "{7E161126B1000009}" { Id "GC-Loadout_DependenciesSaveFailed" Target_en_us "Loadout saved · requirements not saved" }

@@ -905,6 +905,8 @@ class GC_LoadoutFilesMenu : ChimeraMenuBase
 			value = WidgetManager.Translate("#GC-Loadout_DependenciesPartial") + "\n";
 		foreach (GC_LoadoutDependencyMod mod : m_Dependencies.m_aMods)
 		{
+			if (m_Dependencies.IsImplied(mod))
+				continue;
 			value += mod.m_sTitle;
 			value += "\n";
 		}

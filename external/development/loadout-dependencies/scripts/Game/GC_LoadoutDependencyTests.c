@@ -214,14 +214,18 @@ modded class SCR_GameModeHealthSettings
 			GetGame().GetMenuManager().OpenMenu(ChimeraMenuPreset.GC_LoadoutFilesMenu, 0, true, false);
 			return "opened";
 		}
-		if (action == "scan" || action == "summary")
+		if (action == "scan" || action == "summary" || action == "visibleMods")
 		{
 			GC_LoadoutDependencies report = GC_LoadoutDependencies.Scan(value, true);
 			if (action == "scan")
 				return report.Encode();
 			string summary = "error=" + report.m_sError + " unresolved=" + report.m_iUnresolved + " unexpanded=" + report.m_iUnexpanded;
 			foreach (GC_LoadoutDependencyMod mod : report.m_aMods)
+			{
+				if (action == "visibleMods" && report.IsImplied(mod))
+					continue;
 				summary += "\n" + mod.m_sId + " " + mod.m_sGuid;
+			}
 			return summary;
 		}
 		GC_LoadoutFilesMenu menu = GC_LoadoutFilesMenu.Cast(GetGame().GetMenuManager().FindMenuByPreset(ChimeraMenuPreset.GC_LoadoutFilesMenu));
