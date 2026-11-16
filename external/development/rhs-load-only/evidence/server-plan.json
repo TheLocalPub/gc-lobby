@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "mode": "local",
+  "requestId": "aa161126-0000-4000-8000-000000000001",
+  "missionId": "aa161126-0000-4000-8000-000000000002",
+  "source": {
+    "repository": "local-resolver-experiment",
+    "sourceHash": "d20e50fe658e453b4e4dcc1eeb59e3f231c97fb30652990fe6f77af058a43b71"
+  },
+  "scenario": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf",
+  "world": "{7E161126A01D0002}Worlds/RhsLoadOnly.ent",
+  "dependencyResolution": "authored_container_graph_partial",
+  "headerSha256": "d20e50fe658e453b4e4dcc1eeb59e3f231c97fb30652990fe6f77af058a43b71",
+  "mods": [
+    {
+      "modId": "1337C0DE5DABBEEF",
+      "id": "RHS_Content_01",
+      "version": "0.17.5281",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\RHS-ContentPack01_1337C0DE5DABBEEF\\addon.gproj",
+      "projectSha256": "09baf9fff74b1a8aadb03786d6d9ebe7159ddf074f7d46b35123501325332d98",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 595F2BF2F44836FB"
+      ]
+    },
+    {
+      "modId": "595F2BF2F44836FB",
+      "id": "RHS_Core",
+      "version": "0.17.5281",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\RHS-StatusQuo_595F2BF2F44836FB\\addon.gproj",
+      "projectSha256": "51fda0afde5ebcd4dc88c6c9451d960b67aceaee437f02f1cc80aef724e3779c",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "1337C0DE5DABBEEF",
+        "BADC0DEDABBEDA5E"
+      ],
+      "reasons": [
+        "mission metadata"
+      ]
+    },
+    {
+      "modId": "5B0D1E4380971EBD",
+      "id": "CoalitionSquadInterface",
+      "version": "1.8.20",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\COALITIONSquadInterface_5B0D1E4380971EBD\\addon.gproj",
+      "projectSha256": "897fae16d9bcc1d99e656cd26283626376b2a9fde04c6c7a1cb971664809e11a",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 623555110E2B2CA1"
+      ]
+    },
+    {
+      "modId": "623555110E2B2CA1",
+      "id": "GlobalConflictsCoreDev",
+      "version": "",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\addons\\gc-reforger-core\\addon.gproj",
+      "projectSha256": "e8e9f95f3c3ada23bc08311504bdf6cca7ba8166edb641f919c23ff225625b39",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7BE594439A52",
+        "5B0D1E4380971EBD"
+      ],
+      "reasons": [
+        "server Core policy"
+      ]
+    },
+    {
+      "modId": "6586079789278413",
+      "id": "ACE_Medical_Core_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEMedicalCoreDev_6586079789278413\\dev.gproj",
+      "projectSha256": "e9cc4411bc40770bc75c7688d19fc68ad74a6b873a6909e06b4338ade2ae04e3",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52",
+        "dependency of 65B343F799FB521B",
+        "dependency of 65AD7D4F994EA327"
+      ]
+    },
+    {
+      "modId": "65AD7BCC9F6B3B4E",
+      "id": "ACE_Chopping_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEChoppingDev_65AD7BCC9F6B3B4E\\dev.gproj",
+      "projectSha256": "8afbc0cda58d8119cce7d565e21243bc11da04ba4b3705e4a3e9fc0243fd042a",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7BE594439A52",
+      "id": "ACE_AllInOne_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEAllinOneDev_65AD7BE594439A52\\dev.gproj",
+      "projectSha256": "01ec5bcab101b2be2407126236063a8fa6eef945bd931de925ecef50802041e1",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380",
+        "65AD7C139EB4C1A1",
+        "65AD7C379CBD394D",
+        "65AD7BCC9F6B3B4E",
+        "65AD7CF69FAF1FDD",
+        "65AD7D2E9866FA6E",
+        "6586079789278413",
+        "65B343F799FB521B",
+        "65AD7D4F994EA327",
+        "65AD7CE59E8DB349",
+        "65AD7D4099944EBD",
+        "65AD7D1E9EEAFA53",
+        "65AD7C249E4ECDFB",
+        "65AD7CB89F219E38",
+        "65AD7C75826B46C6",
+        "65AD7CD09CAEC4E2",
+        "65B8EA178A3E94E3",
+        "664AFDC993C9CE1A",
+        "667B230F9505C8BA",
+        "68EAA4B96976D557",
+        "68F77A54920B80AF",
+        "671F73D99978B4F2",
+        "68FC0EDE9F677A3C"
+      ],
+      "reasons": [
+        "dependency of 623555110E2B2CA1"
+      ]
+    },
+    {
+      "modId": "65AD7C139EB4C1A1",
+      "id": "ACE_Backblast_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEBackblastDev_65AD7C139EB4C1A1\\dev.gproj",
+      "projectSha256": "8c39769cf6b097e7daafdb21f180ba4df9db8d0f6dba3833cfac846e93348e2d",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7C249E4ECDFB",
+      "id": "ACE_Captives_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACECaptivesDev_65AD7C249E4ECDFB\\dev.gproj",
+      "projectSha256": "9b6dfbd4d53b931754393fe778c4be6cb9304d24729cbcd95e9bb64794f4d49c",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7C379CBD394D",
+      "id": "ACE_Carrying_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACECarryingDev_65AD7C379CBD394D\\dev.gproj",
+      "projectSha256": "2177097fb49cc745f3f9b4ce0502f0aeedeea8410225bdcddad6be4969fb36e5",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7C75826B46C6",
+      "id": "ACE_Radio_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACERadioDev_65AD7C75826B46C6\\dev.gproj",
+      "projectSha256": "8988e67117d9e70cb1adf44b3d976944aaf2e07bf2e4205b03fc9e934b44bd5a",
+      "dependencies": [
+        "65AD7D0D9941A380",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7CB89F219E38",
+      "id": "ACE_TacticalLadder_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACETacticalLadderDev_65AD7CB89F219E38\\dev.gproj",
+      "projectSha256": "b44180ab3c916da8e5bd2b32fbe09e4d2c92bc964a2dd5209683f9e57f048343",
+      "dependencies": [
+        "65AD7D0D9941A380",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7CD09CAEC4E2",
+      "id": "ACE_TacticalPeriscope_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACETacticalPeriscopeDev_65AD7CD09CAEC4E2\\dev.gproj",
+      "projectSha256": "639267e6e407e67d50027a8a4f8795516e21fa0de0a04484be8e6bd7a907c595",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7CE59E8DB349",
+      "id": "ACE_Trenches_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACETrenchesDev_65AD7CE59E8DB349\\dev.gproj",
+      "projectSha256": "a3cfe0ff4e5a6d2cad47db5b86cdd4352ce1255bd226dc5784cfe4dbf9977cbb",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7CF69FAF1FDD",
+      "id": "ACE_Compass_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACECompassDev_65AD7CF69FAF1FDD\\dev.gproj",
+      "projectSha256": "f9bc5cca5f73107a72502ba2439941c0b6ac64d1c799229003ce7990a51de314",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7D0D9941A380",
+      "id": "ACE_Core_Dev",
+      "version": "1.5.41",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACECoreDev_65AD7D0D9941A380\\dev.gproj",
+      "projectSha256": "69ad2e422a7c276bd05c6cbc4482cd123a2cff003271b44f0d4a6346fba601ef",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52",
+        "dependency of 65AD7C139EB4C1A1",
+        "dependency of 65AD7C379CBD394D",
+        "dependency of 65AD7BCC9F6B3B4E",
+        "dependency of 65AD7CF69FAF1FDD",
+        "dependency of 65AD7D2E9866FA6E",
+        "dependency of 6586079789278413",
+        "dependency of 65AD7CE59E8DB349",
+        "dependency of 65AD7D4099944EBD",
+        "dependency of 65AD7D1E9EEAFA53",
+        "dependency of 65AD7C249E4ECDFB",
+        "dependency of 65AD7CB89F219E38",
+        "dependency of 65AD7C75826B46C6",
+        "dependency of 65AD7CD09CAEC4E2",
+        "dependency of 65B8EA178A3E94E3",
+        "dependency of 664AFDC993C9CE1A",
+        "dependency of 667B230F9505C8BA",
+        "dependency of 68EAA4B96976D557",
+        "dependency of 68F77A54920B80AF",
+        "dependency of 68FC0EDE9F677A3C"
+      ]
+    },
+    {
+      "modId": "65AD7D1E9EEAFA53",
+      "id": "ACE_Explosives_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEExplosivesDev_65AD7D1E9EEAFA53\\dev.gproj",
+      "projectSha256": "2cafee26920d0672f2dd685398cdce0045475579c0b58a61949ca4a18bcea025",
+      "dependencies": [
+        "65AD7D0D9941A380",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7D2E9866FA6E",
+      "id": "ACE_Finger_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEFingerDev_65AD7D2E9866FA6E\\dev.gproj",
+      "projectSha256": "8332950840d3cfd82827de040dc7500e46781f53a81e80f2bf0cfebc899210ef",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7D4099944EBD",
+      "id": "ACE_MagRepack_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEMagazineRepackDev_65AD7D4099944EBD\\dev.gproj",
+      "projectSha256": "46c045dee04ed43f98097f83bb284a7e017285f32fc8fc7726d09d40ff0d2878",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65AD7D4F994EA327",
+      "id": "ACE_Medical_Circulation_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEMedicalCirculationDev_65AD7D4F994EA327\\dev.gproj",
+      "projectSha256": "b5c8d2ee4de347e52e29cf4586cdb8bb89292b67695a1f126932d1750e397b97",
+      "dependencies": [
+        "6586079789278413",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52",
+        "dependency of 671F73D99978B4F2"
+      ]
+    },
+    {
+      "modId": "65B343F799FB521B",
+      "id": "ACE_Medical_Hitzones_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEMedicalHitzonesDev_65B343F799FB521B\\dev.gproj",
+      "projectSha256": "f1c556b3e0db63165c3b1e5b4f8db652fdbf22be6e383e517802919209dc8edd",
+      "dependencies": [
+        "6586079789278413",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "65B8EA178A3E94E3",
+      "id": "ACE_Overheating_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEOverheatingDev_65B8EA178A3E94E3\\dev.gproj",
+      "projectSha256": "3d433a75bc066e5f1daedd1f649243b5dc0f501d737f0a139c896f590802765a",
+      "dependencies": [
+        "65AD7D0D9941A380",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "664AFDC993C9CE1A",
+      "id": "ACE_CookOff_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACECook-OffDev_664AFDC993C9CE1A\\dev.gproj",
+      "projectSha256": "92c8c889abf563f038b2e5fc98fa2546d2e4e3fbe99294f319eff49d8a46e833",
+      "dependencies": [
+        "65AD7D0D9941A380",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "667B230F9505C8BA",
+      "id": "ACE_Weather_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEWeatherDev_667B230F9505C8BA\\dev.gproj",
+      "projectSha256": "6d47492f95d2ccc4d9dda2241c9d1a90b9be09541a90b4d482927859b5bde914",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "671F73D99978B4F2",
+      "id": "ACE_Medical_Breathing_Dev",
+      "version": "1.5.41",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEMedicalBreathingDev_671F73D99978B4F2\\dev.gproj",
+      "projectSha256": "e403d25d405b818c9a2ea798b7488ff5795a99bccaf7deb57208d02f986b33af",
+      "dependencies": [
+        "65AD7D4F994EA327",
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "68EAA4B96976D557",
+      "id": "ACE_Facepaint_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEFacepaintDev_68EAA4B96976D557\\dev.gproj",
+      "projectSha256": "2d9a73d99bf432d6a067d0fe8532cea119006c802f55122f2779d4e6f7314bb8",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "68F77A54920B80AF",
+      "id": "ACE_Ballistics_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEBallisticsDev_68F77A54920B80AF\\dev.gproj",
+      "projectSha256": "89120b507a47235b0f40455e096d4970e364f7e32426e280f256bee099169098",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "68FC0EDE9F677A3C",
+      "id": "ACE_Scopes_Dev",
+      "version": "1.5.40",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\ACEScopesDev_68FC0EDE9F677A3C\\dev.gproj",
+      "projectSha256": "cce888a6c3d70ea5c938b8b77f7c2e5c1d019e49ba40afe00e2a6e71e9d456e6",
+      "dependencies": [
+        "58D0FB3206B6F859",
+        "65AD7D0D9941A380"
+      ],
+      "reasons": [
+        "dependency of 65AD7BE594439A52"
+      ]
+    },
+    {
+      "modId": "6A115D5DFF7ED870",
+      "id": "GlobalConflictsLobbyDev",
+      "version": "",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\addon.gproj",
+      "projectSha256": "e47dd12636651f2f3b5b809fb6c1a948d973ffc3cda3d1cac9b8053b7a714995",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 7E161126A01D0001",
+        "mission metadata"
+      ]
+    },
+    {
+      "modId": "7E161126A01D0001",
+      "id": "GCRhsLoadOnlyTest",
+      "version": "",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\external\\development\\rhs-load-only\\addon.gproj",
+      "projectSha256": "7b64322a1a480970d36419672a76714a986f467e934d489128c261e096a105ab",
+      "dependencies": [
+        "6A115D5DFF7ED870"
+      ],
+      "reasons": [
+        "mission owner",
+        "mission metadata"
+      ]
+    },
+    {
+      "modId": "7E161126A01D1001",
+      "id": "GCAttributeContentTest",
+      "version": "",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforgerWorkbench\\addons\\gc-lobby\\external\\development\\rhs-attribute-content\\addon.gproj",
+      "projectSha256": "64923622fe4010a6b3eea5e584046bf48e45f21c1bf30628657da43c573067f5",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "mission metadata"
+      ]
+    },
+    {
+      "modId": "BADC0DEDABBEDA5E",
+      "id": "RHS_Content_02",
+      "version": "0.17.5281",
+      "project": "C:\\Users\\Gray\\Documents\\My Games\\ArmaReforger\\addons\\RHS-ContentPack02_BADC0DEDABBEDA5E\\addon.gproj",
+      "projectSha256": "196b2bc1da74c0b5154c7346c63989df237da487f29cff7b2094f53e0f17ff18",
+      "dependencies": [
+        "58D0FB3206B6F859"
+      ],
+      "reasons": [
+        "dependency of 595F2BF2F44836FB"
+      ]
+    }
+  ],
+  "config": {
+    "game": {
+      "name": "GC launch experiment",
+      "scenarioId": "{7E161126A01D0003}Configs/Missions/RhsLoadOnly.conf",
+      "mods": []
+    }
+  },
+  "planSha256": "7bcf12e861e4859ea7edee3aa9209ca569548a2b77b9bb42eb7bc9156e182bc0"
+}
