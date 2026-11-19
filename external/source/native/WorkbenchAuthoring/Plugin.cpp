@@ -9,6 +9,7 @@
 #include <QApplication>
 #include <QDateTime>
 #include <QDropEvent>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
 #include <QGenericPlugin>
@@ -27,19 +28,27 @@ class ReferenceField final : public QObject
 {
 public:
     ReferenceField(QObject *property, QObject *editor, QComboBox *combo, QString providerName,
-        QString build, bool entities, std::function<void(QJsonObject)> logger)
+        QString build, bool entities, int arrayIndex, std::function<void(QJsonObject)> logger)
         : QObject(editor), property(property), provider(std::move(providerName)),
           expectedBuild(std::move(build)), log(std::move(logger))
     {
 
-        if (PropertyEditors::destination(property).arrayIndex >= 0)
+        if (arrayIndex >= 0)
             arraySelection = new ArraySelection(property, editor, combo, expectedBuild, log);
         else if (entities)
             entitySelection = new EntitySelection(property, editor, combo, provider, expectedBuild, log);
         const QPointer<ReferenceField> guard(this);
         binding = new EditableChoices(combo, [guard](quint64 id) { if (guard) guard->refresh(id); });
         connect(property, &QObject::destroyed, this, &QObject::deleteLater);
-        QTimer::singleShot(0, this, [this] { if (binding) binding->refresh(); });
+        // Array commits need a world even when the user only types a literal.
+        // Do not populate every dropdown while Workbench builds a property panel.
+        if (!arraySelection) return;
+        ChoicesClient::fetch(this, expectedBuild, provider, [guard](ChoicesReply reply) {
+            if (!guard) return;
+            if (guard->arraySelection) guard->arraySelection->setWorld(reply.world);
+            guard->log({{"event", "choicesContext"}, {"provider", guard->provider},
+                {"state", reply.state}, {"world", reply.world}, {"error", reply.error}});
+        }, ChoiceKind::Context);
     }
     ~ReferenceField() override { delete binding; }
 
@@ -58,7 +67,9 @@ private:
         delete request;
         if (!property || !binding || (arraySelection && arraySelection->isBusy()) || (entitySelection && (!entitySelection->ready() || entitySelection->isBusy()))) return;
         const QPointer<ReferenceField> guard(this);
-        request = ChoicesClient::fetch(this, expectedBuild, provider, [guard, id](ChoicesReply reply) {
+        QElapsedTimer elapsed;
+        elapsed.start();
+        request = ChoicesClient::fetch(this, expectedBuild, provider, [guard, id, elapsed](ChoicesReply reply) {
             if (!guard || !guard->property || !guard->binding) return;
             if ((guard->arraySelection && guard->arraySelection->isBusy()) ||
                 (guard->entitySelection && guard->entitySelection->isBusy())) return;
@@ -88,6 +99,7 @@ private:
             guard->log({{"event", "choicesReply"}, {"provider", guard->provider},
                 {"state", reply.state}, {"world", reply.world}, {"count", choices.size()},
                 {"applied", applied}, {"error", reply.error},
+                {"elapsedMs", elapsed.elapsed()},
                 {"duplicateValues", QJsonArray::fromStringList(reply.duplicateValues)}});
         }, entitySelection ? ChoiceKind::Entities : ChoiceKind::Values);
     }
@@ -146,11 +158,11 @@ public:
             auto *editors = new PropertyEditors(this, [guard, expectedBuild](QObject *property,
                     QObject *editor, QComboBox *combo, const QString &provider, bool entities) {
                 if (!guard) return;
-                const auto source = PropertyEditors::sourceValue(property);
+                PropertyDestination destination;
+                const auto source = PropertyEditors::sourceValue(property, &destination);
                 guard->write({{"event", "propertySource"}, {"provider", provider},
                     {"state", source.state}, {"serializedValue", source.serializedValue},
                     {"arrayIndex", source.arrayIndex}});
-                const auto destination = PropertyEditors::destination(property);
                 QJsonArray path;
                 for (const auto &entry : destination.path)
                     path.append(QJsonObject{{"key", entry.key}, {"index", entry.index},
@@ -159,7 +171,7 @@ public:
                     {"state", destination.state}, {"entityIdHex", destination.entityIdHex},
                     {"key", destination.key}, {"className", destination.className},
                     {"path", path}, {"arrayIndex", destination.arrayIndex}});
-                new ReferenceField(property, editor, combo, provider, expectedBuild, entities,
+                new ReferenceField(property, editor, combo, provider, expectedBuild, entities, destination.arrayIndex,
                     [guard](QJsonObject record) { if (guard) guard->write(record); });
             });
             const auto hookError = editors->install();

@@ -69,7 +69,8 @@ class GC_ItemCatalogue
 	protected bool m_bDiscoveryFailed;
 	protected ref array<string> m_aDiscoveryIssues = {};
 	protected ref array<ResourceName> m_aFailedResources = {};
-	protected static const int INDEX_BATCH_SIZE = 500;
+	protected static const int INDEX_BATCH_SIZE = 32;
+	protected static const float INDEX_BUDGET_MS = 2;
 	protected static int s_iAuthoredRevision;
 	protected int m_iAuthoredRevision;
 
@@ -120,7 +121,9 @@ class GC_ItemCatalogue
 		if (!m_bStarted || IsFinished())
 			return;
 		float started = System.GetTickCount();
-		if (m_iAddon < m_aAddons.Count())
+		// Drain each discovered addon before searching the next one, so usable
+		// entries reach the browser before discovery of the whole mod pack finishes.
+		if (m_iProcessed >= m_aPending.Count() && m_iAddon < m_aAddons.Count())
 		{
 			m_sDiscovering = m_aAddons[m_iAddon++];
 			SearchResourcesFilter filter = new SearchResourcesFilter();
@@ -139,6 +142,9 @@ class GC_ItemCatalogue
 			{
 				ReadEntry(m_aPending[m_iProcessed], m_aSources[m_iProcessed]);
 				m_iProcessed++;
+				// Resource.Load is synchronous: yield after a costly individual prefab.
+				if (System.GetTickCount() - started >= INDEX_BUDGET_MS)
+					break;
 			}
 		}
 		m_fMaxTickMS = Math.Max(m_fMaxTickMS, System.GetTickCount() - started);
@@ -392,7 +398,7 @@ class GC_ItemCatalogue
 	//------------------------------------------------------------------------------------------------
 	string Metrics()
 	{
-		return Status() + string.Format(" | batch=%1 maxIndexTickMS=%2 elapsedMS=%3", INDEX_BATCH_SIZE, m_fMaxTickMS, m_fElapsedMS);
+		return Status() + string.Format(" | batch=%1 budgetMS=%2 maxIndexTickMS=%3 elapsedMS=%4", INDEX_BATCH_SIZE, INDEX_BUDGET_MS, m_fMaxTickMS, m_fElapsedMS);
 	}
 
 	//------------------------------------------------------------------------------------------------

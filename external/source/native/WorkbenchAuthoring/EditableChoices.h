@@ -2,6 +2,7 @@
 #include <QComboBox>
 #include <QPointer>
 #include <QString>
+#include <QTimer>
 #include <QVector>
 #include <functional>
 
@@ -36,6 +37,8 @@ private:
     quint64 generation = 0;
     quint64 pending = 0;
     QString requestedValue;
+    QTimer typingRefresh;
+    bool choicesLoadedForEdit = false;
     QString value() const;
 };
 }

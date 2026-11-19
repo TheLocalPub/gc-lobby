@@ -64,6 +64,14 @@ class GC_EditorChoices : Managed
 		if (!api || !api.GetWorld())
 			return response;
 		api.GetWorldPath(response.world);
+		// Initializing an editable field needs the world for guarded commits,
+		// not a world-wide discovery pass. Choices are requested on user input.
+		if (input.kind == "context")
+		{
+			response.kind = "context";
+			response.state = "ready";
+			return response;
+		}
 		response.state = "provider_unavailable";
 		typename providerType = input.provider.ToType();
 		if (!providerType)

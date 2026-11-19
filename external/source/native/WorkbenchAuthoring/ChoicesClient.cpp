@@ -50,6 +50,7 @@ private:
         }
         QJsonObject request{{"handler", "GC_EditorChoices"}, {"provider", provider}, {"token", receipt}};
         if (kind == ChoiceKind::Entities) request.insert("kind", "entities");
+        if (kind == ChoiceKind::Context) request.insert("kind", "context");
         if (editCompleted) {
             request = editRequest;
             request.insert("handler", editRequest.value("operation") == "set_array_string" ? "GC_StringArrayEdit" : "GC_EntityReferenceCommit");
@@ -122,6 +123,13 @@ private:
         if (state == "world_unavailable" || state == "provider_unavailable") { finish({state, {}, {}, {}, {}, {}}); return; }
         if (state != "ready" || !body.value("world").isString() ||
             (body.contains("values") && !body.value("values").isArray())) { fail("Malformed choice reply"); return; }
+        if (kind == ChoiceKind::Context) {
+            if (body.value("kind").toString() != "context" || body.value("world").toString().isEmpty()) {
+                fail("Malformed editor context reply"); return;
+            }
+            finish({state, body.value("world").toString(), {}, {}, {}, {}});
+            return;
+        }
         if (kind == ChoiceKind::Entities) {
             if (body.value("kind").toString() != "entities") { fail("Entity choice kind mismatch"); return; }
             for (const auto &key : {"entityIds", "entityNames", "entityLabels"}) {

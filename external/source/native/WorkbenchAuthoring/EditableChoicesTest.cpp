@@ -2,6 +2,9 @@
 #include <QCompleter>
 #include <QApplication>
 #include <QLineEdit>
+#include <QAbstractItemView>
+#include <QEventLoop>
+#include <QFocusEvent>
 #include <cstdio>
 
 static void require(bool condition, const char *name)
@@ -89,5 +92,47 @@ int main(int argc, char **argv)
     require(activations == 0 && finishedText == "group example (unnamed)", "Typed label remains literal and reaches finish owner without activation");
     QMetaObject::invokeMethod(&literal, "activated", Qt::DirectConnection, Q_ARG(int, 1));
     require(activations == 1, "Explicit selection activation is retained");
+    {
+        QComboBox demand;
+        demand.setEditable(true);
+        demand.show();
+        demand.lineEdit()->setFocus();
+        QCoreApplication::processEvents();
+        int requests = 0;
+        quint64 demandId = 0;
+        gc::EditableChoices onDemand(&demand, [&](quint64 id) { demandId = id; ++requests; });
+        auto waitForTyping = [] {
+            QEventLoop loop;
+            QTimer::singleShot(220, &loop, &QEventLoop::quit);
+            loop.exec();
+        };
+        QFocusEvent focus(QEvent::FocusIn);
+        for (int i = 0; i < 100; ++i) {
+            QCoreApplication::sendEvent(&demand, &focus);
+            demand.setEditText(QString::number(i));
+        }
+        waitForTyping();
+        require(requests == 0, "Construction, focus and programmatic values perform no discovery");
+        for (int i = 0; i < 20; ++i)
+            QMetaObject::invokeMethod(demand.lineEdit(), "textEdited", Qt::DirectConnection, Q_ARG(QString, QString::number(i)));
+        waitForTyping();
+        require(requests == 1, "A burst of user typing requests completions once");
+        require(onDemand.apply(demandId, choices), "First typing reply supplies the completion model");
+        QMetaObject::invokeMethod(demand.lineEdit(), "textEdited", Qt::DirectConnection, Q_ARG(QString, QString("more")));
+        waitForTyping();
+        require(requests == 1, "Pausing again in the same edit uses local completions");
+        QMetaObject::invokeMethod(demand.lineEdit(), "textEdited", Qt::DirectConnection, Q_ARG(QString, QString("draft")));
+        demand.showPopup();
+        require(demand.view()->isVisible(), "Initially empty editor opens its native popup");
+        waitForTyping();
+        require(requests == 2, "Opening the dropdown supersedes pending typing discovery");
+        demand.hidePopup();
+        QMetaObject::invokeMethod(demand.lineEdit(), "textEdited", Qt::DirectConnection, Q_ARG(QString, QString("literal")));
+        QMetaObject::invokeMethod(demand.lineEdit(), "editingFinished", Qt::DirectConnection);
+        waitForTyping();
+        require(requests == 2, "Finishing a manual edit cancels delayed discovery");
+        demand.showPopup();
+        require(requests == 3, "Reopening requests fresh choices without a stale persistent cache");
+    }
     return 0;
 }

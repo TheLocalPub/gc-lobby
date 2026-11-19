@@ -1,11 +1,29 @@
 #include "EditableChoices.h"
 #include <QAbstractItemView>
+#include <QCompleter>
 #include <QEvent>
 #include <QLineEdit>
 #include <QSignalBlocker>
+#include <QStandardItemModel>
 #include <QThread>
 
 namespace gc {
+// Qt refuses to open a zero-row combo. Keep its popup reachable even after
+// an unavailable provider reply, without making the placeholder selectable.
+static void keepPopupAvailable(QComboBox *combo)
+{
+    if (combo->count()) return;
+    auto *model = qobject_cast<QStandardItemModel *>(combo->model());
+    if (!model) return;
+    const auto draft = combo->currentText();
+    const QSignalBlocker comboSignals(combo);
+    const QSignalBlocker lineSignals(combo->lineEdit());
+    combo->addItem(QStringLiteral("No choices loaded"));
+    model->item(0)->setFlags(Qt::NoItemFlags);
+    combo->setCurrentIndex(-1);
+    combo->setEditText(draft);
+}
+
 bool EditableChoices::preserveLiteralFinish(QComboBox *combo)
 {
     if (!combo || !combo->lineEdit() || combo->insertPolicy() != QComboBox::NoInsert) return false;
@@ -18,10 +36,25 @@ bool EditableChoices::preserveLiteralFinish(QComboBox *combo)
 EditableChoices::EditableChoices(QComboBox *widget, Request request)
     : QObject(widget), combo(widget), requestChoices(std::move(request))
 {
+    keepPopupAvailable(widget);
     widget->installEventFilter(this);
     widget->view()->installEventFilter(this);
     connect(widget, &QComboBox::currentIndexChanged, this, [this] { invalidate(); });
     connect(widget, &QComboBox::editTextChanged, this, [this] { invalidate(); });
+    typingRefresh.setSingleShot(true);
+    typingRefresh.setInterval(150);
+    connect(&typingRefresh, &QTimer::timeout, this, [this] {
+        if (combo && combo->lineEdit()->hasFocus()) refresh();
+    });
+    // textEdited is user input only; native initialization and commits must not
+    // start discovery. Debounce typing while retaining editable completions.
+    connect(widget->lineEdit(), &QLineEdit::textEdited, this, [this] {
+        if (!choicesLoadedForEdit) typingRefresh.start();
+    });
+    connect(widget->lineEdit(), &QLineEdit::editingFinished, this, [this] {
+        choicesLoadedForEdit = false;
+        typingRefresh.stop();
+    });
 }
 
 QString EditableChoices::value() const
@@ -42,6 +75,7 @@ void EditableChoices::invalidate()
 
 quint64 EditableChoices::refresh()
 {
+    typingRefresh.stop();
     if (!combo || !combo->isEditable() || QThread::currentThread() != thread()) return 0;
     pending = ++generation;
     requestedValue = value();
@@ -55,6 +89,9 @@ bool EditableChoices::apply(quint64 id, const QVector<ReferenceChoice> &choices)
     if (!combo || QThread::currentThread() != thread() || !combo->isEditable() ||
         id == 0 || id != pending || value() != requestedValue) return false;
     pending = 0; // A response is single-use, including unchanged lists.
+    // A ready provider always includes the explicit (None) row. Let Qt filter
+    // those choices locally until this edit finishes. Popup opens still refresh.
+    choicesLoadedForEdit = !choices.isEmpty();
     bool same = combo->count() == choices.size();
     for (qsizetype i = 0; same && i < choices.size(); ++i) {
         const auto &choice = choices[i];
@@ -93,8 +130,15 @@ bool EditableChoices::apply(quint64 id, const QVector<ReferenceChoice> &choices)
     combo->view()->setMinimumWidth(qMax(combo->width(), qMin(600, combo->view()->sizeHintForColumn(0) + 32)));
     combo->setCurrentIndex(match);
     if (match < 0) combo->setEditText(hadSelection ? requestedValue : draft);
+    keepPopupAvailable(combo);
     line->setCursorPosition(qMin(cursor, int(line->text().size())));
     if (selection >= 0) line->setSelection(selection, selectionLength);
+    // A user may already be typing when the first on-demand list arrives.
+    // Refresh completion explicitly: blocked presentation signals cannot do it.
+    if (line->hasFocus() && !combo->view()->isVisible() && !draft.isEmpty() && combo->completer()) {
+        combo->completer()->setCompletionPrefix(line->text());
+        combo->completer()->complete();
+    }
     return true;
 }
 
@@ -102,8 +146,6 @@ bool EditableChoices::eventFilter(QObject *target, QEvent *event)
 {
     if (!combo) return false;
     if (target == combo->view() && event->type() == QEvent::Show)
-        refresh();
-    else if (target == combo && event->type() == QEvent::FocusIn)
         refresh();
     return false;
 }

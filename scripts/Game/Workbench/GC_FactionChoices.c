@@ -1,5 +1,5 @@
 #ifdef WORKBENCH
-//! Reads faction keys from the current editor world without changing affiliations.
+//! Reads factions used by placed groups/entities, without changing affiliations.
 class GC_FactionChoices
 {
 	//------------------------------------------------------------------------------------------------
@@ -9,47 +9,48 @@ class GC_FactionChoices
 		if (!api || !api.GetWorld())
 			return values;
 
-		int entityCount = api.GetEditorEntityCount();
-		for (int entityIndex; entityIndex < entityCount; entityIndex++)
+		int mission = api.GetCurrentSubScene();
+		if (mission < 0 || mission >= api.GetNumSubScenes())
+			return values;
+
+		set<IEntitySource> visited = new set<IEntitySource>();
+		for (int index = 0, count = api.GetEntityCount(mission); index < count; index++)
+			CollectUnits(api, api.GetEntity(mission, index), mission, visited, values);
+
+		return values;
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void CollectUnits(WorldEditorAPI api, IEntitySource source, int mission, set<IEntitySource> visited, array<string> values)
+	{
+		if (!source || source.GetSubScene() != mission || visited.Contains(source))
+			return;
+		visited.Insert(source);
+
+		IEntity entity = api.SourceToEntity(source);
+		SCR_AIGroup group = SCR_AIGroup.Cast(entity);
+		if (group)
 		{
-			IEntitySource source = api.GetEditorEntity(entityIndex);
-			if (!source)
-				continue;
-			IEntity entity = api.SourceToEntity(source);
-			if (!entity)
-				continue;
-
-			FactionManager manager = FactionManager.Cast(entity);
-			if (manager)
-			{
-				array<Faction> factions = {};
-				manager.GetFactionsList(factions);
-				foreach (Faction faction : factions)
-				{
-					if (faction)
-						AddKey(values, faction.GetFactionKey());
-				}
-			}
-
-			SCR_AIGroup group = SCR_AIGroup.Cast(entity);
-			if (group)
-			{
-				// Despite its name, this accessor returns the authored m_faction key.
-				AddKey(values, group.GetFactionName());
-				Faction groupFaction = group.GetFaction();
-				if (groupFaction)
-					AddKey(values, groupFaction.GetFactionKey());
-			}
-
+			// This accessor returns the authored m_faction even for unspawned groups.
+			string groupKey = group.GetFactionName();
+			if (groupKey.IsEmpty() && group.GetFaction())
+				groupKey = group.GetFaction().GetFactionKey();
+			AddKey(values, groupKey);
+		}
+		else if (ChimeraCharacter.Cast(entity) || Vehicle.Cast(entity))
+		{
 			FactionAffiliationComponent affiliation = FactionAffiliationComponent.Cast(entity.FindComponent(FactionAffiliationComponent));
 			if (affiliation)
 			{
-				AddKey(values, affiliation.GetDefaultFactionKey());
-				AddKey(values, affiliation.GetAffiliatedFactionKey());
+				string unitKey = affiliation.GetAffiliatedFactionKey();
+				if (unitKey.IsEmpty())
+					unitKey = affiliation.GetDefaultFactionKey();
+				AddKey(values, unitKey);
 			}
 		}
 
-		return values;
+		for (int child = 0, count = source.GetNumChildren(); child < count; child++)
+			CollectUnits(api, source.GetChild(child), mission, visited, values);
 	}
 
 	//------------------------------------------------------------------------------------------------

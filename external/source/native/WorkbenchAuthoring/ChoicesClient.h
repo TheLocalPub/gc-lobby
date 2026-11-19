@@ -11,7 +11,7 @@ struct EntityChoice {
     QString name;
     QString label;
 };
-enum class ChoiceKind { Values, Entities };
+enum class ChoiceKind { Values, Entities, Context };
 struct ChoicesReply {
     QString state;
     QString world;

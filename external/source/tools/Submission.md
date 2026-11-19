@@ -26,10 +26,10 @@ GC Lobby continues to follow its own default branch.
    and Added / Changed / Deleted file lists. The form shows the
    supplied submission rules and testing-guide address. Only checks the author
    selects are marked complete in GitHub's Markdown checklist. Existing request
-   text and checks are restored; a new request after merge starts unchecked.
+   text and checks are restored; a new request after closure or merge starts unchecked.
 5. Save recovery references and a backup of local changes, then apply the reviewed
-   result to the contributor's one submission branch. If it already exists,
-   reuse it; never create a per-mission or per-attempt branch.
+   result to the open request's branch, or a fresh mission submission branch
+   when there is no open request.
 6. Push without force to the contributor's fork and create or reuse its pull request.
 
 All saved changes in that checkout are included, including dependency declarations
@@ -47,7 +47,7 @@ before the mission form, with Added / Changed / Deleted lists and conflict revie
 No pending changes means no units review, fork creation or upload.
 
 The same submission engine handles both repositories. Each repository has its
-own personal fork, reusable submission branch and one pending request. Confirming
+own personal fork and one pending request. Confirming
 units creates or updates its request; the mission form then shows that request
 read-only and adds a Required units / loadouts link automatically to its PR body.
 There is no manual Dependencies form. The units request and saved files are
@@ -60,23 +60,30 @@ the mission step is cancelled or fails, the units request remains saved and its
 link is shown. Retrying reuses it. These two GitHub requests are not an atomic
 transaction; reviewers still approve each separately and should merge units first.
 
-## One contributor, one pending request
+## One mission, one pull request
 
-One personal fork is reused for all missions. The first online branch is
-`gc-submissions`; an existing request from an earlier tool version keeps its
-branch, locally and online. Starting from another local editing branch combines
-its saved changes with the existing submission and switches back to that same
-submission branch. Other user-created branches are preserved. Lookup uses the
-contributor's fork, not their current local branch. Existing requests targeting a
-release branch are reused and retargeted to dev after review.
+One personal fork is reused. With no open mission request, Submit creates a fresh
+`mission/submission-<unique id>` branch and a new pull request. Closed and merged
+requests are complete: they are never reopened, and their branches are not reused
+or fetched into a new submission. Saved files in the current checkout still form
+the new submission; closing a request does not discard local work.
 
-Additional missions update the same pending request. A closed, unmerged request
-shows Resubmit in review; confirming attempts to reopen that same request. If
-GitHub refuses, the hub shows Request closed with Retry and View submission available and reports
-that it could not reopen. It does not create a duplicate as a fallback. A merged
-request is complete; subsequent changes create the next request using the same
-fork and online branch. Multiple pre-existing open requests stop with an explicit
-request for a reviewer to consolidate them; the tool never guesses which to close.
+An open request is updated on its existing branch, including requests from older
+tool versions. Lookup uses the contributor's fork, not the local editing branch.
+Starting from another branch combines saved changes with that open submission.
+Existing release-targeted requests are retargeted to dev after review. More than
+one open request stops submission so a reviewer can resolve the ambiguity.
+
+Only one mission world may be included in a submission. Changed world files,
+world metadata, layer folders and mission-header World references identify the
+world; changes for multiple worlds stop before checkout mutation or upload.
+Keep other missions on separate branches, and finish or close the open request
+before submitting another mission. Supporting scripts, assets and dependency
+files remain included in the file review. This is a saved-file check, not an
+editor query or dependency scanner.
+
+Units / loadouts keep their existing reusable branch and closed-request resubmit
+behavior; the fresh-PR policy applies to mission submissions.
 
 Request state is rechecked around upload and after the API update. A request
 closed or merged during the operation is never reported as awaiting approval

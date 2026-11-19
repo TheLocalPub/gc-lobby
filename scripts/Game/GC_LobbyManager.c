@@ -27,7 +27,9 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 		return m_BriefingCatalog;
 	}
 
-	[Attribute("", UIWidgets.Object, "GC Lobby scenario parameter definitions and runtime values", category: "GC Lobby")]
+	[Attribute("", UIWidgets.Object, "GC Lobby scenario parameter definitions", category: "GC Lobby")]
+	protected ref array<ref GC_LobbyParameterDefinition> m_aParameters;
+
 	protected ref GC_LobbyParameterCatalog m_ParameterCatalog;
 
 	[Attribute("180", UIWidgets.EditBox, "Seconds after briefing begins before CO parameters lock; mission start locks earlier", params: "30 3600 1")]
@@ -339,7 +341,11 @@ class GC_LobbyManager : SCR_BaseGameModeComponent
 	protected bool EnsureParameterCatalog()
 	{
 		if (!m_ParameterCatalog)
-			m_ParameterCatalog = new GC_LobbyParameterCatalog();
+		{
+			if (!m_aParameters)
+				m_aParameters = {};
+			m_ParameterCatalog = new GC_LobbyParameterCatalog(m_aParameters);
+		}
 
 		return m_ParameterCatalog.Initialize();
 	}

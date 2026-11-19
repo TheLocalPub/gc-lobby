@@ -23,7 +23,9 @@ Assert ($found.number -eq 101 -and @($found).Count -eq 1) 'Pagination did not re
 Assert ($script:queries.Count -eq 2) 'A full REST array did not advance pagination'
 $script:mode='closed'
 $found=Get-ContributorMissionPr @{} 'official/missions' 'tester' 'main'
-Assert ($found.number -eq 102 -and @($found).Count -eq 1) 'Closed request filtering returned unrelated requests'
+Assert ($null -eq $found) 'Closed mission request reused'
+$found=Get-ContributorMissionPr @{} 'official/missions' 'tester' 'main' -IncludeClosed
+Assert ($found.number -eq 102) 'Units closed request behavior changed'
 $script:mode='duplicate'
 try {Get-ContributorMissionPr @{} 'official/missions' 'tester' 'main';throw 'Duplicate requests accepted'} catch {Assert ($_.Exception.Message -like 'More than one approval request*') $_.Exception.Message}
 $script:mode='empty'

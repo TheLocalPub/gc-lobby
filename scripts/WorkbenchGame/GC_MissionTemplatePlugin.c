@@ -101,7 +101,8 @@ class GC_MissionTemplatePlugin : WorkbenchPlugin
 		IEntitySource aiWorld;
 		bool perceptionReady = root && (m_iExistingPerceptionManagers == 0 || DisableBundledPerception(api, root));
 		if (perceptionReady)
-			aiWorld = api.CreateEntity(aiPrefab, "GC_MissionAIWorld", layer, root, vector.Zero, vector.Zero);
+			// Editing the game mode recreates its children, including any terrain navigation meshes.
+			aiWorld = api.CreateEntity(aiPrefab, "GC_MissionAIWorld", layer, null, vector.Zero, vector.Zero);
 		bool cleaned = true;
 		if (root && !aiWorld)
 			cleaned = api.DeleteEntity(root);
@@ -117,7 +118,7 @@ class GC_MissionTemplatePlugin : WorkbenchPlugin
 		}
 		api.ClearEntitySelection();
 		api.AddToEntitySelection(root);
-		PrintFormat("GC | Lobby Game Mode | Placed %1 under GC_LobbyGameMode for %2. Save the mission to keep it.", aiPrefab, terrainScene);
+		PrintFormat("GC | Lobby Game Mode | Placed %1 alongside GC_LobbyGameMode for %2. Save the mission to keep it.", aiPrefab, terrainScene);
 		if (m_iExistingPerceptionManagers > 0)
 			PrintFormat("GC | Lobby Game Mode | Reused %1 existing perception manager(s); disabled the bundled child in this instance.", m_iExistingPerceptionManagers);
 		if (!notice.IsEmpty())

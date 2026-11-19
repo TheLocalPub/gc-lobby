@@ -14,7 +14,7 @@ public:
     using Created = std::function<void(QObject *, QObject *, QComboBox *, const QString &, bool)>;
     PropertyEditors(QObject *parent, Created created);
     QString install(); // Empty on success; checks exact host and unmodified slot.
-    static PropertySourceValue sourceValue(QObject *property);
+    static PropertySourceValue sourceValue(QObject *property, PropertyDestination *destination = nullptr);
     static PropertyDestination destination(QObject *property);
     static QString routeSelection(QObject *editor, QComboBox *combo,
         std::function<void(int)> activated, std::function<void()> finished);

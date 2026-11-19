@@ -40,8 +40,8 @@ function Show-GcReview($spec) {
         if ($script:choice -eq 'cancel') {return}
         return @{Action=$script:choice;Values=@{}}
     }
-    if ($spec.Section -in 'Submit for approval','Request closed - resubmit for approval') {
-        $expected=if($script:pr.state -eq 'closed' -and !$script:pr.merged_at){'Resubmit'}elseif($script:pr.state -eq 'open'){'Update submission'}else{'Submit'}
+    if ($spec.Section -eq 'Submit for approval') {
+        $expected=if($script:pr.state -eq 'open'){'Update submission'}else{'Submit'}
         Assert ($spec.PrimaryAction -eq $expected) 'Submission action is unclear'
         Assert (@($spec.Fields | Where-Object Kind -eq filelist).Count -ge 1) 'Changed files not reviewed'
         if ($script:verifyFiles) {
@@ -80,7 +80,7 @@ function Invoke-SubmissionApi($auth,$method,$path,$data,[switch]$AllowMissing) {
         return $script:pr
     }
     if($path -match '/pulls/\d+$') {
-        if($method -eq 'PATCH'){$script:patched++;$script:pr.body=$data.body;$script:pr.title=$data.title;$script:pr.base.ref=$data.base;if($data.state){if($script:denyReopen){throw 'Fixture reopen denied'};$script:pr.state=$data.state}}
+        if($method -eq 'PATCH'){Assert (!$data.state) 'Mission request state must never be changed';$script:patched++;$script:pr.body=$data.body;$script:pr.title=$data.title;$script:pr.base.ref=$data.base;if($data.state){$script:pr.state=$data.state}}
         if($script:closeOnRead -and $method -eq 'GET'){$script:pr.state='closed';$script:closeOnRead=$false}
         return $script:pr
     }
@@ -106,9 +106,9 @@ Assert ((Git $author @('rev-parse','HEAD')) -eq $initial -and $created -eq 0 -an
 Assert ([IO.File]::ReadAllText("$author/$worldPath") -eq 'my first world') 'Cancel changed files'
 $script:cancel=$false
 Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Initial submission failed'
-Assert ($created -eq 1 -and $script:branch -eq 'gc-submissions') 'Automatic branch/PR missing'
+Assert ($created -eq 1 -and $script:branch -like 'mission/submission-*') 'Automatic branch/PR missing'
 Assert ((Git $author @('rev-parse','dev')) -eq $initial) 'Original main branch was modified'
-Assert ((Git $author @('branch','--show-current')) -eq 'gc-submissions') 'Automatic mission branch not selected'
+Assert ((Git $author @('branch','--show-current')) -eq $script:branch) 'Automatic mission branch not selected'
 Assert ((Git $forkPath @('show',($script:branch+':new dependency.txt'))) -eq 'mission dependency') 'Saved new files missing'
 Assert (!(Test-Path "$author/readme.txt")) 'Deleted file restored during submission'
 Assert-Synced
@@ -166,13 +166,13 @@ Assert ([IO.File]::ReadAllText("$author/$worldPath") -eq 'online conflict') 'Onl
 Assert ([IO.File]::ReadAllText("$author/online.txt") -eq 'remote addition') 'Online addition lost'
 Assert ((Git $author @('merge-base','HEAD',$onlineTip)) -eq $onlineTip) 'Online history overwritten'
 Assert-Synced
-# Several missions and a different local branch still share one online request.
+# Supporting files on a different local branch still update the open mission request.
 $null=Git $author @('switch','-q','-c','another-local-branch')
-[IO.File]::WriteAllText("$author/worlds/SecondMission.ent",'second mission')
+[IO.File]::WriteAllText("$author/worlds/support.txt",'supporting file')
 $firstRequest=$script:pr.number
-Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Additional mission failed'
-Assert ($created -eq 1 -and $script:pr.number -eq $firstRequest) 'Additional mission created another request'
-Assert ((Git $forkPath @('show',($script:branch+':worlds/SecondMission.ent'))) -eq 'second mission') 'Additional mission absent from shared request'
+Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Supporting file failed'
+Assert ($created -eq 1 -and $script:pr.number -eq $firstRequest) 'Supporting file created another request'
+Assert ((Git $forkPath @('show',($script:branch+':worlds/support.txt'))) -eq 'supporting file') 'Supporting file absent from shared request'
 Assert-Synced
 # Returning to the shared checkout must reuse the same local submission branch.
 [IO.File]::WriteAllText("$author/local-pending.txt",'not uploaded yet')
@@ -180,7 +180,7 @@ $null=Git $author @('add','local-pending.txt')
 $null=Git $author @('commit','-qm','Local pending work')
 $branchesBefore=@(Git $author @('for-each-ref','--format=%(refname)','refs/heads'))
 $null=Git $author @('switch','-q','dev')
-[IO.File]::WriteAllText("$author/worlds/FourthMission.ent",'another saved mission')
+[IO.File]::WriteAllText("$author/worlds/notes.txt",'saved notes')
 $script:normalGit=${function:Git}
 function Git([string]$root,[string[]]$arguments) {
     if($arguments[0] -eq 'merge' -and $arguments -contains '--ff-only'){throw 'Fixture local apply failure'}
@@ -190,29 +190,35 @@ try {
     try {$null=Invoke-MissionSubmission $addons;throw 'Local apply failure accepted'} catch {Assert ($_.Exception.Message -like 'The update could not finish.*') $_.Exception.Message}
 } finally {Set-Item function:Git $script:normalGit}
 Assert ((Git $author @('branch','--show-current')) -eq 'dev') 'Apply failure did not restore source branch'
-Assert ([IO.File]::ReadAllText("$author/worlds/FourthMission.ent") -eq 'another saved mission') 'Apply failure lost saved files'
+Assert ([IO.File]::ReadAllText("$author/worlds/notes.txt") -eq 'saved notes') 'Apply failure lost saved files'
 [IO.File]::AppendAllText("$author/.git/info/exclude","`nlocal-pending.txt`n")
 [IO.File]::WriteAllText("$author/local-pending.txt",'ignored local file')
 try {$null=Invoke-MissionSubmission $addons;throw 'Ignored collision accepted'} catch {Assert ($_.Exception.Message -like 'The update could not finish.*') $_.Exception.Message}
 Assert ([IO.File]::ReadAllText("$author/local-pending.txt") -eq 'ignored local file') 'Branch switch overwrote ignored file'
-Assert ([IO.File]::ReadAllText("$author/worlds/FourthMission.ent") -eq 'another saved mission') 'Ignored collision lost saved files'
+Assert ([IO.File]::ReadAllText("$author/worlds/notes.txt") -eq 'saved notes') 'Ignored collision lost saved files'
 [IO.File]::Delete("$author/local-pending.txt")
 Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Submission from main failed'
 Assert ([IO.File]::ReadAllText("$author/local-pending.txt") -eq 'not uploaded yet') 'Existing local pending work lost'
-Assert ((Git $author @('branch','--show-current')) -eq 'gc-submissions') 'Existing local submission branch not reused'
+Assert ((Git $author @('branch','--show-current')) -eq $script:branch) 'Existing local submission branch not reused'
 Assert ((@(Git $author @('for-each-ref','--format=%(refname)','refs/heads')) -join '|') -eq ($branchesBefore -join '|')) 'Resubmission created another branch'
-Assert ([IO.File]::ReadAllText("$author/worlds/SecondMission.ent") -eq 'second mission') 'Pending mission lost returning from main'
-Assert ([IO.File]::ReadAllText("$author/worlds/FourthMission.ent") -eq 'another saved mission') 'New mission lost returning from main'
+Assert ([IO.File]::ReadAllText("$author/worlds/support.txt") -eq 'supporting file') 'Supporting file lost returning from main'
+Assert ([IO.File]::ReadAllText("$author/worlds/notes.txt") -eq 'saved notes') 'New supporting file lost returning from main'
 Assert ($created -eq 1) 'Submission from main duplicated request'
 Assert-Synced
-# Closed requests are explicitly resubmitted, not duplicated or falsely reported.
+# A second mission must not be bundled into the open request.
+[IO.File]::WriteAllText("$author/worlds/SecondMission.ent",'supporting file')
+$before=Git $author @('rev-parse','HEAD');$remoteBefore=Git $forkPath @('rev-parse',$script:branch)
+try {$null=Invoke-MissionSubmission $addons;throw 'Multiple missions accepted'} catch {Assert ($_.Exception.Message -like 'Submit one mission at a time.*') $_.Exception.Message}
+Assert ((Git $author @('rev-parse','HEAD')) -eq $before -and (Git $forkPath @('rev-parse',$script:branch)) -eq $remoteBefore) 'Multiple missions mutated a branch'
+[IO.File]::Delete("$author/worlds/SecondMission.ent")
+# Closed requests and their remote branches remain untouched.
 $script:pr.state='closed'
-$script:denyReopen=$true
-Assert ((Invoke-ModWorkflow) -eq 2) 'Denied reopen reported success'
-Assert ($script:outcome.Status -eq 'Resubmit' -and $created -eq 1 -and $script:pr.state -eq 'closed') 'Denied reopen lost retry or created duplicate'
-$script:denyReopen=$false
-Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Closed request could not be resubmitted'
-Assert ($script:pr.state -eq 'open' -and $script:pr.number -eq $firstRequest -and $created -eq 1) 'Resubmit did not reopen original request'
+$closedPr=$script:pr;$closedBranch=$script:branch
+$closedTip=Git $forkPath @('rev-parse',$closedBranch)
+$patchedBefore=$script:patched
+Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Fresh submission after closure failed'
+Assert ($created -eq 2 -and $script:pr.number -ne $firstRequest -and $script:branch -ne $closedBranch) 'Closed request or branch reused'
+Assert ($closedPr.state -eq 'closed' -and $script:patched -eq $patchedBefore -and (Git $forkPath @('rev-parse',$closedBranch)) -eq $closedTip) 'Closed submission was modified'
 $script:reviewMutation={ $script:pr.state='closed' }
 $before=Git $author @('rev-parse','HEAD')
 try {$null=Invoke-MissionSubmission $addons;throw 'Closure during review accepted'} catch {Assert ($_.Exception.Message -eq 'Your submission changed during review. Submit again.') $_.Exception.Message}
@@ -222,19 +228,20 @@ Assert ((Invoke-ModWorkflow) -eq 2) 'Closure after resubmit reported success'
 Assert ($script:outcome.Status -eq 'Resubmit') 'Closed request displayed awaiting approval'
 Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Retry after late closure stuck'
 $script:closeAfterPush=$true;$script:openChecks=0
-[IO.File]::WriteAllText("$author/worlds/SecondMission.ent",'updated second mission')
+[IO.File]::WriteAllText("$author/worlds/support.txt",'updated support')
 try {$null=Invoke-MissionSubmission $addons;throw 'Closure during upload accepted'} catch {Assert ($_.Exception.Message -like 'Your approval request changed during upload.*') $_.Exception.Message}
-Assert ($created -eq 1 -and $script:pr.state -eq 'closed') 'Closure during upload duplicated or reopened request'
+Assert ($script:pr.state -eq 'closed') 'Closure during upload duplicated or reopened request'
 Assert-Synced
 Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Retry after upload closure failed'
-# Approval finishes this request. Later work reuses the fork and online branch,
+# Approval finishes this request. Later work reuses the fork with a fresh branch,
 # creating only the next request, never trying to reopen a merged request.
 $null=Git $upstream @('fetch','-q',$forkPath,$script:branch)
 $null=Git $upstream @('merge','--ff-only','-q','FETCH_HEAD')
+$createdBefore=$created;$mergedBranch=$script:branch;$mergedTip=Git $forkPath @('rev-parse',$mergedBranch)
 $script:pr.state='closed';$script:pr.merged_at='2026-11-13T12:00:00Z'
 [IO.File]::WriteAllText("$author/worlds/ThirdMission.ent",'third mission')
 Assert ((Invoke-MissionSubmission $addons) -eq 0) 'Post-approval submission failed'
-Assert ($created -eq 2 -and $script:pr.number -ne $firstRequest -and $script:pr.state -eq 'open') 'Post-approval request lifecycle incorrect'
-Assert ($script:branch -eq 'gc-submissions') 'Post-approval work changed online branch'
+Assert ($created -eq ($createdBefore+1) -and $script:pr.number -ne $firstRequest -and $script:pr.state -eq 'open') 'Post-approval request lifecycle incorrect'
+Assert ($script:branch -ne $mergedBranch -and (Git $forkPath @('rev-parse',$mergedBranch)) -eq $mergedTip) 'Merged branch was reused or changed'
 Assert-Synced
-Write-Output "PASS: one contributor request, multiple missions, closed/reopened/denied/merged lifecycle, closure races, Git-only submission, automatic branch, saved changes/dependencies, latest-main merge, both conflict choices, no mutation on cancel/stale review, backup refs, safe retry, existing PR reuse. Fixture: $fixture"
+Write-Output "PASS: one mission per request, closed/merged branch isolation, closure races, Git-only submission, automatic branch, saved changes/dependencies, latest-main merge, both conflict choices, no mutation on cancel/stale review, backup refs, safe retry, existing PR reuse. Fixture: $fixture"

@@ -35,6 +35,7 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 	protected float m_fFeedbackTime;
 	protected bool m_bFinished;
 	protected SCR_SpinBoxPagingComponent m_Paging;
+	protected int m_iPageCount = -1;
 	protected float m_fVicinityOpacity;
 	protected float m_fOpenedOpacity;
 	protected bool m_bPagingActive;
@@ -221,7 +222,7 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 		}
 		m_fRefresh += timeSlice;
 		if (m_bFinished != m_Catalogue.IsFinished() || (m_fRefresh >= 0.5 && m_iIndexed != m_Catalogue.Count()))
-			Refresh();
+			Refresh(true);
 		// Only visible cells, one request per frame. A new query cancels the old page queue.
 		while (m_iPreview < m_aPage.Count() && m_mPreviewPrefabs.Get(m_aCells[m_iPreview]) == m_aPage[m_iPreview].m_sPrefab)
 			m_iPreview++;
@@ -425,9 +426,10 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 	}
 
 	//------------------------------------------------------------------------------------------------
-	protected void Refresh()
+	protected void Refresh(bool background = false)
 	{
-		if (!m_bFinished && m_Catalogue.IsFinished())
+		bool titlesChanged = !m_bFinished && m_Catalogue.IsFinished();
+		if (titlesChanged)
 			PopulateMods();
 		array<GC_ItemCatalogueEntry> previousPage = {};
 		previousPage.Copy(m_aPage);
@@ -452,6 +454,10 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 		}
 		foreach (int index, Widget cell : m_aCells)
 		{
+			// Background matches on another page must not touch visible rows,
+			// their previews, or the player's current hover/focus state.
+			if (background && !changed && !titlesChanged)
+				break;
 			bool populated = index < m_aPage.Count();
 			cell.SetVisible(populated);
 			if (populated)
@@ -476,6 +482,8 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 		}
 		foreach (SCR_ButtonBaseComponent button : m_aButtons)
 		{
+			if (background)
+				break;
 			string name = button.GetRootWidget().GetName();
 			if (name.StartsWith("Category"))
 			{
@@ -495,12 +503,22 @@ class GC_InventoryCataloguePanel : ScriptedWidgetEventHandler
 		}
 		int pages = Math.Max(1, Math.Ceil(m_iTotal / (float)PAGE_SIZE));
 		string status = string.Format("%1 / %2", m_iOffset + m_aPage.Count(), m_iTotal);
-		if (m_fFeedbackTime <= 0)
-			TextWidget.Cast(m_Root.FindAnyWidget("Status")).SetText(status);
-		m_Paging.m_OnChanged.Remove(OnPageChanged);
-		m_Paging.SetPageCount(pages, false);
-		m_Paging.SetCurrentItem(m_iOffset / PAGE_SIZE, false);
-		m_Paging.m_OnChanged.Insert(OnPageChanged);
+		if (!m_bFinished)
+			status += " | " + WidgetManager.Translate("#GC-Catalogue_Indexing");
+		TextWidget statusWidget = TextWidget.Cast(m_Root.FindAnyWidget("Status"));
+		if (m_fFeedbackTime <= 0 && statusWidget.GetText() != status)
+			statusWidget.SetText(status);
+		if (pages != m_iPageCount || m_Paging.GetCurrentIndex() != m_iOffset / PAGE_SIZE)
+		{
+			m_Paging.m_OnChanged.Remove(OnPageChanged);
+			if (pages != m_iPageCount)
+			{
+				m_Paging.SetPageCount(pages, false);
+				m_iPageCount = pages;
+			}
+			m_Paging.SetCurrentItem(m_iOffset / PAGE_SIZE, false);
+			m_Paging.m_OnChanged.Insert(OnPageChanged);
+		}
 	}
 
 	//------------------------------------------------------------------------------------------------

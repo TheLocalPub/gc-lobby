@@ -395,7 +395,6 @@ class GC_LobbyParameterValue
 	}
 }
 
-[BaseContainerProps()]
 class GC_LobbyParameterCatalog
 {
 	static const int MAX_PARAMETERS = 32;
@@ -404,12 +403,16 @@ class GC_LobbyParameterCatalog
 	static const int MAX_PAYLOAD_LENGTH = 256;
 	static const int MAX_FLOAT_PRECISION = 6;
 
-	[Attribute("", UIWidgets.Object, "Authoritative scenario parameter definitions")]
 	protected ref array<ref GC_LobbyParameterDefinition> m_aDefinitions;
 
 	protected ref array<ref GC_LobbyParameterValue> m_aValues = {};
 	protected int m_iRevision;
 	protected bool m_bValid = true;
+
+	void GC_LobbyParameterCatalog(array<ref GC_LobbyParameterDefinition> definitions = null)
+	{
+		m_aDefinitions = definitions;
+	}
 
 	array<ref GC_LobbyParameterDefinition> GetDefinitions()
 	{

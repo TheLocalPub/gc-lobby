@@ -142,5 +142,32 @@ int main(int argc, char **argv)
         QCoreApplication::processEvents();
         require(!completed && !dispatched, "Cancellation before dispatch sends no edit and invokes no callback");
     }
+    for (int scenario = 0; scenario < 4; ++scenario) {
+        QObject lifetime;
+        QEventLoop loop;
+        gc::ChoicesReply observed;
+        bool completed = false;
+        responder = [&](const QByteArray &encoded, QString &) {
+            const auto request = QJsonDocument::fromJson(encoded).object();
+            require(request.value("kind") == "context" && request.value("handler") == "GC_EditorChoices",
+                "Initialization explicitly requests context without choices");
+            QJsonObject reply{{"adapterBuild", build}, {"token", request.value("token")},
+                {"state", "ready"}, {"kind", "context"}, {"world", "$test:world.ent"}};
+            if (scenario == 1) reply.remove("kind");
+            if (scenario == 2) reply.insert("world", "");
+            if (scenario == 3) reply.insert("state", "world_unavailable");
+            return QJsonDocument(reply).toJson(QJsonDocument::Compact);
+        };
+        gc::ChoicesClient::fetch(&lifetime, build, "TEST_Choices", [&](gc::ChoicesReply reply) {
+            completed = true; observed = std::move(reply); loop.quit();
+        }, gc::ChoiceKind::Context);
+        QTimer::singleShot(3000, &loop, &QEventLoop::quit);
+        loop.exec();
+        require(completed, "Context request completes");
+        if (scenario == 0) require(observed.state == "ready" && observed.world == "$test:world.ent" &&
+            observed.values.isEmpty() && observed.entities.isEmpty(), "Context retains commit world without populating choices");
+        if (scenario == 1 || scenario == 2) require(observed.state == "unavailable", "Reject incomplete context identity");
+        if (scenario == 3) require(observed.state == "world_unavailable", "Unavailable world does not acquire commit context");
+    }
     return 0;
 }

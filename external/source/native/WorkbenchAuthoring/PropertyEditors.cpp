@@ -106,8 +106,9 @@ QWidget *PropertyEditors::createEditor(QObject *property, QWidget *parent)
 {
     bool entities = false;
     auto provider = detail::provider(property, entities);
-    const auto automaticReference = referenceType(readPropertyDeclaredType(property, detail::image));
-    if (provider.isEmpty() && detail::owner && !automaticReference.provider.isEmpty()) {
+    if (provider.isEmpty() && detail::owner) {
+        const auto automaticReference = referenceType(readPropertyDeclaredType(property, detail::image));
+        if (automaticReference.provider.isEmpty()) return detail::original(property, parent);
         // Select the engine's editable combo before it creates/initializes the
         // native value owner. Serialization and undo remain engine-owned.
         *reinterpret_cast<int *>(reinterpret_cast<char *>(property) + 0xf0) = 1;
@@ -138,21 +139,18 @@ QWidget *PropertyEditors::createEditor(QObject *property, QWidget *parent)
     return widget;
 }
 
-PropertySourceValue PropertyEditors::sourceValue(QObject *property)
+PropertySourceValue PropertyEditors::sourceValue(QObject *property, PropertyDestination *destination)
 {
-    if (!detail::owner || !detail::original)
-        return {QStringLiteral("property_hook_unavailable"), {}};
-    return readPropertySource(property, detail::image);
+    PropertySourceValue source{QStringLiteral("property_hook_unavailable"), {}};
+    if (detail::owner && detail::original)
+        source = readPropertySource(property, detail::image, destination);
+    if (destination && destination->state.isEmpty()) destination->state = source.state;
+    return source;
 }
 PropertyDestination PropertyEditors::destination(QObject *property)
 {
     PropertyDestination destination;
-    if (!detail::owner || !detail::original) {
-        destination.state = QStringLiteral("property_hook_unavailable");
-        return destination;
-    }
-    const auto source = readPropertySource(property, detail::image, &destination);
-    if (destination.state.isEmpty()) destination.state = source.state;
+    sourceValue(property, &destination);
     return destination;
 }
 QString PropertyEditors::routeSelection(QObject *editor, QComboBox *combo,

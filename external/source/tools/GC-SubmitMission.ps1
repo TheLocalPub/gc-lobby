@@ -1,8 +1,9 @@
 # Git-only branch submission. Never saves, exports, or queries Workbench.
-# Discover the contributor's one request, independent of their local branch.
-function Get-ContributorMissionPr($auth,$repo,$owner,$base) {
+# Only open mission requests may be updated. Units retain their resubmit workflow.
+function Get-ContributorMissionPr($auth,$repo,$owner,$base,[switch]$IncludeClosed) {
     $forkRepo=$owner+'/'+($repo -split '/')[1]
-    foreach ($state in @('open','closed')) {
+    $states=@('open');if($IncludeClosed){$states+='closed'}
+    foreach ($state in $states) {
         $found=@()
         for ($page=1; $page -le 100; $page++) {
             # Windows PowerShell REST responses can arrive as one array object.
@@ -17,6 +18,23 @@ function Get-ContributorMissionPr($auth,$repo,$owner,$base) {
         }
         if ($found.Count -gt 1) { throw 'More than one approval request already exists. Ask a reviewer to keep one open before submitting.' }
         if ($found.Count) { return $found[0] }
+    }
+}
+
+function Assert-SingleMissionSubmission($root,$base,$tree,$files) {
+    $worlds=@{}
+    foreach($file in $files) {
+        $path=$file.Path
+        if($path -match '^(.*)_Layers/') {$worlds[$Matches[1]+'.ent']=$true}
+        elseif($path -match '^(.*\.ent)(?:\.meta)?$') {$worlds[$Matches[1]]=$true}
+        elseif($path -match '(?i)^Missions/.*\.conf$') {
+            $revision=if($file.Status -eq 'D'){$base}else{$tree}
+            $content=(Git $root @('show',("${revision}:$path"))) -join "`n"
+            if($content -match '(?m)^\s*World\s+"(?:\{[A-Fa-f0-9]+\})?([^"\r\n]+)"') {$worlds[$Matches[1]]=$true}
+        }
+    }
+    if($worlds.Count -gt 1) {
+        throw ('Submit one mission at a time. Keep changes for other missions on separate branches before submitting. Missions: '+(($worlds.Keys | Sort-Object) -join ', '))
     }
 }
 
@@ -137,7 +155,7 @@ function Read-BranchSubmission($title,$existing,$files,$dependency=$null) {
     if($dependency){$fields+=@{Id='unitsRequest';Label='Required units / loadouts';Kind='filelist';ReadOnly=$true;Value=$dependency.Url}}
     $fields+=@(Get-SubmissionFileFields $files)
     $answer=Show-GcReview @{
-        Title='Submit mission'; Section=$(if($existing.state -eq 'closed' -and !$existing.merged_at){'Request closed - resubmit for approval'}else{'Submit for approval'}); PrimaryAction=$(if($existing.state -eq 'closed' -and !$existing.merged_at){'Resubmit'}elseif($existing.state -eq 'open'){'Update submission'}else{'Submit'}); SecondaryAction='Cancel'
+        Title='Submit mission'; Section='Submit for approval'; PrimaryAction=$(if($existing.state -eq 'open'){'Update submission'}else{'Submit'}); SecondaryAction='Cancel'
         Fields=$fields
     }
     if (!$answer) { return }
@@ -283,9 +301,9 @@ function Invoke-MissionSubmissionCore($root,$repo,$kind='missions',$dependency=$
     $base=Get-ModBase $root $repo
     $null=Git $root @('fetch','--quiet','--no-tags',"https://github.com/$repo.git",('refs/heads/'+$base.Name))
     if ((Git $root @('rev-parse','FETCH_HEAD')) -ne $base.Commit) { throw "$sharedLabel changed. Submit again to use the latest version." }
-    $existing=Get-ContributorMissionPr $auth $repo $owner $base.Name
+    $existing=Get-ContributorMissionPr $auth $repo $owner $base.Name -IncludeClosed:($kind -eq 'units')
     $prRevision=Get-SubmissionPrRevision $existing
-    $branch=if($existing){[string]$existing.head.ref}else{'gc-submissions'}
+    $branch=if($existing){[string]$existing.head.ref}elseif($kind -eq 'units'){'gc-submissions'}else{'mission/submission-'+[guid]::NewGuid().ToString('N')}
     $localBranch=$branch
     $localTip=Get-SubmissionRef $root ('refs/heads/'+$localBranch)
     $null=Git $root @('check-ref-format','--branch',$branch)
@@ -332,6 +350,7 @@ function Invoke-MissionSubmissionCore($root,$repo,$kind='missions',$dependency=$
     $title=if($existing -and !$existing.merged_at){$existing.title}elseif($kind -eq 'units'){'Units / loadout updates'}else{'Mission updates'}
     if($kind -eq 'units'){$review=Read-UnitsSubmission $title $existing $files}
     else {
+        Assert-SingleMissionSubmission $root $base.Commit $tree $files
         Assert-SubmissionDependency $dependency $auth
         $review=Read-BranchSubmission $title $existing $files $dependency
     }
@@ -342,7 +361,7 @@ function Invoke-MissionSubmissionCore($root,$repo,$kind='missions',$dependency=$
     if ((Git $root @('symbolic-ref','--short','HEAD')) -cne $sourceBranch -or (Git $root @('rev-parse','HEAD')) -ne $tip -or (Get-SubmissionSnapshot $root $tip) -ne $snapshot) {
         throw 'Your files changed during review. Submit again.'
     }
-    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name
+    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name -IncludeClosed:($kind -eq 'units')
     if ((Get-SubmissionPrRevision $currentPr) -cne $prRevision) { throw 'Your submission changed during review. Submit again.' }
     if ((Get-SubmissionRef $root ('refs/heads/'+$localBranch)) -ne $localTip) { throw 'Your saved submission changed during review. Submit again.' }
     $commit=New-SubmissionCommit $root $tree @($candidate,$base.Commit) $review.Title $user
@@ -392,7 +411,7 @@ function Invoke-MissionSubmissionCore($root,$repo,$kind='missions',$dependency=$
     $latest=Get-ModBase $root $repo
     if ($latest.Commit -ne $base.Commit -or $latest.Name -cne $base.Name) { throw "$sharedLabel changed. Your work is saved; submit again to sync the latest version." }
     if ((Git $root @('rev-parse','HEAD')) -ne $commit -or (Git $root @('symbolic-ref','--short','HEAD')) -cne $localBranch -or (Get-SubmissionSnapshot $root $commit) -ne $tree) { throw 'Your files changed. Submit again to include the latest edits.' }
-    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name
+    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name -IncludeClosed:($kind -eq 'units')
     if ((Get-SubmissionPrRevision $currentPr) -cne $prRevision) { throw 'Your approval request changed. Your files are saved; submit again to check its current status.' }
     Assert-SubmissionDependency $dependency $auth
     try {$null=Git $root @('push','--quiet','--no-follow-tags','--recurse-submodules=no',$url,"${commit}:refs/heads/$branch")}
@@ -401,12 +420,12 @@ function Invoke-MissionSubmissionCore($root,$repo,$kind='missions',$dependency=$
     if ($latest.Commit -ne $base.Commit -or $latest.Name -cne $base.Name) { throw "$sharedLabel changed during upload. Your upload is saved; an existing approval request now includes it. Submit again to sync the latest changes." }
     Assert-SubmissionDependency $dependency $auth
     $fields=@{title=$review.Title;body=$review.Body;base=$base.Name}
-    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name
+    $currentPr=Get-ContributorMissionPr $auth $repo $owner $base.Name -IncludeClosed:($kind -eq 'units')
     if ((Get-SubmissionPrRevision $currentPr) -cne $prRevision) {
         throw 'Your approval request changed during upload. Your upload is saved; submit again to check its current status.'
     }
     if ($existing -and !$existing.merged_at) {
-        if ($existing.state -eq 'closed') { $fields.state='open' }
+        if ($kind -eq 'units' -and $existing.state -eq 'closed') { $fields.state='open' }
         try { $pr=Invoke-SubmissionApi $auth PATCH "repos/$repo/pulls/$($existing.number)" $fields }
         catch {
             if ($fields.state -eq 'open') {

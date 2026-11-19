@@ -11,7 +11,10 @@ Workbench lists this command under Plugins; Tools contains interactive tools
 such as Map / AO Polygon.
 
 The plugin places the draggable `Prefabs/MP/Modes/GC_LobbyGameMode.et` at the world origin and creates the
-terrain's AI-world prefab as its child. The root inherits `GameMode_Lobby.et` and
+terrain's AI-world prefab as a separate root in the same layer. In older missions,
+move `GC_MissionAIWorld` out of `GC_LobbyGameMode` and keep it at the world origin.
+This prevents property edits on the game mode from reloading the terrain navigation meshes.
+The game mode inherits `GameMode_Lobby.et` and
 contains the faction, radio, GC chat, and perception entities. GC Lobby's mission
 framework has no TilW Mission Framework dependency or integration.
 The terrain-specific AI world is a placed mission entity, not a runtime spawn.
